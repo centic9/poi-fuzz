@@ -8,6 +8,7 @@ import org.apache.poi.EncryptedDocumentException;
 import org.apache.poi.extractor.ExtractorFactory;
 import org.apache.poi.extractor.POITextExtractor;
 import org.apache.poi.hpsf.HPSFPropertiesOnlyDocument;
+import org.apache.poi.hslf.exceptions.EncryptedPowerPointFileException;
 import org.apache.poi.hslf.usermodel.HSLFSlideShow;
 import org.apache.poi.hslf.usermodel.HSLFSlideShowImpl;
 import org.apache.poi.hssf.record.RecordInputStream;
@@ -21,6 +22,7 @@ import org.apache.poi.poifs.filesystem.OfficeXmlFileException;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.apache.poi.util.RecordFormatException;
 import org.apache.poi.xdgf.usermodel.XmlVisioDocument;
 import org.apache.poi.xslf.usermodel.XMLSlideShow;
 import org.apache.poi.xslf.usermodel.XSLFSlideShow;
@@ -33,7 +35,8 @@ import org.apache.xmlbeans.XmlException;
 /**
  * This class provides a simple target for fuzzing Apache POI with Jazzer.
  *
- * It uses the byte[] to  calls various metohd
+ * It uses the byte-array to call various method which parse the varoius
+ * supported file-formats.
  *
  * It catches all exceptions that are currently expected.
  *
@@ -48,12 +51,16 @@ public class Fuzz {
 
 		try (Workbook ignored = WorkbookFactory.create(new ByteArrayInputStream(input))) {
 		} catch (IOException | EncryptedDocumentException | EmptyFileException | NotOfficeXmlFileException | POIXMLException |
-				OfficeXmlFileException | XLSBUnsupportedException e) {
+				OfficeXmlFileException | XLSBUnsupportedException |
+				// TODO: wrap in custom exception
+				IndexOutOfBoundsException e) {
 			// expected here
 		}
 
 		try (POITextExtractor ignored = ExtractorFactory.createExtractor(new ByteArrayInputStream(input))) {
-		} catch (IOException | EmptyFileException e) {
+		} catch (IOException | EmptyFileException | EncryptedDocumentException |
+				// TODO: wrap in custom exception
+				IndexOutOfBoundsException e) {
 			// expected here
 		}
 
@@ -63,14 +70,14 @@ public class Fuzz {
 
 			try (HPSFPropertiesOnlyDocument ignored = new HPSFPropertiesOnlyDocument(fs)) {
 			}
-		} catch (IOException | /*OldExcelFormatException | OfficeXmlFileException |*/
+		} catch (IOException | /*OldExcelFormatException | OfficeXmlFileException |*/ EncryptedDocumentException |
 				// TODO: replace with more specific exception
 				IllegalArgumentException e) {
 			// expected here
 		}
 
 		try (HSSFWorkbook ignored = new HSSFWorkbook(new ByteArrayInputStream(input))) {
-		} catch (IOException | /*OfficeXmlFileException |*/ EncryptedDocumentException |
+		} catch (IOException | /*OfficeXmlFileException |*/ EncryptedDocumentException | RecordFormatException |
 				// TODO: replace with more specific exception
 				IllegalArgumentException |
 				// TODO: wrap internal exception to report general invalid format
@@ -79,21 +86,21 @@ public class Fuzz {
 		}
 
 		try (HSLFSlideShow ignored = new HSLFSlideShow(new ByteArrayInputStream(input))) {
-		} catch (IOException | /*OfficeXmlFileException |*/
+		} catch (IOException | /*OfficeXmlFileException |*/ EncryptedPowerPointFileException |
 				// TODO: replace with more specific exception
 				IllegalArgumentException e) {
 			// expected here
 		}
 
 		try (HSLFSlideShowImpl ignored = new HSLFSlideShowImpl(new ByteArrayInputStream(input))) {
-		} catch (IOException | /*OfficeXmlFileException |*/
+		} catch (IOException | /*OfficeXmlFileException |*/ EncryptedPowerPointFileException |
 				// TODO: replace with more specific exception
 				IllegalArgumentException e) {
 			// expected here
 		}
 
 		try (HWPFDocument ignored = new HWPFDocument(new ByteArrayInputStream(input))) {
-		} catch (IOException | /*EmptyFileException | */
+		} catch (IOException | /*EmptyFileException | */ EncryptedDocumentException |
 				// TODO: replace with a more specific exception
 				IllegalArgumentException e) {
 			// expected here
@@ -109,7 +116,9 @@ public class Fuzz {
 		}
 
 		try (XWPFDocument ignored = new XWPFDocument(new ByteArrayInputStream(input))) {
-		} catch (IOException | EmptyFileException | NotOfficeXmlFileException | POIXMLException e) {
+		} catch (IOException | EmptyFileException | NotOfficeXmlFileException | POIXMLException |
+				// TODO: should be wrapped to report invalid format
+				ClassCastException e) {
 			// expected here
 		}
 
