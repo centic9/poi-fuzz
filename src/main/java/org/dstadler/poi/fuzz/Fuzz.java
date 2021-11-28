@@ -58,7 +58,9 @@ public class Fuzz {
 		}
 
 		try (POITextExtractor ignored = ExtractorFactory.createExtractor(new ByteArrayInputStream(input))) {
-		} catch (IOException | EmptyFileException | EncryptedDocumentException |
+		} catch (IOException | /*EmptyFileException |*/ EncryptedDocumentException |
+				// TODO: replace with more specific exception
+				IllegalArgumentException |
 				// TODO: wrap in custom exception
 				IndexOutOfBoundsException e) {
 			// expected here
