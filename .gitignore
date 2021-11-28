@@ -13,3 +13,4 @@ jazzer_api_deploy.jar
 # Jazzer result/crash files
 crash-*
 Crash_*.java
+slow-unit-*
