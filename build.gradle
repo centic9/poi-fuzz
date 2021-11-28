@@ -1,0 +1,19 @@
+plugins {
+	id 'com.github.johnrengelman.shadow' version '6.1.0'
+}
+
+apply plugin: 'java'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.apache.poi:poi:5.1.0'
+	implementation 'org.apache.poi:poi-scratchpad:5.1.0'
+	implementation 'org.apache.poi:poi-ooxml:5.1.0'
+}
+
+wrapper {
+	gradleVersion = '6.6.1'
+}
