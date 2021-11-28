@@ -1,4 +1,4 @@
-package org.dstadler.poi;
+package org.dstadler.poi.fuzz;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -10,6 +10,7 @@ import org.apache.poi.extractor.POITextExtractor;
 import org.apache.poi.hpsf.HPSFPropertiesOnlyDocument;
 import org.apache.poi.hslf.usermodel.HSLFSlideShow;
 import org.apache.poi.hslf.usermodel.HSLFSlideShowImpl;
+import org.apache.poi.hssf.OldExcelFormatException;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hwpf.HWPFDocument;
 import org.apache.poi.openxml4j.exceptions.NotOfficeXmlFileException;
@@ -46,10 +47,8 @@ public class Fuzz {
 			fs.createDocumentInputStream(workbookName);
 
 			try (HPSFPropertiesOnlyDocument ignored = new HPSFPropertiesOnlyDocument(fs)) {
-			} catch (IOException e) {
-				// expected here
 			}
-		} catch (IOException e) {
+		} catch (IOException | OldExcelFormatException e) {
 			// expected here
 		}
 
