@@ -37,6 +37,13 @@ In this mode Jazzer will stop whenever it detects an unexpected exception.
 
 See `./jazzer` for options which can control details of how Jazzer operates.
 
+# Fuzzing with locally compiled Apache POI libraries
+
+If you want to test with a more recent version of Apache POI, you can add 
+locally compiled jars of Apache POI to the front `--cp` commandline argument (delimited with colon ':')
+
+When using IntelliJ IDEA there is a ready made run-configuration, just adjust
+the path to the jar-files accordingly.
 
 # Detected issues
 
