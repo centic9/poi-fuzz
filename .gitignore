@@ -2,6 +2,9 @@
 .gradle/
 build/
 
+# the downloaded corpus should not be checked in
+corpus/
+
 # Jazzer application files
 jazzer
 jazzer_agent_deploy.jar

@@ -18,6 +18,10 @@ Build the fuzzing target:
 
     ./gradlew shadowJar
 
+Download the corpus of test-files from Apache POI sources
+
+    svn co https://svn.apache.org/repos/asf/poi/trunk/test-data corpus
+
 Download Jazzer from the [releases page](https://github.com/CodeIntelligenceTesting/jazzer/releases), 
 choose the latest version and select the file `jazzer-<os>-<version>.tar.gz`
 
