@@ -72,7 +72,9 @@ public class Fuzz {
 			}
 		} catch (IOException | /*OldExcelFormatException | OfficeXmlFileException |*/ EncryptedDocumentException |
 				// TODO: replace with more specific exception
-				IllegalArgumentException e) {
+				IllegalArgumentException |
+				// TODO: wrap in custom exception
+				IndexOutOfBoundsException e) {
 			// expected here
 		}
 
@@ -81,28 +83,36 @@ public class Fuzz {
 				// TODO: replace with more specific exception
 				IllegalArgumentException |
 				// TODO: wrap internal exception to report general invalid format
-				RecordInputStream.LeftoverDataException e) {
+				RecordInputStream.LeftoverDataException |
+				// TODO: wrap in custom exception
+				IndexOutOfBoundsException e) {
 			// expected here
 		}
 
 		try (HSLFSlideShow ignored = new HSLFSlideShow(new ByteArrayInputStream(input))) {
 		} catch (IOException | /*OfficeXmlFileException |*/ EncryptedPowerPointFileException |
 				// TODO: replace with more specific exception
-				IllegalArgumentException e) {
+				IllegalArgumentException |
+				// TODO: wrap in custom exception
+				IndexOutOfBoundsException e) {
 			// expected here
 		}
 
 		try (HSLFSlideShowImpl ignored = new HSLFSlideShowImpl(new ByteArrayInputStream(input))) {
 		} catch (IOException | /*OfficeXmlFileException |*/ EncryptedPowerPointFileException |
 				// TODO: replace with more specific exception
-				IllegalArgumentException e) {
+				IllegalArgumentException |
+				// TODO: wrap in custom exception
+				IndexOutOfBoundsException e) {
 			// expected here
 		}
 
 		try (HWPFDocument ignored = new HWPFDocument(new ByteArrayInputStream(input))) {
 		} catch (IOException | /*EmptyFileException | */ EncryptedDocumentException |
 				// TODO: replace with a more specific exception
-				IllegalArgumentException e) {
+				IllegalArgumentException |
+				// TODO: wrap in custom exception
+				IndexOutOfBoundsException e) {
 			// expected here
 		}
 
