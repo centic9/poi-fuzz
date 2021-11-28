@@ -3,13 +3,6 @@ package org.dstadler.poi.fuzz;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.core.config.Configurator;
-import org.apache.logging.log4j.core.config.builder.api.AppenderComponentBuilder;
-import org.apache.logging.log4j.core.config.builder.api.ConfigurationBuilder;
-import org.apache.logging.log4j.core.config.builder.api.ConfigurationBuilderFactory;
-import org.apache.logging.log4j.core.config.builder.api.RootLoggerComponentBuilder;
-import org.apache.logging.log4j.core.config.builder.impl.BuiltConfiguration;
 import org.apache.poi.EmptyFileException;
 import org.apache.poi.EncryptedDocumentException;
 import org.apache.poi.extractor.ExtractorFactory;
@@ -49,24 +42,6 @@ import org.apache.xmlbeans.XmlException;
  * or providing more explicit exceptions instead of general RuntimeExceptions
  */
 public class Fuzz {
-	static {
-		// manually build a very simple log4j-configuration which does not log
-		// below FATAL at all
-
-		ConfigurationBuilder<BuiltConfiguration> builder
-				= ConfigurationBuilderFactory.newConfigurationBuilder();
-
-		AppenderComponentBuilder console = builder.newAppender("stdout", "Console");
-		builder.add(console);
-
-		RootLoggerComponentBuilder rootLogger = builder.newRootLogger(Level.OFF);
-		rootLogger.add(builder.newAppenderRef("stdout"));
-
-		builder.add(rootLogger);
-
-		Configurator.initialize(builder.build());
-	}
-
 	@SuppressWarnings("EmptyTryBlock")
 	public static void fuzzerTestOneInput(byte[] input) {
 		// try to invoke various methods which parse documents/workbooks/slide-shows/...

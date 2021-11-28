@@ -14,14 +14,8 @@ class FuzzTest {
 
 	@Test
 	public void testLog() {
-		// trigger loading the class and thus call the static code
-		Fuzz.fuzzerTestOneInput(new byte[] {});
-
-		// need to create the logger after initializing
-		Logger LOG = LogManager.getLogger(FuzzTest.class);
-
 		// should not be logged
+		Logger LOG = LogManager.getLogger(FuzzTest.class);
 		LOG.atError().log("Test log output which should not be visible -----------------------");
-
 	}
 }
