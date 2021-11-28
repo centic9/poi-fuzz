@@ -31,9 +31,12 @@ Unpack the archive:
 
 Invoke the fuzzing:
 
-    ./jazzer --cp=build/libs/poifuzz-all.jar --instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.** --target_class=org.dstadler.poi.fuzz.Fuzz -rss_limit_mb=4096 corpus
+    ./jazzer --cp=build/libs/poi-fuzz-all.jar --instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.** --target_class=org.dstadler.poi.fuzz.Fuzz -rss_limit_mb=4096 corpus
 
-In this mode Jazzer will stop whenever it detects an unexpected exception.
+In this mode Jazzer will stop whenever it detects an unexpected exception 
+or crashes.
+
+You can use `--keep_going=10` to report a given number of exceptions before stopping.
 
 See `./jazzer` for options which can control details of how Jazzer operates.
 
