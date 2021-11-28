@@ -2,6 +2,7 @@ package org.dstadler.poi.fuzz;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.NoSuchElementException;
 
 import org.apache.poi.EmptyFileException;
 import org.apache.poi.EncryptedDocumentException;
@@ -9,6 +10,7 @@ import org.apache.poi.extractor.ExtractorFactory;
 import org.apache.poi.extractor.POITextExtractor;
 import org.apache.poi.hpsf.HPSFPropertiesOnlyDocument;
 import org.apache.poi.hslf.exceptions.EncryptedPowerPointFileException;
+import org.apache.poi.hslf.exceptions.HSLFException;
 import org.apache.poi.hslf.usermodel.HSLFSlideShow;
 import org.apache.poi.hslf.usermodel.HSLFSlideShowImpl;
 import org.apache.poi.hssf.record.RecordInputStream;
@@ -18,7 +20,6 @@ import org.apache.poi.ooxml.POIXMLException;
 import org.apache.poi.openxml4j.exceptions.NotOfficeXmlFileException;
 import org.apache.poi.openxml4j.exceptions.OpenXML4JException;
 import org.apache.poi.openxml4j.opc.OPCPackage;
-import org.apache.poi.poifs.filesystem.OfficeXmlFileException;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
@@ -26,7 +27,6 @@ import org.apache.poi.util.RecordFormatException;
 import org.apache.poi.xdgf.usermodel.XmlVisioDocument;
 import org.apache.poi.xslf.usermodel.XMLSlideShow;
 import org.apache.poi.xslf.usermodel.XSLFSlideShow;
-import org.apache.poi.xssf.XLSBUnsupportedException;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
@@ -50,19 +50,34 @@ public class Fuzz {
 		// try to invoke various methods which parse documents/workbooks/slide-shows/...
 
 		try (Workbook ignored = WorkbookFactory.create(new ByteArrayInputStream(input))) {
-		} catch (IOException | EncryptedDocumentException | EmptyFileException | NotOfficeXmlFileException | POIXMLException |
-				OfficeXmlFileException | XLSBUnsupportedException |
+		} catch (IOException | /*EncryptedDocumentException | EmptyFileException | NotOfficeXmlFileException |*/ POIXMLException |
+				/*OfficeXmlFileException | XLSBUnsupportedException |*/ RecordFormatException | HSLFException |
+				// TODO: replace with more specific exception
+				IllegalArgumentException |
+				// TODO: replace with more specific exception
+				IllegalStateException |
+				// TODO: wrap internal exception to report general invalid format
+				RecordInputStream.LeftoverDataException |
 				// TODO: wrap in custom exception
 				IndexOutOfBoundsException e) {
 			// expected here
 		}
 
 		try (POITextExtractor ignored = ExtractorFactory.createExtractor(new ByteArrayInputStream(input))) {
-		} catch (IOException | /*EmptyFileException |*/ EncryptedDocumentException |
+		} catch (IOException | /*EmptyFileException | EncryptedDocumentException |*/ RecordFormatException |
+				HSLFException |
+				// TODO: Consider replacing/wrapping
+				NoSuchElementException |
 				// TODO: replace with more specific exception
 				IllegalArgumentException |
+				// TODO: replace with more specific exception
+				IllegalStateException |
+				// TODO: wrap internal exception to report general invalid format
+				RecordInputStream.LeftoverDataException |
 				// TODO: wrap in custom exception
-				IndexOutOfBoundsException e) {
+				IndexOutOfBoundsException |
+				// TODO: should be wrapped to report invalid format
+				ClassCastException e) {
 			// expected here
 		}
 
@@ -72,18 +87,24 @@ public class Fuzz {
 
 			try (HPSFPropertiesOnlyDocument ignored = new HPSFPropertiesOnlyDocument(fs)) {
 			}
-		} catch (IOException | /*OldExcelFormatException | OfficeXmlFileException |*/ EncryptedDocumentException |
+		} catch (IOException | /*OldExcelFormatException | OfficeXmlFileException | EncryptedDocumentException |*/
+				RecordFormatException |
 				// TODO: replace with more specific exception
 				IllegalArgumentException |
+				// TODO: replace with more specific exception
+				IllegalStateException |
 				// TODO: wrap in custom exception
 				IndexOutOfBoundsException e) {
 			// expected here
 		}
 
 		try (HSSFWorkbook ignored = new HSSFWorkbook(new ByteArrayInputStream(input))) {
-		} catch (IOException | /*OfficeXmlFileException |*/ EncryptedDocumentException | RecordFormatException |
+		} catch (IOException | /*OfficeXmlFileException | EncryptedDocumentException |*/ RecordFormatException |
+				HSLFException |
 				// TODO: replace with more specific exception
 				IllegalArgumentException |
+				// TODO: replace with more specific exception
+				IllegalStateException |
 				// TODO: wrap internal exception to report general invalid format
 				RecordInputStream.LeftoverDataException |
 				// TODO: wrap in custom exception
@@ -92,25 +113,37 @@ public class Fuzz {
 		}
 
 		try (HSLFSlideShow ignored = new HSLFSlideShow(new ByteArrayInputStream(input))) {
-		} catch (IOException | /*OfficeXmlFileException |*/ EncryptedPowerPointFileException |
+		} catch (IOException | /*OfficeXmlFileException | EncryptedPowerPointFileException |*/ HSLFException |
+				RecordFormatException |
 				// TODO: replace with more specific exception
 				IllegalArgumentException |
+				// TODO: replace with more specific exception
+				IllegalStateException |
 				// TODO: wrap in custom exception
-				IndexOutOfBoundsException e) {
+				IndexOutOfBoundsException |
+				// TODO: should be wrapped to report invalid format
+				ClassCastException e) {
 			// expected here
 		}
 
 		try (HSLFSlideShowImpl ignored = new HSLFSlideShowImpl(new ByteArrayInputStream(input))) {
-		} catch (IOException | /*OfficeXmlFileException |*/ EncryptedPowerPointFileException |
+		} catch (IOException | /*OfficeXmlFileException | EncryptedPowerPointFileException |*/ RecordFormatException |
+				HSLFException |
 				// TODO: replace with more specific exception
 				IllegalArgumentException |
+				// TODO: replace with more specific exception
+				IllegalStateException |
 				// TODO: wrap in custom exception
-				IndexOutOfBoundsException e) {
+				IndexOutOfBoundsException |
+				// TODO: should be wrapped to report invalid format
+				ClassCastException e) {
 			// expected here
 		}
 
 		try (HWPFDocument ignored = new HWPFDocument(new ByteArrayInputStream(input))) {
-		} catch (IOException | /*EmptyFileException | */ EncryptedDocumentException |
+		} catch (IOException | /*EmptyFileException | */ EncryptedDocumentException | RecordFormatException |
+				// TODO: Consider replacing/wrapping
+				NoSuchElementException |
 				// TODO: replace with a more specific exception
 				IllegalArgumentException |
 				// TODO: wrap in custom exception
@@ -121,14 +154,22 @@ public class Fuzz {
 		try (XSSFWorkbook wb = new XSSFWorkbook(new ByteArrayInputStream(input))) {
 			try (SXSSFWorkbook ignored = new SXSSFWorkbook(wb)) {
 			}
-		} catch (IOException | EmptyFileException | NotOfficeXmlFileException | POIXMLException | XLSBUnsupportedException |
+		} catch (IOException | /*EmptyFileException | NotOfficeXmlFileException |*/ POIXMLException | /*XLSBUnsupportedException |*/
+				// TODO: replace with a more specific exception
+				IllegalArgumentException |
+				// TODO: replace with a more specific exception
+				IllegalStateException |
 				// TODO: wrap in custom exception
 				IndexOutOfBoundsException e) {
 			// expected here
 		}
 
 		try (XWPFDocument ignored = new XWPFDocument(new ByteArrayInputStream(input))) {
-		} catch (IOException | EmptyFileException | NotOfficeXmlFileException | POIXMLException |
+		} catch (IOException | /*EmptyFileException | NotOfficeXmlFileException |*/ POIXMLException |
+				// TODO: replace with a more specific exception
+				IllegalArgumentException |
+				// TODO: replace with a more specific exception
+				IllegalStateException |
 				// TODO: should be wrapped to report invalid format
 				ClassCastException e) {
 			// expected here
@@ -142,7 +183,9 @@ public class Fuzz {
 		try (OPCPackage pkg = OPCPackage.open(new ByteArrayInputStream(input))) {
 			try (XSLFSlideShow ignored = new XSLFSlideShow(pkg)) {
 			}
-		} catch (IOException | OpenXML4JException | XmlException | EmptyFileException | NotOfficeXmlFileException | POIXMLException|
+		} catch (IOException | OpenXML4JException | EmptyFileException | NotOfficeXmlFileException | POIXMLException |
+				// TODO: wrap exceptions from XmlBeans
+				XmlException |
 				// TODO: replace with more specific exception
 				IllegalStateException e) {
 			// expected here
