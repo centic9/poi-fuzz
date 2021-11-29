@@ -57,7 +57,7 @@ the path to the jar-files accordingly.
 * Some places throw an IllegalArgumentException or IllegalStateException where a dedicated RuntimeException 
   would be preferable. This currently leads to a very general catching of these exceptions in the fuzz target.  
 
-#### Licensing
+# License
 
 Copyright 2021 Dominik Stadler
 
