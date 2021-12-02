@@ -1,4 +1,4 @@
-This is a small project for fuzzing Apache POI with the [jazzer](https://github.com/CodeIntelligenceTesting/jazzer) fuzzing tool.
+This is a small project for fuzzing [Apache POI](https://poi.apache.org/) with the [jazzer](https://github.com/CodeIntelligenceTesting/jazzer/) fuzzing tool.
 
 See [Fuzzing](https://en.wikipedia.org/wiki/Fuzzing) for a general description of the theory behind fuzzy testing.
 
@@ -21,6 +21,10 @@ Build the fuzzing target:
 Download the corpus of test-files from Apache POI sources
 
     svn co https://svn.apache.org/repos/asf/poi/trunk/test-data corpus
+
+You can add more documents to the corpus to help Jazzer in producing "nearly" 
+proper documents which will improve fuzzing a lot. Slightly broken documents
+seem to be a good seed for fuzzing as well.
 
 Download Jazzer from the [releases page](https://github.com/CodeIntelligenceTesting/jazzer/releases), 
 choose the latest version and select the file `jazzer-<os>-<version>.tar.gz`
@@ -51,11 +55,14 @@ the path to the jar-files accordingly.
 # Detected issues
 
 * Many of the exceptions are not declared as being thrown in the JavaDoc of Apache POI,
-  thus making it hard to write proper defensive try-catches when using Apache POI
+  thus making it hard to write proper defensive try-catches when using Apache POI, for now
+  you will need to catch `RuntimeException` and any declared ones.
 * The RuntimeExceptions do not have a common base class which would allow to
-  only catch this one exception to capture all expected ones
+  only catch this one type of exception to capture all expected ones
 * Some places throw an IllegalArgumentException or IllegalStateException where a dedicated RuntimeException 
-  would be preferable. This currently leads to a very general catching of these exceptions in the fuzz target.  
+  would be preferable. This currently leads to a very general catching of these exceptions in the fuzz target.
+* Some memory allocations are not bounded, i.e. causing out-of-memory on certain
+  broken documents. Some more memory guards need to be put in place
 
 # License
 
