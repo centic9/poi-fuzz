@@ -8,9 +8,10 @@ focuses on the following:
 
 * verify if only expected exceptions are thrown
 * verify any JNI or native code calls 
+* find cases of unbounded memory allocations
 
 Apache POI does not use JNI or native code, therefore the fuzzing target mainly
-tries to trigger unexpected exceptions.
+tries to trigger unexpected exceptions and unbounded memory allocations.
 
 # How to fuzz
 
