@@ -18,6 +18,9 @@ import org.apache.poi.openxml4j.exceptions.OpenXML4JException;
 import org.apache.poi.openxml4j.exceptions.OpenXML4JRuntimeException;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.util.RecordFormatException;
@@ -46,7 +49,15 @@ public class Fuzz {
 	public static void fuzzerTestOneInput(byte[] input) {
 		// try to invoke various methods which parse documents/workbooks/slide-shows/...
 
-		try (Workbook ignored = WorkbookFactory.create(new ByteArrayInputStream(input))) {
+		try (Workbook wb = WorkbookFactory.create(new ByteArrayInputStream(input))) {
+			for (Sheet sheet : wb) {
+				for (Row row : sheet) {
+					for (Cell cell : row) {
+						cell.getAddress();
+						cell.getCellType();
+					}
+				}
+			}
 		} catch (IOException | /*EncryptedDocumentException | EmptyFileException | NotOfficeXmlFileException |*/ POIXMLException |
 				/*OfficeXmlFileException | XLSBUnsupportedException |*/ RecordFormatException | HSLFException |
 				OpenXML4JRuntimeException | UnsupportedOperationException |
@@ -65,7 +76,11 @@ public class Fuzz {
 			// expected here
 		}
 
-		try (POITextExtractor ignored = ExtractorFactory.createExtractor(new ByteArrayInputStream(input))) {
+		try (POITextExtractor extractor = ExtractorFactory.createExtractor(new ByteArrayInputStream(input))) {
+			extractor.getDocument();
+			extractor.getFilesystem();
+			extractor.getMetadataTextExtractor();
+			extractor.getText();
 		} catch (IOException | /*EmptyFileException | EncryptedDocumentException |*/ RecordFormatException |
 				HSLFException | UnsupportedOperationException |
 				// TODO: Consider replacing/wrapping
