@@ -4,12 +4,15 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
 import org.apache.poi.extractor.ExtractorFactory;
+import org.apache.poi.extractor.POIOLE2TextExtractor;
 import org.apache.poi.extractor.POITextExtractor;
 import org.apache.poi.hpsf.HPSFPropertiesOnlyDocument;
 import org.apache.poi.hslf.usermodel.HSLFSlideShow;
 import org.apache.poi.hslf.usermodel.HSLFSlideShowImpl;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hwpf.HWPFDocument;
+import org.apache.poi.ooxml.extractor.POIXMLPropertiesTextExtractor;
+import org.apache.poi.ooxml.extractor.POIXMLTextExtractor;
 import org.apache.poi.openxml4j.exceptions.OpenXML4JException;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
@@ -57,15 +60,10 @@ public class Fuzz {
 			// expected here
 		}
 
-		try (POITextExtractor extractor = ExtractorFactory.createExtractor(new ByteArrayInputStream(input))) {
-			extractor.getDocument();
-			extractor.getFilesystem();
-			extractor.getMetadataTextExtractor();
-			extractor.getText();
-		} catch (IOException | /*EmptyFileException | EncryptedDocumentException |*/
-				AssertionError | RuntimeException e) {
-			// expected here
-		}
+		ExtractorFactory.setThreadPrefersEventExtractors(true);
+		checkExtractor(input);
+		ExtractorFactory.setAllThreadsPreferEventExtractors(false);
+		checkExtractor(input);
 
 		try (POIFSFileSystem fs = new POIFSFileSystem(new ByteArrayInputStream(input))) {
 			String workbookName = HSSFWorkbook.getWorkbookDirEntryName(fs.getRoot());
@@ -134,6 +132,45 @@ public class Fuzz {
 
 		try (XmlVisioDocument ignored = new XmlVisioDocument(new ByteArrayInputStream(input))) {
 		} catch (IOException | /*EmptyFileException | NotOfficeXmlFileException |*/
+				AssertionError | RuntimeException e) {
+			// expected here
+		}
+	}
+
+	private static void checkExtractor(byte[] input) {
+		try (POITextExtractor extractor = ExtractorFactory.createExtractor(new ByteArrayInputStream(input))) {
+			extractor.getDocument();
+			extractor.getFilesystem();
+			extractor.getMetadataTextExtractor();
+			extractor.getText();
+
+			if (extractor instanceof POIOLE2TextExtractor) {
+				POIOLE2TextExtractor ole2Extractor = (POIOLE2TextExtractor) extractor;
+				ole2Extractor.getRoot();
+				ole2Extractor.getSummaryInformation();
+				ole2Extractor.getDocSummaryInformation();
+
+				POITextExtractor[] embedded = ExtractorFactory.getEmbeddedDocsTextExtractors(ole2Extractor);
+				for (POITextExtractor poiTextExtractor : embedded) {
+					poiTextExtractor.getText();
+					poiTextExtractor.getDocument();
+					poiTextExtractor.getFilesystem();
+					POITextExtractor metaData = poiTextExtractor.getMetadataTextExtractor();
+					metaData.getFilesystem();
+					metaData.getText();
+				}
+			} else if (extractor instanceof POIXMLTextExtractor) {
+				POIXMLTextExtractor xmlExtractor = (POIXMLTextExtractor) extractor;
+				xmlExtractor.getCoreProperties();
+				xmlExtractor.getCustomProperties();
+				xmlExtractor.getExtendedProperties();
+				POIXMLPropertiesTextExtractor metaData = xmlExtractor.getMetadataTextExtractor();
+				metaData.getFilesystem();
+				metaData.getText();
+
+				xmlExtractor.getPackage();
+			}
+		} catch (IOException | /*EmptyFileException | EncryptedDocumentException |*/
 				AssertionError | RuntimeException e) {
 			// expected here
 		}
