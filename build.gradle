@@ -7,12 +7,13 @@ apply plugin: 'jacoco'
 
 repositories {
 	mavenCentral()
+	maven { url 'https://repository.apache.org/content/groups/staging/'}
 }
 
 dependencies {
-	implementation 'org.apache.poi:poi:5.1.0'
-	implementation 'org.apache.poi:poi-scratchpad:5.1.0'
-	implementation 'org.apache.poi:poi-ooxml:5.1.0'
+	implementation 'org.apache.poi:poi:5.2.0'
+	implementation 'org.apache.poi:poi-scratchpad:5.2.0'
+	implementation 'org.apache.poi:poi-ooxml:5.2.0'
 
 	// for configuring log4j to be silent during fuzzing
     implementation 'org.apache.logging.log4j:log4j-core:2.17.1'
