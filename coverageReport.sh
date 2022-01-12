@@ -49,7 +49,7 @@ mkdir -p build/jacoco
   --target_class=org.dstadler.poi.fuzz.Fuzz \
   --nohooks \
   --jvm_args="-XX\\:-OmitStackTraceInFastThrow:-javaagent\\:build/jacocoagent.jar=destfile=build/jacoco/corpus.exec" \
-  -rss_limit_mb=4096 \
+  -rss_limit_mb=8192 \
   -runs=0 \
   corpus
 
