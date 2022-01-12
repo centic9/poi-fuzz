@@ -10,12 +10,8 @@
 set -eu
 
 
-# Remove any previous execution and make sure testing is triggered fully
-./gradlew clean
-
-
-# Execute the test with JaCoCo enabled
-./gradlew check
+# Build the fuzzer and fetch dependency-jars
+./gradlew shadowJar getDeps
 
 
 # extract class-files of Apache POi
@@ -36,8 +32,30 @@ rm -r org/w3
 cd -
 
 
+
+# Fetch JaCoCo Agent
+wget --continue https://repo1.maven.org/maven2/org/jacoco/jacoco/0.8.7/jacoco-0.8.7.zip
+unzip -o jacoco-0.8.7.zip lib/jacocoagent.jar
+mv lib/jacocoagent.jar build/
+rmdir lib
+
+mkdir -p build/jacoco
+
+
+# Run Jazzer with JaCoCo-Agent to produce coverage information
+./jazzer \
+  --cp=build/libs/poi-fuzz-all.jar \
+  --instrumentation_includes=org.apache.commons.** \
+  --target_class=org.dstadler.poi.fuzz.Fuzz \
+  --nohooks \
+  --jvm_args="-XX\\:-OmitStackTraceInFastThrow:-javaagent\\:build/jacocoagent.jar=destfile=build/jacoco/corpus.exec" \
+  -rss_limit_mb=4096 \
+  -runs=0 \
+  corpus
+
+
 # Finally create the JaCoCo report
-java -jar /opt/poi/lib/util/jacococli.jar report build/jacoco/test.exec \
+java -jar /opt/poi/lib/util/jacococli.jar report build/jacoco/corpus.exec \
  --classfiles build/poifiles \
  --sourcefiles /opt/apache/poi/dist/release/maven/poi/poi-5.1.0-sources.jar:/opt/apache/poi/dist/release/maven/poi-ooxml/poi-ooxml-5.1.0-sources.jar:/opt/apache/poi/dist/release/maven/poi-ooxml-lite/poi-ooxml-lite-5.1.0-sources.jar:/opt/apache/poi/dist/release/maven/poi-scratchpad/poi-scratchpad-5.1.0-sources.jar:/opt/apache/poi/dist/xmlbeans/release/maven/xmlbeans-5.0.2-sources.jar \
  --html build/reports/jacoco

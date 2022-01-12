@@ -5,10 +5,11 @@ build/
 # the downloaded corpus should not be checked in
 corpus/
 
-# Jazzer application files
+# Jazzer and JaCoCo application files
 /jazzer
 /jazzer_agent_deploy.jar
 /jazzer_api_deploy.jar
+/jacoco-*.zip
 
 # Jazzer result/crash files
 /crash-*

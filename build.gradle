@@ -45,3 +45,8 @@ wrapper {
 jacoco {
 	toolVersion = '0.8.7'
 }
+
+task getDeps(type: Copy) {
+	from sourceSets.main.runtimeClasspath
+	into 'build/runtime/'
+}
