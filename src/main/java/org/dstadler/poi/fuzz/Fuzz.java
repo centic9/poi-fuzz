@@ -6,6 +6,7 @@ import java.io.IOException;
 import org.apache.poi.extractor.ExtractorFactory;
 import org.apache.poi.extractor.POIOLE2TextExtractor;
 import org.apache.poi.extractor.POITextExtractor;
+import org.apache.poi.hmef.HMEFMessage;
 import org.apache.poi.hpsf.HPSFPropertiesOnlyDocument;
 import org.apache.poi.hslf.usermodel.HSLFSlideShow;
 import org.apache.poi.hslf.usermodel.HSLFSlideShowImpl;
@@ -131,6 +132,21 @@ public class Fuzz {
 		}
 
 		try (XmlVisioDocument ignored = new XmlVisioDocument(new ByteArrayInputStream(input))) {
+		} catch (IOException | /*EmptyFileException | NotOfficeXmlFileException |*/
+				AssertionError | RuntimeException e) {
+			// expected here
+		}
+
+		try {
+			HMEFMessage msg = new HMEFMessage(new ByteArrayInputStream(input));
+			//noinspection ResultOfMethodCallIgnored
+			msg.getAttachments();
+			msg.getBody();
+			//noinspection ResultOfMethodCallIgnored
+			msg.getMessageAttributes();
+			msg.getSubject();
+			//noinspection ResultOfMethodCallIgnored
+			msg.getMessageMAPIAttributes();
 		} catch (IOException | /*EmptyFileException | NotOfficeXmlFileException |*/
 				AssertionError | RuntimeException e) {
 			// expected here
