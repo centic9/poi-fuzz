@@ -13,6 +13,8 @@ import org.apache.commons.io.filefilter.NotFileFilter;
 import org.apache.commons.io.filefilter.OrFileFilter;
 import org.apache.commons.io.filefilter.TrueFileFilter;
 import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -24,6 +26,7 @@ import org.junit.jupiter.params.provider.MethodSource;
  *
  * Disabled as it can run for a long time.
  */
+@Execution(ExecutionMode.CONCURRENT)
 public class CorpusCoverageTest {
 	private static final Set<String> EXCLUDED = Set.of();
 
@@ -31,7 +34,7 @@ public class CorpusCoverageTest {
 	@ParameterizedTest
 	@MethodSource("provideStringsForIsBlank")
 	void testCorpusFile(File file) throws IOException {
-		System.out.println("Running file " + file);
+		System.err.println("Running file " + file + " in thread " + Thread.currentThread().getName());
 		try {
 			Fuzz.fuzzerTestOneInput(FileUtils.readFileToByteArray(file));
 		} catch (RuntimeException | OutOfMemoryError | AssertionError | StackOverflowError e) {
