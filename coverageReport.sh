@@ -4,8 +4,6 @@
 # Small helper script to produce a coverage report when executing the fuzz-model
 # against the current corpus.
 #
-# You need to enable the test in class CorpusCoverageTest
-#
 
 set -eu
 
