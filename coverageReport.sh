@@ -12,14 +12,15 @@ set -eu
 ./gradlew shadowJar getDeps
 
 
-# extract class-files of Apache POi
+# extract jar-files of Apache POI
 mkdir -p build/poifiles
 cd build/poifiles
-for i in `find /opt/apache/poi/dist/release/maven/ -type f | grep .jar | grep -v -- -sources.jar | grep -v -- -javadoc.jar | grep -v -- .sha512 | grep -v -- .sha256 | grep -v -- .asc | grep -v poi-ooxml-full | grep -v poi-integration | grep -v poi-examples | grep -v poi-excelant`; do
+
+# then unpack the class-files
+for i in `find ../runtime -name poi-*.jar`; do
   echo $i
   unzip -o -q $i
 done
-
 
 # Remove some packages that we do not want to include in the Report
 rm -r com
