@@ -3,6 +3,7 @@ package org.dstadler.poi.fuzz;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
+import org.apache.commons.io.output.NullOutputStream;
 import org.apache.poi.extractor.ExtractorFactory;
 import org.apache.poi.extractor.POIOLE2TextExtractor;
 import org.apache.poi.extractor.POITextExtractor;
@@ -56,6 +57,8 @@ public class Fuzz {
 					}
 				}
 			}
+
+			wb.write(NullOutputStream.NULL_OUTPUT_STREAM);
 		} catch (IOException | /*EncryptedDocumentException | EmptyFileException | NotOfficeXmlFileException |*/
 				AssertionError | RuntimeException e) {
 			// expected here
@@ -72,57 +75,67 @@ public class Fuzz {
 
 			try (HPSFPropertiesOnlyDocument ignored = new HPSFPropertiesOnlyDocument(fs)) {
 			}
+
+			fs.writeFilesystem(NullOutputStream.NULL_OUTPUT_STREAM);
 		} catch (IOException | /*OldExcelFormatException | OfficeXmlFileException | EncryptedDocumentException |*/
 				AssertionError | RuntimeException e) {
 			// expected here
 		}
 
-		try (HSSFWorkbook ignored = new HSSFWorkbook(new ByteArrayInputStream(input))) {
+		try (HSSFWorkbook wb = new HSSFWorkbook(new ByteArrayInputStream(input))) {
+			wb.write(NullOutputStream.NULL_OUTPUT_STREAM);
 		} catch (IOException | /*OfficeXmlFileException | EncryptedDocumentException |*/
 				AssertionError | RuntimeException e) {
 			// expected here
 		}
 
-		try (HSLFSlideShow ignored = new HSLFSlideShow(new ByteArrayInputStream(input))) {
+		try (HSLFSlideShow slides = new HSLFSlideShow(new ByteArrayInputStream(input))) {
+			slides.write(NullOutputStream.NULL_OUTPUT_STREAM);
 		} catch (IOException | /*OfficeXmlFileException | EncryptedPowerPointFileException |*/
 				AssertionError | RuntimeException e) {
 			// expected here
 		}
 
-		try (HSLFSlideShowImpl ignored = new HSLFSlideShowImpl(new ByteArrayInputStream(input))) {
+		try (HSLFSlideShowImpl slides = new HSLFSlideShowImpl(new ByteArrayInputStream(input))) {
+			slides.write(NullOutputStream.NULL_OUTPUT_STREAM);
 		} catch (IOException | /*OfficeXmlFileException | EncryptedPowerPointFileException |*/
 				AssertionError | RuntimeException e) {
 			// expected here
 		}
 
-		try (HWPFDocument ignored = new HWPFDocument(new ByteArrayInputStream(input))) {
+		try (HWPFDocument doc = new HWPFDocument(new ByteArrayInputStream(input))) {
+			doc.write(NullOutputStream.NULL_OUTPUT_STREAM);
 		} catch (IOException | /*EmptyFileException | EncryptedDocumentException |*/
 				AssertionError | RuntimeException e) {
 			// expected here
 		}
 
 		try (XSSFWorkbook wb = new XSSFWorkbook(new ByteArrayInputStream(input))) {
-			try (SXSSFWorkbook ignored = new SXSSFWorkbook(wb)) {
+			try (SXSSFWorkbook swb = new SXSSFWorkbook(wb)) {
+				swb.write(NullOutputStream.NULL_OUTPUT_STREAM);
 			}
 		} catch (IOException | /*EmptyFileException | NotOfficeXmlFileException |*/
 				AssertionError | RuntimeException e) {
 			// expected here
 		}
 
-		try (XWPFDocument ignored = new XWPFDocument(new ByteArrayInputStream(input))) {
+		try (XWPFDocument doc = new XWPFDocument(new ByteArrayInputStream(input))) {
+			doc.write(NullOutputStream.NULL_OUTPUT_STREAM);
 		} catch (IOException | /*EmptyFileException | NotOfficeXmlFileException |*/
 				AssertionError | RuntimeException e) {
 			// expected here
 		}
 
-		try (XMLSlideShow ignored = new XMLSlideShow(new ByteArrayInputStream(input))) {
+		try (XMLSlideShow slides = new XMLSlideShow(new ByteArrayInputStream(input))) {
+			slides.write(NullOutputStream.NULL_OUTPUT_STREAM);
 		} catch (IOException | /*EmptyFileException | NotOfficeXmlFileException |*/
 				AssertionError | RuntimeException e) {
 			// expected here
 		}
 
 		try (OPCPackage pkg = OPCPackage.open(new ByteArrayInputStream(input))) {
-			try (XSLFSlideShow ignored = new XSLFSlideShow(pkg)) {
+			try (XSLFSlideShow slides = new XSLFSlideShow(pkg)) {
+				slides.write(NullOutputStream.NULL_OUTPUT_STREAM);
 			}
 		} catch (IOException | OpenXML4JException | /*EmptyFileException | NotOfficeXmlFileException |*/
 				AssertionError | RuntimeException |
@@ -131,7 +144,8 @@ public class Fuzz {
 			// expected here
 		}
 
-		try (XmlVisioDocument ignored = new XmlVisioDocument(new ByteArrayInputStream(input))) {
+		try (XmlVisioDocument visio = new XmlVisioDocument(new ByteArrayInputStream(input))) {
+			visio.write(NullOutputStream.NULL_OUTPUT_STREAM);
 		} catch (IOException | /*EmptyFileException | NotOfficeXmlFileException |*/
 				AssertionError | RuntimeException e) {
 			// expected here
