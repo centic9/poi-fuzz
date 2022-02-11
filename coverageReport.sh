@@ -43,7 +43,7 @@ mkdir -p build/jacoco
 # Run Jazzer with JaCoCo-Agent to produce coverage information
 ./jazzer \
   --cp=build/libs/poi-fuzz-all.jar \
-  --instrumentation_includes=org.apache.poi.** \
+  --instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.** \
   --target_class=org.dstadler.poi.fuzz.Fuzz \
   --nohooks \
   --jvm_args="-XX\\:-OmitStackTraceInFastThrow:-javaagent\\:build/jacocoagent.jar=destfile=build/jacoco/corpus.exec" \
