@@ -33,8 +33,8 @@ cd -
 
 # Fetch JaCoCo Agent
 test -f jacoco-0.8.7.zip || wget --continue https://repo1.maven.org/maven2/org/jacoco/jacoco/0.8.7/jacoco-0.8.7.zip
-unzip -o jacoco-0.8.7.zip lib/jacocoagent.jar
-mv lib/jacocoagent.jar build/
+unzip -o jacoco-0.8.7.zip lib/jacocoagent.jar lib/jacococli.jar
+mv lib/jacocoagent.jar lib/jacococli.jar build/
 rmdir lib
 
 mkdir -p build/jacoco
@@ -53,7 +53,7 @@ mkdir -p build/jacoco
 
 
 # Finally create the JaCoCo report
-java -jar /opt/poi/lib/util/jacococli.jar report build/jacoco/corpus.exec \
+java -jar build/jacococli.jar report build/jacoco/corpus.exec \
  --classfiles build/poifiles \
  --classfiles build/classes/java/main \
  --sourcefiles /opt/apache/poi/dist/release/maven/poi/poi-5.1.0-sources.jar:/opt/apache/poi/dist/release/maven/poi-ooxml/poi-ooxml-5.1.0-sources.jar:/opt/apache/poi/dist/release/maven/poi-ooxml-lite/poi-ooxml-lite-5.1.0-sources.jar:/opt/apache/poi/dist/release/maven/poi-scratchpad/poi-scratchpad-5.1.0-sources.jar:/opt/apache/poi/dist/xmlbeans/release/maven/xmlbeans-5.0.2-sources.jar \
