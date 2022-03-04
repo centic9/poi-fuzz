@@ -54,6 +54,74 @@ or allows to run it in a container-based infrastructure.
 
     docker run -v `pwd`:/fuzzing cifuzz/jazzer --cp=build/libs/poi-fuzz-all.jar --instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.** --target_class=org.dstadler.poi.fuzz.Fuzz -rss_limit_mb=4096 corpus
 
+# Fuzzing single file formats
+
+## HSLF
+
+    mkdir corpusHSLF
+    cp corpus/slideshow/*.ppt corpusHSLF/
+    ./gradlew shadowJar && ./jazzer --cp=build/libs/poi-fuzz-all.jar --instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.** --target_class=org.dstadler.poi.fuzz.FuzzHSLF -rss_limit_mb=4096 corpusHSLF
+
+## HSSF
+
+    mkdir corpusHSSF
+    cp corpus/spreadsheet/*.xls corpusHSSF/
+    ./gradlew shadowJar && ./jazzer --cp=build/libs/poi-fuzz-all.jar --instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.** --target_class=org.dstadler.poi.fuzz.FuzzHSSF -rss_limit_mb=4096 corpusHSSF
+
+## HWPF
+
+    mkdir corpusHWPF
+    cp corpus/document/*.doc corpus/document/*.DOC corpusHWPF/
+    ./gradlew shadowJar && ./jazzer --cp=build/libs/poi-fuzz-all.jar --instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.** --target_class=org.dstadler.poi.fuzz.FuzzHWPF -rss_limit_mb=4096 corpusHWPF
+
+## OldExcel
+
+    mkdir corpusOldExcel
+    cp corpus/spreadsheet/*.xls corpus/spreadsheet/*.bin corpusOldExcel/
+    ./gradlew shadowJar && ./jazzer --cp=build/libs/poi-fuzz-all.jar --instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.** --target_class=org.dstadler.poi.fuzz.FuzzOldExcel -rss_limit_mb=4096 corpusOldExcel
+
+## XSLF
+
+    mkdir corpusXSLF
+    cp corpus/slideshow/* corpusXSLF/
+    ./gradlew shadowJar && ./jazzer --cp=build/libs/poi-fuzz-all.jar --instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.** --target_class=org.dstadler.poi.fuzz.FuzzXSLF -rss_limit_mb=4096 corpusXSLF
+
+## XSSF
+
+    mkdir corpusXSSF
+    cp corpus/spreadsheet/* corpusXSSF/
+    ./gradlew shadowJar && ./jazzer --cp=build/libs/poi-fuzz-all.jar --instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.** --target_class=org.dstadler.poi.fuzz.FuzzXSSF -rss_limit_mb=4096 corpusXSSF
+
+## XWPF
+
+    mkdir corpusXWPF
+    cp corpus/document/* corpusXWPF/
+    ./gradlew shadowJar && ./jazzer --cp=build/libs/poi-fuzz-all.jar --instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.** --target_class=org.dstadler.poi.fuzz.FuzzXWPF -rss_limit_mb=4096 corpusXWPF
+
+## Visio
+
+    mkdir corpusVisio
+    cp corpus/diagram/* corpusVisio/
+    ./gradlew shadowJar && ./jazzer --cp=build/libs/poi-fuzz-all.jar --instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.** --target_class=org.dstadler.poi.fuzz.FuzzVisio -rss_limit_mb=4096 corpusVisio
+
+## HPSF
+
+    mkdir corpusHPSF
+    cp corpus/hpsf/* corpusHPSF/
+    ./gradlew shadowJar && ./jazzer --cp=build/libs/poi-fuzz-all.jar --instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.** --target_class=org.dstadler.poi.fuzz.FuzzHPSF -rss_limit_mb=4096 corpusHPSF
+
+## HMEF
+
+    mkdir corpusHMEF
+    cp -a corpus/hmef corpusHMEF/
+    ./gradlew shadowJar && ./jazzer --cp=build/libs/poi-fuzz-all.jar --instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.** --target_class=org.dstadler.poi.fuzz.FuzzHMEF -rss_limit_mb=4096 corpusHMEF
+
+## HPBF
+
+    mkdir corpusHPBF
+    cp -a corpus/HPBF corpusHPBF/
+    ./gradlew shadowJar && ./jazzer --cp=build/libs/poi-fuzz-all.jar --instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.** --target_class=org.dstadler.poi.fuzz.FuzzHPBF -rss_limit_mb=4096 corpusHPBF
+
 # Fuzzing with locally compiled Apache POI libraries
 
 If you want to test with a more recent version of Apache POI, you can add 

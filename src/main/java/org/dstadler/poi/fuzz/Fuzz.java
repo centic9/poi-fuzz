@@ -7,29 +7,13 @@ import org.apache.commons.io.output.NullOutputStream;
 import org.apache.poi.extractor.ExtractorFactory;
 import org.apache.poi.extractor.POIOLE2TextExtractor;
 import org.apache.poi.extractor.POITextExtractor;
-import org.apache.poi.hmef.HMEFMessage;
-import org.apache.poi.hpsf.HPSFPropertiesOnlyDocument;
-import org.apache.poi.hslf.usermodel.HSLFSlideShow;
-import org.apache.poi.hslf.usermodel.HSLFSlideShowImpl;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.hwpf.HWPFDocument;
 import org.apache.poi.ooxml.extractor.POIXMLPropertiesTextExtractor;
 import org.apache.poi.ooxml.extractor.POIXMLTextExtractor;
-import org.apache.poi.openxml4j.exceptions.OpenXML4JException;
-import org.apache.poi.openxml4j.opc.OPCPackage;
-import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
-import org.apache.poi.xdgf.usermodel.XmlVisioDocument;
-import org.apache.poi.xslf.usermodel.XMLSlideShow;
-import org.apache.poi.xslf.usermodel.XSLFSlideShow;
-import org.apache.poi.xssf.streaming.SXSSFWorkbook;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.apache.poi.xwpf.usermodel.XWPFDocument;
-import org.apache.xmlbeans.XmlException;
 
 /**
  * This class provides a simple target for fuzzing Apache POI with Jazzer.
@@ -49,139 +33,25 @@ public class Fuzz {
 
 		fuzzAny(input);
 
-		fuzzHPSF(input);
+		FuzzHPSF.fuzzerTestOneInput(input);
 
-		fuzzHSSF(input);
+		FuzzHSSF.fuzzerTestOneInput(input);
 
-		fuzzHSLF(input);
+		FuzzHSLF.fuzzerTestOneInput(input);
 
-		fuzzHWPF(input);
+		FuzzHWPF.fuzzerTestOneInput(input);
 
-		fuzzXSSF(input);
+		FuzzXSSF.fuzzerTestOneInput(input);
 
-		fuzzXWPF(input);
+		FuzzXWPF.fuzzerTestOneInput(input);
 
-		fuzzXSLF(input);
+		FuzzXSLF.fuzzerTestOneInput(input);
 
-		fuzzVisio(input);
+		FuzzVisio.fuzzerTestOneInput(input);
 
-		fuzzHMEF(input);
-	}
+		FuzzHMEF.fuzzerTestOneInput(input);
 
-	public static void fuzzHMEF(byte[] input) {
-		try {
-			HMEFMessage msg = new HMEFMessage(new ByteArrayInputStream(input));
-			//noinspection ResultOfMethodCallIgnored
-			msg.getAttachments();
-			msg.getBody();
-			//noinspection ResultOfMethodCallIgnored
-			msg.getMessageAttributes();
-			msg.getSubject();
-			//noinspection ResultOfMethodCallIgnored
-			msg.getMessageMAPIAttributes();
-		} catch (IOException | /*EmptyFileException | NotOfficeXmlFileException |*/
-				AssertionError | RuntimeException e) {
-			// expected here
-		}
-	}
-
-	public static void fuzzVisio(byte[] input) {
-		try (XmlVisioDocument visio = new XmlVisioDocument(new ByteArrayInputStream(input))) {
-			visio.write(NullOutputStream.NULL_OUTPUT_STREAM);
-		} catch (IOException | /*EmptyFileException | NotOfficeXmlFileException |*/
-				AssertionError | RuntimeException e) {
-			// expected here
-		}
-	}
-
-	public static void fuzzXSLF(byte[] input) {
-		try (XMLSlideShow slides = new XMLSlideShow(new ByteArrayInputStream(input))) {
-			slides.write(NullOutputStream.NULL_OUTPUT_STREAM);
-		} catch (IOException | /*EmptyFileException | NotOfficeXmlFileException |*/
-				AssertionError | RuntimeException e) {
-			// expected here
-		}
-
-		try (OPCPackage pkg = OPCPackage.open(new ByteArrayInputStream(input))) {
-			try (XSLFSlideShow slides = new XSLFSlideShow(pkg)) {
-				slides.write(NullOutputStream.NULL_OUTPUT_STREAM);
-			}
-		} catch (IOException | OpenXML4JException | /*EmptyFileException | NotOfficeXmlFileException |*/
-				AssertionError | RuntimeException |
-				// TODO: wrap exceptions from XmlBeans
-				XmlException e) {
-			// expected here
-		}
-	}
-
-	public static void fuzzXWPF(byte[] input) {
-		try (XWPFDocument doc = new XWPFDocument(new ByteArrayInputStream(input))) {
-			doc.write(NullOutputStream.NULL_OUTPUT_STREAM);
-		} catch (IOException | /*EmptyFileException | NotOfficeXmlFileException |*/
-				AssertionError | RuntimeException e) {
-			// expected here
-		}
-	}
-
-	public static void fuzzXSSF(byte[] input) {
-		try (XSSFWorkbook wb = new XSSFWorkbook(new ByteArrayInputStream(input))) {
-			try (SXSSFWorkbook swb = new SXSSFWorkbook(wb)) {
-				swb.write(NullOutputStream.NULL_OUTPUT_STREAM);
-			}
-		} catch (IOException | /*EmptyFileException | NotOfficeXmlFileException |*/
-				AssertionError | RuntimeException e) {
-			// expected here
-		}
-	}
-
-	public static void fuzzHWPF(byte[] input) {
-		try (HWPFDocument doc = new HWPFDocument(new ByteArrayInputStream(input))) {
-			doc.write(NullOutputStream.NULL_OUTPUT_STREAM);
-		} catch (IOException | /*EmptyFileException | EncryptedDocumentException |*/
-				AssertionError | RuntimeException e) {
-			// expected here
-		}
-	}
-
-	public static void fuzzHSLF(byte[] input) {
-		try (HSLFSlideShow slides = new HSLFSlideShow(new ByteArrayInputStream(input))) {
-			slides.write(NullOutputStream.NULL_OUTPUT_STREAM);
-		} catch (IOException | /*OfficeXmlFileException | EncryptedPowerPointFileException |*/
-				AssertionError | RuntimeException e) {
-			// expected here
-		}
-
-		try (HSLFSlideShowImpl slides = new HSLFSlideShowImpl(new ByteArrayInputStream(input))) {
-			slides.write(NullOutputStream.NULL_OUTPUT_STREAM);
-		} catch (IOException | /*OfficeXmlFileException | EncryptedPowerPointFileException |*/
-				AssertionError | RuntimeException e) {
-			// expected here
-		}
-	}
-
-	public static void fuzzHSSF(byte[] input) {
-		try (HSSFWorkbook wb = new HSSFWorkbook(new ByteArrayInputStream(input))) {
-			wb.write(NullOutputStream.NULL_OUTPUT_STREAM);
-		} catch (IOException | /*OfficeXmlFileException | EncryptedDocumentException |*/
-				AssertionError | RuntimeException e) {
-			// expected here
-		}
-	}
-
-	@SuppressWarnings("EmptyTryBlock")
-	public static void fuzzHPSF(byte[] input) {
-		try (POIFSFileSystem fs = new POIFSFileSystem(new ByteArrayInputStream(input))) {
-			String workbookName = HSSFWorkbook.getWorkbookDirEntryName(fs.getRoot());
-			fs.createDocumentInputStream(workbookName);
-
-			try (HPSFPropertiesOnlyDocument ignored = new HPSFPropertiesOnlyDocument(fs)) {
-			}
-
-			fs.writeFilesystem(NullOutputStream.NULL_OUTPUT_STREAM);
-		} catch (IOException | /*OldExcelFormatException | OfficeXmlFileException | EncryptedDocumentException |*/
-				AssertionError | RuntimeException e) {
-			// expected here
-		}
+		FuzzHPBF.fuzzerTestOneInput(input);
 	}
 
 	public static void fuzzAny(byte[] input) {
