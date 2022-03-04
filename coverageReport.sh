@@ -45,19 +45,23 @@ mkdir -p build/jacoco
 ./jazzer \
   --cp=build/libs/poi-fuzz-all.jar \
   --instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.** \
-  --target_class=org.dstadler.poi.fuzz.Fuzz \
+  --target_class=org.dstadler.poi.fuzz.Fuzz$1 \
   --nohooks \
   --jvm_args="-XX\\:-OmitStackTraceInFastThrow:-javaagent\\:build/jacocoagent.jar=destfile=build/jacoco/corpus.exec" \
   -rss_limit_mb=8192 \
   -runs=0 \
-  corpus
+  corpus$1
 
 
 # Finally create the JaCoCo report
 java -jar build/jacococli.jar report build/jacoco/corpus.exec \
  --classfiles build/poifiles \
  --classfiles build/classes/java/main \
- --sourcefiles /opt/apache/poi/dist/release/maven/poi/poi-5.1.0-sources.jar:/opt/apache/poi/dist/release/maven/poi-ooxml/poi-ooxml-5.1.0-sources.jar:/opt/apache/poi/dist/release/maven/poi-ooxml-lite/poi-ooxml-lite-5.1.0-sources.jar:/opt/apache/poi/dist/release/maven/poi-scratchpad/poi-scratchpad-5.1.0-sources.jar:/opt/apache/poi/dist/xmlbeans/release/maven/xmlbeans-5.0.2-sources.jar \
+ --sourcefiles /opt/apache/poi/git-svn/poi/src/main/java \
+ --sourcefiles /opt/apache/poi/git-svn/poi-ooxml/src/main/java \
+ --sourcefiles /opt/apache/poi/git-svn/poi-ooxml-lite/src/main/java \
+ --sourcefiles /opt/apache/poi/git-svn/poi-scratchpad/src/main/java \
+ --sourcefiles /opt/apache/xmlbeans/trunk/src/main/java \
  --sourcefiles src/main/java \
  --html build/reports/jacoco
 
