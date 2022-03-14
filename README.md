@@ -45,6 +45,15 @@ You can use `--keep_going=10` to report a given number of exceptions before stop
 
 See `./jazzer` for options which can control details of how Jazzer operates.
 
+# Fuzzing via Jazzer Docker image
+
+You can use a ready-made Docker image for running the fuzzing in a container.
+
+This shields the fuzzing from performing unexpected actions on your local machine
+or allows to run it in a container-based infrastructure.
+
+    docker run -v `pwd`:/fuzzing cifuzz/jazzer --cp=build/libs/poi-fuzz-all.jar --instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.** --target_class=org.dstadler.poi.fuzz.Fuzz -rss_limit_mb=4096 corpus
+
 # Fuzzing with locally compiled Apache POI libraries
 
 If you want to test with a more recent version of Apache POI, you can add 
