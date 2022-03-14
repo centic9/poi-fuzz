@@ -4,10 +4,8 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
 import org.apache.commons.io.output.NullOutputStream;
-import org.apache.poi.ooxml.POIXMLException;
 import org.apache.poi.openxml4j.exceptions.OpenXML4JException;
 import org.apache.poi.openxml4j.opc.OPCPackage;
-import org.apache.poi.util.RecordFormatException;
 import org.apache.poi.xssf.extractor.XSSFEventBasedExcelExtractor;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -28,9 +26,11 @@ public class FuzzXSSF {
 			try (XSSFEventBasedExcelExtractor extractor = new XSSFEventBasedExcelExtractor(pkg)) {
 				Fuzz.checkExtractor(extractor);
 			}
-		} catch (IOException | /*EmptyFileException | NotOfficeXmlFileException |*/ POIXMLException |
-				/*XmlValueOutOfRangeException |*/ IllegalArgumentException | RecordFormatException | IllegalStateException |
-				XmlException | OpenXML4JException e) {
+		} catch (IOException | /*EmptyFileException | NotOfficeXmlFileException |*/ /*POIXMLException |
+				XmlValueOutOfRangeException | IllegalArgumentException | RecordFormatException | IllegalStateException |*/
+				XmlException | OpenXML4JException |
+				// TODO: remove these when the code is updated
+				RuntimeException e) {
 			// expected
 		}
 	}

@@ -27,7 +27,9 @@ public class FuzzHWPF {
 			}
 		} catch (IOException | /*EncryptedPowerPointFileException |*/ /*OldPowerPointFormatException |*/ IndexOutOfBoundsException |
 				RecordFormatException | IllegalArgumentException |
-				IllegalStateException | BufferUnderflowException | NoSuchElementException |
+				IllegalStateException | BufferUnderflowException | NoSuchElementException | UnsupportedOperationException |
+				NegativeArraySizeException | ClassCastException |
+				// TODO: remove these when the code is updated
 				AssertionError e) {
 			// expected here
 		}

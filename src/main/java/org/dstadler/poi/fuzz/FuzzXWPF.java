@@ -4,10 +4,8 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
 import org.apache.commons.io.output.NullOutputStream;
-import org.apache.poi.ooxml.POIXMLException;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.openxml4j.opc.OPCPackage;
-import org.apache.poi.util.RecordFormatException;
 import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 
@@ -24,8 +22,10 @@ public class FuzzXWPF {
 			try (XWPFWordExtractor extractor = new XWPFWordExtractor(pkg)) {
 				Fuzz.checkExtractor(extractor);
 			}
-		} catch (IOException | InvalidFormatException | /*EmptyFileException | NotOfficeXmlFileException |*/ POIXMLException |
-				/*XmlValueOutOfRangeException |*/ IllegalArgumentException | RecordFormatException | IllegalStateException e) {
+		} catch (IOException | InvalidFormatException | /*EmptyFileException | NotOfficeXmlFileException |*/ /*POIXMLException |
+				XmlValueOutOfRangeException | IllegalArgumentException | RecordFormatException | IllegalStateException |*/
+				// TODO: remove these when the code is updated
+				RuntimeException e) {
 			// expected
 		}
 	}

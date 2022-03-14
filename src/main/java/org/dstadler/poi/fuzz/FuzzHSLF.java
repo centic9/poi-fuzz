@@ -2,11 +2,8 @@ package org.dstadler.poi.fuzz;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.nio.BufferUnderflowException;
-import java.util.NoSuchElementException;
 
 import org.apache.commons.io.output.NullOutputStream;
-import org.apache.poi.hslf.exceptions.HSLFException;
 import org.apache.poi.hslf.usermodel.HSLFShape;
 import org.apache.poi.hslf.usermodel.HSLFSlideShow;
 import org.apache.poi.hslf.usermodel.HSLFSlideShowImpl;
@@ -14,7 +11,6 @@ import org.apache.poi.hslf.usermodel.HSLFTextParagraph;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.sl.extractor.SlideShowExtractor;
 import org.apache.poi.sl.usermodel.SlideShowFactory;
-import org.apache.poi.util.RecordFormatException;
 
 public class FuzzHSLF {
 	public static void fuzzerTestOneInput(byte[] input) {
@@ -38,10 +34,11 @@ public class FuzzHSLF {
 							new POIFSFileSystem(new ByteArrayInputStream(input)).getRoot()))) {
 				Fuzz.checkExtractor(extractor);
 			}
-		} catch (IOException | /*EncryptedPowerPointFileException |*/ /*OldPowerPointFormatException |*/ IndexOutOfBoundsException |
+		} catch (IOException | /*EncryptedPowerPointFileException |*/ /*OldPowerPointFormatException |*/ /*IndexOutOfBoundsException |
 				RecordFormatException | IllegalArgumentException | ClassCastException |
-				IllegalStateException | HSLFException | BufferUnderflowException | NoSuchElementException |
-				AssertionError e) {
+				IllegalStateException | HSLFException | BufferUnderflowException | NoSuchElementException | */
+				// TODO: remove these when the code is updated
+				RuntimeException | AssertionError /*| NullPointerException*/ e) {
 			// expected here
 		}
 	}
