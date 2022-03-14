@@ -119,7 +119,7 @@ or allows to run it in a container-based infrastructure.
 ## HPBF
 
     mkdir corpusHPBF
-    cp -a corpus/HPBF corpusHPBF/
+    cp -a corpus/publisher corpusHPBF/
     ./gradlew shadowJar && ./jazzer --cp=build/libs/poi-fuzz-all.jar --instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.** --target_class=org.dstadler.poi.fuzz.FuzzHPBF -rss_limit_mb=4096 corpusHPBF
 
 # Fuzzing with locally compiled Apache POI libraries

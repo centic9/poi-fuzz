@@ -2,14 +2,11 @@ package org.dstadler.poi.fuzz;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.nio.BufferUnderflowException;
-import java.util.NoSuchElementException;
 
 import org.apache.commons.io.output.NullOutputStream;
 import org.apache.poi.hpbf.HPBFDocument;
 import org.apache.poi.hpbf.extractor.PublisherTextExtractor;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
-import org.apache.poi.util.RecordFormatException;
 
 public class FuzzHPBF {
 	public static void fuzzerTestOneInput(byte[] input) {
@@ -25,10 +22,11 @@ public class FuzzHPBF {
 							new POIFSFileSystem(new ByteArrayInputStream(input)).getRoot())) {
 				Fuzz.checkExtractor(extractor);
 			}
-		} catch (IOException | /*EncryptedPowerPointFileException |*/ /*OldPowerPointFormatException |*/ IndexOutOfBoundsException |
+		} catch (IOException | /*EncryptedPowerPointFileException |*/ /*OldPowerPointFormatException |*/ /*IndexOutOfBoundsException |
 				RecordFormatException | IllegalArgumentException |
-				IllegalStateException | BufferUnderflowException | NoSuchElementException |
-				AssertionError e) {
+				IllegalStateException | BufferUnderflowException | NoSuchElementException | ClassCastException |*/
+				// TODO: remove these when the code is updated
+				AssertionError | RuntimeException e) {
 			// expected here
 		}
 	}
