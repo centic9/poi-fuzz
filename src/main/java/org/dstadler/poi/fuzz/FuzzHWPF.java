@@ -9,6 +9,7 @@ import org.apache.commons.io.output.NullOutputStream;
 import org.apache.poi.hwpf.HWPFDocument;
 import org.apache.poi.hwpf.extractor.WordExtractor;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
+import org.apache.poi.util.DocumentFormatException;
 import org.apache.poi.util.RecordFormatException;
 
 public class FuzzHWPF {
@@ -28,7 +29,7 @@ public class FuzzHWPF {
 		} catch (IOException | /*EncryptedPowerPointFileException |*/ /*OldPowerPointFormatException |*/ IndexOutOfBoundsException |
 				RecordFormatException | IllegalArgumentException |
 				IllegalStateException | BufferUnderflowException | NoSuchElementException | UnsupportedOperationException |
-				NegativeArraySizeException | ClassCastException |
+				NegativeArraySizeException | ClassCastException | DocumentFormatException |
 				// TODO: remove these when the code is updated
 				AssertionError e) {
 			// expected here
