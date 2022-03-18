@@ -104,6 +104,12 @@ or allows to run it in a container-based infrastructure.
     cp corpus/diagram/* corpusVisio/
     ./gradlew shadowJar && ./jazzer --cp=build/libs/poi-fuzz-all.jar --instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.** --target_class=org.dstadler.poi.fuzz.FuzzVisio -rss_limit_mb=4096 corpusVisio
 
+## HDGF
+
+    mkdir corpusHDGF
+    cp corpus/diagram/*.vsd corpusHDGF/
+    ./gradlew shadowJar && ./jazzer --cp=build/libs/poi-fuzz-all.jar --instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.** --target_class=org.dstadler.poi.fuzz.FuzzHDGF -rss_limit_mb=4096 corpusHDGF
+
 ## HPSF
 
     mkdir corpusHPSF

@@ -33,6 +33,8 @@ public class Fuzz {
 
 		fuzzAny(input);
 
+		FuzzHDGF.fuzzerTestOneInput(input);
+
 		FuzzHPSF.fuzzerTestOneInput(input);
 
 		FuzzHSSF.fuzzerTestOneInput(input);
