@@ -54,6 +54,12 @@ class FuzzTest {
 	@Disabled("Local test for verifying a slow run")
 	@Test
 	public void testSlowUnit() throws IOException {
-		Fuzz.fuzzerTestOneInput(FileUtils.readFileToByteArray(new File("corpus/032f94b25018b76e1638f5ae7969336cc1ebefc2")));
+		for (int i = 0; i < 10; i++) {
+			long start = System.currentTimeMillis();
+
+			FuzzXWPF.fuzzerTestOneInput(FileUtils.readFileToByteArray(new File("timeout-54064ba65ddc1976d2d26f5c21b369d845120355")));
+
+			System.out.println("Took " + (System.currentTimeMillis() - start));
+		}
 	}
 }
