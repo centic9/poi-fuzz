@@ -51,6 +51,12 @@ class FuzzTest {
 		assertNotNull(section);
 	}
 
+	@Disabled("Local test for verifying an OOM")
+	@Test
+	public void testOOM() throws IOException {
+		FuzzHPBF.fuzzerTestOneInput(FileUtils.readFileToByteArray(new File("./oom-d89e5a2852e34da7dfc090fae0f1d96d4405db47")));
+	}
+
 	@Disabled("Local test for verifying a slow run")
 	@Test
 	public void testSlowUnit() throws IOException {
