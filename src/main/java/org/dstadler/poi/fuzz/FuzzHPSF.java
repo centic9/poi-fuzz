@@ -17,12 +17,13 @@ public class FuzzHPSF {
 			String workbookName = HSSFWorkbook.getWorkbookDirEntryName(fs.getRoot());
 			fs.createDocumentInputStream(workbookName);
 
-			try (HPSFPropertiesOnlyDocument ignored = new HPSFPropertiesOnlyDocument(fs)) {
+			try (HPSFPropertiesOnlyDocument document = new HPSFPropertiesOnlyDocument(fs)) {
+				document.write(NullOutputStream.NULL_OUTPUT_STREAM);
 			}
 
 			fs.writeFilesystem(NullOutputStream.NULL_OUTPUT_STREAM);
 		} catch (IOException | /*OldExcelFormatException | OfficeXmlFileException | EncryptedDocumentException |*/
-				AssertionError | RuntimeException e) {
+				RuntimeException e) {
 			// expected here
 		}
 
