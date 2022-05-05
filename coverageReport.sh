@@ -33,8 +33,8 @@ cd -
 
 
 # Fetch JaCoCo Agent
-test -f jacoco-0.8.7.zip || wget --continue https://repo1.maven.org/maven2/org/jacoco/jacoco/0.8.7/jacoco-0.8.7.zip
-unzip -o jacoco-0.8.7.zip lib/jacocoagent.jar lib/jacococli.jar
+test -f jacoco-0.8.8.zip || wget --continue https://repo1.maven.org/maven2/org/jacoco/jacoco/0.8.8/jacoco-0.8.8.zip
+unzip -o jacoco-0.8.8.zip lib/jacocoagent.jar lib/jacococli.jar
 mv lib/jacocoagent.jar lib/jacococli.jar build/
 rmdir lib
 
