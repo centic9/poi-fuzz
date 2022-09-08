@@ -10,6 +10,7 @@ corpus*/
 /jazzer
 /jazzer_agent_deploy.jar
 /jazzer_api_deploy.jar
+/jazzer-*.tar.gz
 /jacoco-*.zip
 
 # Jazzer result/crash files
@@ -17,3 +18,4 @@ corpus*/
 /Crash_*.java
 /slow-unit-*
 /oom-*
+/jazzer_standalone.jar
