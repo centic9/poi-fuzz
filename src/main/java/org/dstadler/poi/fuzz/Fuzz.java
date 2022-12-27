@@ -35,25 +35,27 @@ public class Fuzz {
 
 		FuzzHDGF.fuzzerTestOneInput(input);
 
-		FuzzHPSF.fuzzerTestOneInput(input);
+		FuzzHMEF.fuzzerTestOneInput(input);
 
-		FuzzHSSF.fuzzerTestOneInput(input);
+		FuzzHPBF.fuzzerTestOneInput(input);
+
+		FuzzHPSF.fuzzerTestOneInput(input);
 
 		FuzzHSLF.fuzzerTestOneInput(input);
 
+		FuzzHSSF.fuzzerTestOneInput(input);
+
 		FuzzHWPF.fuzzerTestOneInput(input);
+
+		FuzzOldExcel.fuzzerTestOneInput(input);
+
+		FuzzVisio.fuzzerTestOneInput(input);
+
+		FuzzXSLF.fuzzerTestOneInput(input);
 
 		FuzzXSSF.fuzzerTestOneInput(input);
 
 		FuzzXWPF.fuzzerTestOneInput(input);
-
-		FuzzXSLF.fuzzerTestOneInput(input);
-
-		FuzzVisio.fuzzerTestOneInput(input);
-
-		FuzzHMEF.fuzzerTestOneInput(input);
-
-		FuzzHPBF.fuzzerTestOneInput(input);
 	}
 
 	public static void fuzzAny(byte[] input) {
