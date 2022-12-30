@@ -3,6 +3,7 @@ package org.dstadler.poi.fuzz;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.nio.BufferUnderflowException;
+import java.util.NoSuchElementException;
 
 import org.apache.commons.io.output.NullOutputStream;
 import org.apache.poi.hpsf.HPSFPropertiesOnlyDocument;
@@ -22,15 +23,17 @@ public class FuzzHPSF {
 			}
 
 			fs.writeFilesystem(NullOutputStream.NULL_OUTPUT_STREAM);
-		} catch (IOException | /*OldExcelFormatException | OfficeXmlFileException | EncryptedDocumentException |*/
-				RuntimeException e) {
+		} catch (IOException | IllegalArgumentException | IllegalStateException | RecordFormatException |
+				/* can be removed with Apache POI >= 5.2.4 */ ClassCastException |
+				 IndexOutOfBoundsException | BufferUnderflowException | NoSuchElementException e) {
 			// expected here
 		}
 
 		try (HPSFPropertiesExtractor extractor = new HPSFPropertiesExtractor(new POIFSFileSystem(new ByteArrayInputStream(input)))) {
 			Fuzz.checkExtractor(extractor);
-		} catch (IOException | IllegalStateException | IndexOutOfBoundsException | RecordFormatException | ClassCastException |
-				BufferUnderflowException | IllegalArgumentException e) {
+		} catch (IOException | IllegalArgumentException | IllegalStateException | RecordFormatException |
+				/* can be removed with Apache POI >= 5.2.4 */ ClassCastException |
+				 IndexOutOfBoundsException | BufferUnderflowException | NoSuchElementException e) {
 			// expected
 		}
 	}

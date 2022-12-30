@@ -4,9 +4,12 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
 import org.apache.commons.io.output.NullOutputStream;
+import org.apache.poi.EmptyFileException;
+import org.apache.poi.UnsupportedFileFormatException;
 import org.apache.poi.ooxml.POIXMLException;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.openxml4j.exceptions.OpenXML4JException;
+import org.apache.poi.openxml4j.exceptions.OpenXML4JRuntimeException;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.util.RecordFormatException;
 import org.apache.poi.xslf.extractor.XSLFExtractor;
@@ -18,8 +21,8 @@ public class FuzzXSLF {
 	public static void fuzzerTestOneInput(byte[] input) {
 		try (XMLSlideShow slides = new XMLSlideShow(new ByteArrayInputStream(input))) {
 			slides.write(NullOutputStream.NULL_OUTPUT_STREAM);
-		} catch (IOException | /*EmptyFileException | NotOfficeXmlFileException |*/
-				AssertionError | RuntimeException e) {
+		} catch (IOException | EmptyFileException | UnsupportedFileFormatException | POIXMLException |
+				 RecordFormatException | OpenXML4JRuntimeException e) {
 			// expected here
 		}
 
@@ -27,10 +30,8 @@ public class FuzzXSLF {
 			try (XSLFSlideShow slides = new XSLFSlideShow(pkg)) {
 				slides.write(NullOutputStream.NULL_OUTPUT_STREAM);
 			}
-		} catch (IOException | OpenXML4JException | /*EmptyFileException | NotOfficeXmlFileException |*/
-				AssertionError | RuntimeException |
-				// TODO: wrap exceptions from XmlBeans
-				XmlException e) {
+		} catch (IOException | OpenXML4JException | XmlException | IllegalArgumentException | POIXMLException |
+				 RecordFormatException | IllegalStateException | OpenXML4JRuntimeException e) {
 			// expected here
 		}
 
@@ -38,8 +39,8 @@ public class FuzzXSLF {
 			try (XSLFExtractor extractor = new XSLFExtractor(new XMLSlideShow(pkg))) {
 				Fuzz.checkExtractor(extractor);
 			}
-		} catch (IOException | InvalidFormatException | /*EmptyFileException | NotOfficeXmlFileException |*/ POIXMLException |
-				/*XmlValueOutOfRangeException |*/ IllegalArgumentException | RecordFormatException | IllegalStateException e) {
+		} catch (IOException | InvalidFormatException | POIXMLException | IllegalArgumentException |
+				RecordFormatException | IllegalStateException e) {
 			// expected
 		}
 	}

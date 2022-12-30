@@ -16,8 +16,11 @@ public class FuzzHWPF {
 	public static void fuzzerTestOneInput(byte[] input) {
 		try (HWPFDocument doc = new HWPFDocument(new ByteArrayInputStream(input))) {
 			doc.write(NullOutputStream.NULL_OUTPUT_STREAM);
-		} catch (IOException | /*EmptyFileException | EncryptedDocumentException |*/
-				AssertionError | RuntimeException e) {
+		} catch (IOException | IllegalArgumentException | IndexOutOfBoundsException | BufferUnderflowException |
+				/* can be removed with Apache POI >= 5.2.4 */ NullPointerException |
+				/* can be removed with Apache POI >= 5.2.4 */ ClassCastException |
+				NoSuchElementException | RecordFormatException | IllegalStateException |
+				UnsupportedOperationException e) {
 			// expected here
 		}
 
@@ -26,12 +29,11 @@ public class FuzzHWPF {
 							new POIFSFileSystem(new ByteArrayInputStream(input)).getRoot())) {
 				Fuzz.checkExtractor(extractor);
 			}
-		} catch (IOException | /*EncryptedPowerPointFileException |*/ /*OldPowerPointFormatException |*/ IndexOutOfBoundsException |
-				RecordFormatException | IllegalArgumentException |
-				IllegalStateException | BufferUnderflowException | NoSuchElementException | UnsupportedOperationException |
-				NegativeArraySizeException | ClassCastException | DocumentFormatException |
-				// TODO: remove these when the code is updated
-				AssertionError e) {
+		} catch (IOException | IllegalArgumentException | IndexOutOfBoundsException | BufferUnderflowException |
+				/* can be removed with Apache POI >= 5.2.4 */ NullPointerException |
+				/* can be removed with Apache POI >= 5.2.4 */ ClassCastException |
+				NoSuchElementException | RecordFormatException | IllegalStateException |
+				DocumentFormatException | UnsupportedOperationException | NegativeArraySizeException e) {
 			// expected here
 		}
 	}

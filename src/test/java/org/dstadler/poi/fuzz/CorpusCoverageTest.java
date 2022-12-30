@@ -35,11 +35,15 @@ public class CorpusCoverageTest {
 	@MethodSource("files")
 	void testCorpusFile(File file) throws IOException {
 		System.err.println("Running file " + file + " in thread " + Thread.currentThread().getName());
-		try {
-			Fuzz.fuzzerTestOneInput(FileUtils.readFileToByteArray(file));
-		} catch (RuntimeException | OutOfMemoryError | AssertionError | StackOverflowError e) {
-			// ignore any problem in the corpus as we just want to capture coverage
-		}
+		Fuzz.fuzzerTestOneInput(FileUtils.readFileToByteArray(file));
+	}
+
+	@Disabled("Can run a long time when there is a large corpus used for fuzzing")
+	@ParameterizedTest
+	@MethodSource("files")
+	void testCorpusFileOne(File file) throws IOException {
+		System.err.println("Running file " + file + " in thread " + Thread.currentThread().getName());
+		FuzzHDGF.fuzzerTestOneInput(FileUtils.readFileToByteArray(file));
 	}
 
 	private static Stream<Arguments> files() {

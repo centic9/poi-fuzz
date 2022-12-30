@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
 import org.apache.poi.hmef.HMEFMessage;
+import org.apache.poi.util.RecordFormatException;
 
 public class FuzzHMEF {
 	public static void fuzzerTestOneInput(byte[] input) {
@@ -17,8 +18,8 @@ public class FuzzHMEF {
 			msg.getSubject();
 			//noinspection ResultOfMethodCallIgnored
 			msg.getMessageMAPIAttributes();
-		} catch (IOException | /*EmptyFileException | NotOfficeXmlFileException |*/
-				AssertionError | RuntimeException e) {
+		} catch (IOException | IllegalArgumentException | IllegalStateException | RecordFormatException |
+				ArrayIndexOutOfBoundsException e) {
 			// expected here
 		}
 	}

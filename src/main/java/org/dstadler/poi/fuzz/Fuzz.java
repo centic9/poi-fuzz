@@ -70,8 +70,8 @@ public class Fuzz {
 			}
 
 			wb.write(NullOutputStream.NULL_OUTPUT_STREAM);
-		} catch (IOException | /*EncryptedDocumentException | EmptyFileException | NotOfficeXmlFileException |*/
-				AssertionError | RuntimeException e) {
+		} catch (IOException |
+				/* can be removed with Apache POI >= 5.2.4 */ RuntimeException e) {
 			// expected here
 		}
 
@@ -84,8 +84,8 @@ public class Fuzz {
 	public static void checkExtractor(byte[] input) {
 		try (POITextExtractor extractor = ExtractorFactory.createExtractor(new ByteArrayInputStream(input))) {
 			checkExtractor(extractor);
-		} catch (IOException | /*EmptyFileException | EncryptedDocumentException |*/
-				AssertionError | RuntimeException e) {
+		} catch (IOException |
+				/* can be removed with Apache POI >= 5.2.4 */ RuntimeException e) {
 			// expected here
 		}
 	}

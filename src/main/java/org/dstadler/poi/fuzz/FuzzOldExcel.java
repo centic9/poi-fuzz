@@ -2,9 +2,13 @@ package org.dstadler.poi.fuzz;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.nio.BufferUnderflowException;
+import java.util.NoSuchElementException;
 
 import org.apache.poi.hssf.extractor.OldExcelExtractor;
+import org.apache.poi.hssf.record.RecordInputStream;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
+import org.apache.poi.util.RecordFormatException;
 
 public class FuzzOldExcel {
 	public static void fuzzerTestOneInput(byte[] input) {
@@ -13,12 +17,10 @@ public class FuzzOldExcel {
 							new POIFSFileSystem(new ByteArrayInputStream(input)).getRoot())) {
 				Fuzz.checkExtractor(extractor);
 			}
-		} catch (IOException | /*EncryptedPowerPointFileException |*/ /*OldPowerPointFormatException |*/ /*IndexOutOfBoundsException |
-				RecordFormatException | IllegalArgumentException |
-				IllegalStateException | BufferUnderflowException | NoSuchElementException |
-				RecordInputStream.LeftoverDataException |*/
-				// TODO: remove these when the code is updated
-				AssertionError | RuntimeException e) {
+		} catch (IOException | IllegalArgumentException | RecordFormatException | IndexOutOfBoundsException |
+				/* can be removed with Apache POI >= 5.2.4 */ ClassCastException |
+				 RecordInputStream.LeftoverDataException | IllegalStateException | BufferUnderflowException |
+				 NoSuchElementException e) {
 			// expected here
 		}
 	}
