@@ -22,7 +22,7 @@ for i in `cd src/main/java/org/dstadler/poi/fuzz/ && ls Fuzz${ONE}*.java`; do
   echo $i: ${CLASS} and ${CORPUS}
 
   #  --keep_going=5 \
-  ./jazzer --cp=build/libs/poi-fuzz-all.jar \
+  nice -n 19 ./jazzer --cp=build/libs/poi-fuzz-all.jar \
     --instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.** \
     --target_class=org.dstadler.poi.fuzz.${CLASS} \
     -rss_limit_mb=4096 \
