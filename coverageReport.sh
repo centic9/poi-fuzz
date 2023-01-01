@@ -7,8 +7,18 @@
 
 set -eu
 
+if [ $# -gt 0 ]; then
+  ONE=$1
+  echo
+  echo "Fuzzing only ${ONE}"
+else
+  ONE=
+fi
+
 
 # Build the fuzzer and fetch dependency-jars
+echo
+echo Rebuilding
 ./gradlew shadowJar getDeps
 
 
@@ -41,20 +51,33 @@ rmdir lib
 mkdir -p build/jacoco
 
 
-# Run Jazzer with JaCoCo-Agent to produce coverage information
-./jazzer \
-  --cp=build/libs/poi-fuzz-all.jar \
-  --instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.** \
-  --target_class=org.dstadler.poi.fuzz.Fuzz$1 \
-  --nohooks \
-  --jvm_args="-XX\\:-OmitStackTraceInFastThrow:-javaagent\\:build/jacocoagent.jar=destfile=build/jacoco/corpus.exec" \
-  -rss_limit_mb=8192 \
-  -runs=0 \
-  corpus$1
+for i in `cd src/main/java/org/dstadler/poi/fuzz/ && ls Fuzz${ONE}*.java`; do
+  CLASS=`echo $i | sed -e 's/.java//g'`
+  CORPUS=`echo ${CLASS} | sed -e 's/Fuzz/corpus/g'`
 
+  echo
+  echo Running jazzer for ${CLASS} and ${CORPUS}
+
+  # Run Jazzer with JaCoCo-Agent to produce coverage information
+  ./jazzer \
+    --cp=/opt/poi/build/dist/maven/poi/poi-5.2.4-SNAPSHOT.jar:/opt/poi/build/dist/maven/poi-ooxml/poi-ooxml-5.2.4-SNAPSHOT.jar:/opt/poi/build/dist/maven/poi-scratchpad/poi-scratchpad-5.2.4-SNAPSHOT.jar:build/libs/poi-fuzz-all.jar \
+    --instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.** \
+    --target_class=org.dstadler.poi.fuzz.${CLASS} \
+    --nohooks \
+    --jvm_args="-XX\\:-OmitStackTraceInFastThrow:-javaagent\\:build/jacocoagent.jar=destfile=build/jacoco/${CORPUS}.exec" \
+    -rss_limit_mb=8192 \
+    -runs=0 \
+    ${CORPUS}
+done
+
+echo
+echo Having coverage-files
+ls -al build/jacoco/corpus*.exec
 
 # Finally create the JaCoCo report
-java -jar build/jacococli.jar report build/jacoco/corpus.exec \
+echo
+echo Creating JaCoCo report
+java -jar build/jacococli.jar report build/jacoco/corpus*.exec \
  --classfiles build/poifiles \
  --classfiles build/classes/java/main \
  --sourcefiles /opt/apache/poi/git-svn/poi/src/main/java \
