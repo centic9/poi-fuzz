@@ -19,7 +19,8 @@ public class FuzzHSSF {
 			wb.write(NullOutputStream.NULL_OUTPUT_STREAM);
 		} catch (IOException | IllegalArgumentException | RecordFormatException | IllegalStateException |
 				 IndexOutOfBoundsException | RecordInputStream.LeftoverDataException |
-				 BufferUnderflowException | UnsupportedOperationException | NoSuchElementException e) {
+				 BufferUnderflowException | UnsupportedOperationException | NoSuchElementException |
+				NegativeArraySizeException e) {
 			// expected here
 		}
 

@@ -97,7 +97,8 @@ public class Fuzz {
 		} catch (IOException | POIXMLException | IllegalArgumentException | RecordFormatException |
 				 IndexOutOfBoundsException | HSLFException | RecordInputStream.LeftoverDataException |
 				 NoSuchElementException | IllegalStateException | ArithmeticException |
-				 BufferUnderflowException | UnsupportedOperationException | DocumentFormatException e) {
+				 BufferUnderflowException | UnsupportedOperationException | DocumentFormatException |
+				NegativeArraySizeException e) {
 			// expected here
 		}
 	}

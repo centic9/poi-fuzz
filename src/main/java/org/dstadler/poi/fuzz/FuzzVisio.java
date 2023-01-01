@@ -13,13 +13,15 @@ import org.apache.poi.ooxml.POIXMLException;
 import org.apache.poi.openxml4j.exceptions.OpenXML4JRuntimeException;
 import org.apache.poi.util.RecordFormatException;
 import org.apache.poi.xdgf.usermodel.XmlVisioDocument;
+import org.apache.xmlbeans.impl.values.XmlValueOutOfRangeException;
 
 public class FuzzVisio {
 	public static void fuzzerTestOneInput(byte[] input) {
 		try (XmlVisioDocument visio = new XmlVisioDocument(new ByteArrayInputStream(input))) {
 			visio.write(NullOutputStream.NULL_OUTPUT_STREAM);
 		} catch (IOException | POIXMLException | EmptyFileException | UnsupportedFileFormatException |
-				 BufferUnderflowException | RecordFormatException | OpenXML4JRuntimeException e) {
+				 BufferUnderflowException | RecordFormatException | OpenXML4JRuntimeException |
+				 XmlValueOutOfRangeException | NumberFormatException e) {
 			// expected here
 		}
 

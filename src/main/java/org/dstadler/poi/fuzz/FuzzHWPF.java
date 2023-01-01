@@ -18,7 +18,7 @@ public class FuzzHWPF {
 			doc.write(NullOutputStream.NULL_OUTPUT_STREAM);
 		} catch (IOException | IllegalArgumentException | IndexOutOfBoundsException | BufferUnderflowException |
 				NoSuchElementException | RecordFormatException | IllegalStateException |
-				UnsupportedOperationException e) {
+				UnsupportedOperationException | NegativeArraySizeException e) {
 			// expected here
 		}
 
