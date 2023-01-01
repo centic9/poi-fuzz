@@ -3,6 +3,7 @@ package org.dstadler.poi.fuzz;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.nio.BufferUnderflowException;
+import java.util.NoSuchElementException;
 
 import org.apache.commons.io.output.NullOutputStream;
 import org.apache.poi.EmptyFileException;
@@ -25,7 +26,8 @@ public class FuzzVisio {
 		try (VisioTextExtractor extractor = new VisioTextExtractor(new ByteArrayInputStream(input))) {
 			Fuzz.checkExtractor(extractor);
 		} catch (IOException | POIXMLException | IllegalArgumentException | BufferUnderflowException |
-				 RecordFormatException | IndexOutOfBoundsException | ArithmeticException | IllegalStateException e) {
+				 RecordFormatException | IndexOutOfBoundsException | ArithmeticException | IllegalStateException |
+				 NoSuchElementException e) {
 			// expected
 		}
 	}

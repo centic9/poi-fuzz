@@ -21,7 +21,7 @@ public class FuzzXSSF {
 				swb.write(NullOutputStream.NULL_OUTPUT_STREAM);
 			}
 		} catch (IOException | POIXMLException | RecordFormatException | IllegalStateException |
-				 OpenXML4JRuntimeException | IllegalArgumentException e) {
+				 OpenXML4JRuntimeException | IllegalArgumentException | IndexOutOfBoundsException e) {
 			// expected here
 		}
 

@@ -2,18 +2,26 @@ package org.dstadler.poi.fuzz;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.nio.BufferUnderflowException;
+import java.util.NoSuchElementException;
 
 import org.apache.commons.io.output.NullOutputStream;
 import org.apache.poi.extractor.ExtractorFactory;
 import org.apache.poi.extractor.POIOLE2TextExtractor;
 import org.apache.poi.extractor.POITextExtractor;
+import org.apache.poi.hslf.exceptions.HSLFException;
+import org.apache.poi.hssf.record.RecordInputStream;
+import org.apache.poi.ooxml.POIXMLException;
 import org.apache.poi.ooxml.extractor.POIXMLPropertiesTextExtractor;
 import org.apache.poi.ooxml.extractor.POIXMLTextExtractor;
+import org.apache.poi.openxml4j.exceptions.OpenXML4JRuntimeException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.apache.poi.util.DocumentFormatException;
+import org.apache.poi.util.RecordFormatException;
 
 /**
  * This class provides a simple target for fuzzing Apache POI with Jazzer.
@@ -70,7 +78,10 @@ public class Fuzz {
 			}
 
 			wb.write(NullOutputStream.NULL_OUTPUT_STREAM);
-		} catch (IOException e) {
+		} catch (IOException | POIXMLException | IllegalArgumentException | RecordFormatException |
+				 IndexOutOfBoundsException | HSLFException | RecordInputStream.LeftoverDataException |
+				 IllegalStateException | BufferUnderflowException | OpenXML4JRuntimeException |
+				UnsupportedOperationException | NoSuchElementException | NegativeArraySizeException e) {
 			// expected here
 		}
 
@@ -83,7 +94,10 @@ public class Fuzz {
 	public static void checkExtractor(byte[] input) {
 		try (POITextExtractor extractor = ExtractorFactory.createExtractor(new ByteArrayInputStream(input))) {
 			checkExtractor(extractor);
-		} catch (IOException e) {
+		} catch (IOException | POIXMLException | IllegalArgumentException | RecordFormatException |
+				 IndexOutOfBoundsException | HSLFException | RecordInputStream.LeftoverDataException |
+				 NoSuchElementException | IllegalStateException | ArithmeticException |
+				 BufferUnderflowException | UnsupportedOperationException | DocumentFormatException e) {
 			// expected here
 		}
 	}

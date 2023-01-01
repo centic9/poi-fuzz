@@ -19,7 +19,7 @@ public class FuzzXWPF {
 				Fuzz.checkExtractor(extractor);
 			}
 		} catch (IOException | POIXMLException | RecordFormatException | OpenXML4JRuntimeException |
-				 IllegalArgumentException e) {
+				 IllegalArgumentException | IllegalStateException e) {
 			// expected
 		}
 	}
