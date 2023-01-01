@@ -21,7 +21,6 @@ public class FuzzXSSF {
 				swb.write(NullOutputStream.NULL_OUTPUT_STREAM);
 			}
 		} catch (IOException | POIXMLException | RecordFormatException | IllegalStateException |
-				/* can be removed with Apache POI >= 5.2.4 */ NullPointerException |
 				 OpenXML4JRuntimeException | IllegalArgumentException e) {
 			// expected here
 		}
@@ -31,7 +30,6 @@ public class FuzzXSSF {
 				Fuzz.checkExtractor(extractor);
 			}
 		} catch (IOException | XmlException | OpenXML4JException | POIXMLException | RecordFormatException |
-				/* can be removed with Apache POI >= 5.2.4 */ NullPointerException |
 				IllegalStateException | IllegalArgumentException e) {
 			// expected
 		}

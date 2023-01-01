@@ -17,8 +17,6 @@ public class FuzzHWPF {
 		try (HWPFDocument doc = new HWPFDocument(new ByteArrayInputStream(input))) {
 			doc.write(NullOutputStream.NULL_OUTPUT_STREAM);
 		} catch (IOException | IllegalArgumentException | IndexOutOfBoundsException | BufferUnderflowException |
-				/* can be removed with Apache POI >= 5.2.4 */ NullPointerException |
-				/* can be removed with Apache POI >= 5.2.4 */ ClassCastException |
 				NoSuchElementException | RecordFormatException | IllegalStateException |
 				UnsupportedOperationException e) {
 			// expected here
@@ -30,8 +28,6 @@ public class FuzzHWPF {
 				Fuzz.checkExtractor(extractor);
 			}
 		} catch (IOException | IllegalArgumentException | IndexOutOfBoundsException | BufferUnderflowException |
-				/* can be removed with Apache POI >= 5.2.4 */ NullPointerException |
-				/* can be removed with Apache POI >= 5.2.4 */ ClassCastException |
 				NoSuchElementException | RecordFormatException | IllegalStateException |
 				DocumentFormatException | UnsupportedOperationException | NegativeArraySizeException e) {
 			// expected here

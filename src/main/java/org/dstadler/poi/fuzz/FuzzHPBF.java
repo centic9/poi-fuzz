@@ -16,7 +16,6 @@ public class FuzzHPBF {
 		try (HPBFDocument wb = new HPBFDocument(new ByteArrayInputStream(input))) {
 			wb.write(NullOutputStream.NULL_OUTPUT_STREAM);
 		} catch (IOException | IllegalArgumentException | RecordFormatException | IndexOutOfBoundsException |
-				/* can be removed with Apache POI >= 5.2.4 */ ClassCastException |
 				 BufferUnderflowException | IllegalStateException | NoSuchElementException e) {
 			// expected here
 		}
@@ -27,7 +26,6 @@ public class FuzzHPBF {
 				Fuzz.checkExtractor(extractor);
 			}
 		} catch (IOException | IllegalArgumentException | RecordFormatException | IndexOutOfBoundsException |
-				/* can be removed with Apache POI >= 5.2.4 */ ClassCastException |
 				BufferUnderflowException | IllegalStateException | NoSuchElementException e) {
 			// expected here
 		}

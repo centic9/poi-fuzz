@@ -24,7 +24,6 @@ public class FuzzHPSF {
 
 			fs.writeFilesystem(NullOutputStream.NULL_OUTPUT_STREAM);
 		} catch (IOException | IllegalArgumentException | IllegalStateException | RecordFormatException |
-				/* can be removed with Apache POI >= 5.2.4 */ ClassCastException |
 				 IndexOutOfBoundsException | BufferUnderflowException | NoSuchElementException e) {
 			// expected here
 		}
@@ -32,7 +31,6 @@ public class FuzzHPSF {
 		try (HPSFPropertiesExtractor extractor = new HPSFPropertiesExtractor(new POIFSFileSystem(new ByteArrayInputStream(input)))) {
 			Fuzz.checkExtractor(extractor);
 		} catch (IOException | IllegalArgumentException | IllegalStateException | RecordFormatException |
-				/* can be removed with Apache POI >= 5.2.4 */ ClassCastException |
 				 IndexOutOfBoundsException | BufferUnderflowException | NoSuchElementException e) {
 			// expected
 		}

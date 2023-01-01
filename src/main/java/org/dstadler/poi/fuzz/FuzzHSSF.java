@@ -17,10 +17,9 @@ public class FuzzHSSF {
 	public static void fuzzerTestOneInput(byte[] input) {
 		try (HSSFWorkbook wb = new HSSFWorkbook(new ByteArrayInputStream(input))) {
 			wb.write(NullOutputStream.NULL_OUTPUT_STREAM);
-		} catch (IOException | /*IllegalArgumentException | RecordFormatException | IllegalStateException |
-				 IndexOutOfBoundsException | RecordInputStream.LeftoverDataException |*/
-				/* can be removed with Apache POI >= 5.2.4 */ RuntimeException /*|
-				 BufferUnderflowException | UnsupportedOperationException | NoSuchElementException*/ e) {
+		} catch (IOException | IllegalArgumentException | RecordFormatException | IllegalStateException |
+				 IndexOutOfBoundsException | RecordInputStream.LeftoverDataException |
+				 BufferUnderflowException | UnsupportedOperationException | NoSuchElementException e) {
 			// expected here
 		}
 
@@ -31,8 +30,6 @@ public class FuzzHSSF {
 			}
 		} catch (IOException | IllegalArgumentException | RecordFormatException | IllegalStateException |
 				 IndexOutOfBoundsException | RecordInputStream.LeftoverDataException |
-				/* can be removed with Apache POI >= 5.2.4 */ ClassCastException |
-				/* can be removed with Apache POI >= 5.2.4 */ NullPointerException |
 				 BufferUnderflowException | UnsupportedOperationException | NoSuchElementException |
 				 NegativeArraySizeException | HSLFException e) {
 			// expected here

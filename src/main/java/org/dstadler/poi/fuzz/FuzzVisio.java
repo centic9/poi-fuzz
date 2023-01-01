@@ -25,7 +25,6 @@ public class FuzzVisio {
 		try (VisioTextExtractor extractor = new VisioTextExtractor(new ByteArrayInputStream(input))) {
 			Fuzz.checkExtractor(extractor);
 		} catch (IOException | POIXMLException | IllegalArgumentException | BufferUnderflowException |
-				/* can be removed with Apache POI >= 5.2.4 */ ClassCastException |
 				 RecordFormatException | IndexOutOfBoundsException | ArithmeticException | IllegalStateException e) {
 			// expected
 		}

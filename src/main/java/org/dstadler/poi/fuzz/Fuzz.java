@@ -70,8 +70,7 @@ public class Fuzz {
 			}
 
 			wb.write(NullOutputStream.NULL_OUTPUT_STREAM);
-		} catch (IOException |
-				/* can be removed with Apache POI >= 5.2.4 */ RuntimeException e) {
+		} catch (IOException e) {
 			// expected here
 		}
 
@@ -84,8 +83,7 @@ public class Fuzz {
 	public static void checkExtractor(byte[] input) {
 		try (POITextExtractor extractor = ExtractorFactory.createExtractor(new ByteArrayInputStream(input))) {
 			checkExtractor(extractor);
-		} catch (IOException |
-				/* can be removed with Apache POI >= 5.2.4 */ RuntimeException e) {
+		} catch (IOException e) {
 			// expected here
 		}
 	}

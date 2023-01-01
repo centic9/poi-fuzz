@@ -21,9 +21,7 @@ public class FuzzHDGF {
 			}
 		} catch (IOException | IllegalArgumentException | IllegalStateException | RecordFormatException |
 				 IndexOutOfBoundsException | BufferUnderflowException | ArithmeticException |
-				 NoSuchElementException |
-				 /* can be removed with Apache POI >= 5.2.4 */ ClassCastException
-				e) {
+				 NoSuchElementException e) {
 			// expected here
 		}
 	}

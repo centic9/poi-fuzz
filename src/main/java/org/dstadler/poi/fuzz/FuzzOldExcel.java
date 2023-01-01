@@ -18,7 +18,6 @@ public class FuzzOldExcel {
 				Fuzz.checkExtractor(extractor);
 			}
 		} catch (IOException | IllegalArgumentException | RecordFormatException | IndexOutOfBoundsException |
-				/* can be removed with Apache POI >= 5.2.4 */ ClassCastException |
 				 RecordInputStream.LeftoverDataException | IllegalStateException | BufferUnderflowException |
 				 NoSuchElementException e) {
 			// expected here

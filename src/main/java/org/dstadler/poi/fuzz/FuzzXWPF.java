@@ -19,8 +19,6 @@ public class FuzzXWPF {
 				Fuzz.checkExtractor(extractor);
 			}
 		} catch (IOException | POIXMLException | RecordFormatException | OpenXML4JRuntimeException |
-				/* can be removed with Apache POI >= 5.2.4 */ ClassCastException |
-				/* can be removed with Apache POI >= 5.2.4 */ NullPointerException |
 				 IllegalArgumentException e) {
 			// expected
 		}

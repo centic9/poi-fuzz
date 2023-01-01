@@ -22,8 +22,6 @@ public class FuzzHSLF {
 		try (HSLFSlideShow slides = new HSLFSlideShow(new ByteArrayInputStream(input))) {
 			slides.write(NullOutputStream.NULL_OUTPUT_STREAM);
 		} catch (IOException | IllegalArgumentException | RecordFormatException |
-				/* can be removed with Apache POI >= 5.2.4 */ ClassCastException |
-				/* can be removed with Apache POI >= 5.2.4 */ NullPointerException |
 				 IllegalStateException | HSLFException | IndexOutOfBoundsException |
 				 BufferUnderflowException | POIXMLException | NoSuchElementException e) {
 			// expected here
@@ -32,8 +30,6 @@ public class FuzzHSLF {
 		try (HSLFSlideShowImpl slides = new HSLFSlideShowImpl(new ByteArrayInputStream(input))) {
 			slides.write(NullOutputStream.NULL_OUTPUT_STREAM);
 		} catch (IOException | IllegalArgumentException | RecordFormatException |
-				/* can be removed with Apache POI >= 5.2.4 */ ClassCastException |
-				/* can be removed with Apache POI >= 5.2.4 */ NullPointerException |
 				 IllegalStateException | HSLFException | IndexOutOfBoundsException |
 				 BufferUnderflowException | POIXMLException | NoSuchElementException e) {
 			// expected here
@@ -46,8 +42,6 @@ public class FuzzHSLF {
 				Fuzz.checkExtractor(extractor);
 			}
 		} catch (IOException | IllegalArgumentException | RecordFormatException |
-				/* can be removed with Apache POI >= 5.2.4 */ ClassCastException |
-				/* can be removed with Apache POI >= 5.2.4 */ NullPointerException |
 				 IllegalStateException | HSLFException | IndexOutOfBoundsException |
 				 BufferUnderflowException | POIXMLException | NoSuchElementException e) {
 			// expected here
