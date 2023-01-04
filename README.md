@@ -15,14 +15,14 @@ tries to trigger unexpected exceptions and unbounded memory allocations.
 
 # Note
 
-Currently the build.gradle file is configured to use POI jars from a local 
+Currently the build.gradle file is usually configured to use POI jars from a local 
 build as otherwise some unexpected types of Exceptions are still thrown in current
 release 5.2.3. 
 
-You can adjust build.gradle to point to your local build or adjust it to use 
-the released binaries again.
+You can adjust build.gradle to point to your local build to run fuzzing without
+triggering such exceptions.
 
-We should be able to revert this with the next version of Apache POI.
+This should not be necessary any more with the version of Apache POI after 5.2.3.
 
 # How to fuzz
 
