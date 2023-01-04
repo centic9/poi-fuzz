@@ -13,6 +13,17 @@ focuses on the following:
 Apache POI does not use JNI or native code, therefore the fuzzing target mainly
 tries to trigger unexpected exceptions and unbounded memory allocations.
 
+# Note
+
+Currently the build.gradle file is configured to use POI jars from a local 
+build as otherwise some unexpected types of Exceptions are still thrown in current
+release 5.2.3. 
+
+You can adjust build.gradle to point to your local build or adjust it to use 
+the released binaries again.
+
+We should be able to revert this with the next version of Apache POI.
+
 # How to fuzz
 
 Build the fuzzing target:
@@ -150,7 +161,7 @@ the path to the jar-files accordingly.
 
 # License
 
-Copyright 2021 Dominik Stadler
+Copyright 2021-2023 Dominik Stadler
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
