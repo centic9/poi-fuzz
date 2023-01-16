@@ -14,8 +14,7 @@ import org.xml.sax.SAXException;
 
 public class FuzzXLSX2CSV {
 	public static void fuzzerTestOneInput(byte[] input) {
-			InputStream in = new ByteArrayInputStream(input);
-		try {
+		try (InputStream in = new ByteArrayInputStream(input)) {
 			OPCPackage p = OPCPackage.open(in);
 			XLSX2CSV xlsx2csv = new XLSX2CSV(p, new NullPrintStream(), 5);
 			xlsx2csv.process();
