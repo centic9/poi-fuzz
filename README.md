@@ -103,6 +103,14 @@ or allows to run it in a container-based infrastructure.
     cp corpus/spreadsheet/* corpusXSSF/
     ./gradlew shadowJar && ./jazzer --cp=build/libs/poi-fuzz-all.jar --instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.** --target_class=org.dstadler.poi.fuzz.FuzzXSSF -rss_limit_mb=4096 corpusXSSF
 
+## XLSX2CSV
+
+Can re-use XLSX-corpus as the same files are processed here
+
+    mkdir corpusXSSF
+    cp corpus/spreadsheet/* corpusXSSF/
+    ./gradlew shadowJar && ./jazzer --cp=build/libs/poi-fuzz-all.jar --instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.** --target_class=org.dstadler.poi.fuzz.FuzzXLSX2CSV -rss_limit_mb=4096 corpusXSSF
+
 ## XWPF
 
     mkdir corpusXWPF

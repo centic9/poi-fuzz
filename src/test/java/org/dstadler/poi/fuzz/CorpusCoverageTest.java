@@ -59,7 +59,7 @@ public class CorpusCoverageTest {
 	@MethodSource("files")
 	void testCorpusFileOne(File file) throws IOException {
 		System.err.println("Running file " + file + " in thread " + Thread.currentThread().getName());
-		FuzzHDGF.fuzzerTestOneInput(FileUtils.readFileToByteArray(file));
+		FuzzXLSX2CSV.fuzzerTestOneInput(FileUtils.readFileToByteArray(file));
 	}
 
 	private static Stream<Arguments> files() {

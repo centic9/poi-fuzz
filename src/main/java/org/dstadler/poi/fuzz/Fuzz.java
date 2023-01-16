@@ -59,6 +59,8 @@ public class Fuzz {
 
 		FuzzVisio.fuzzerTestOneInput(input);
 
+		FuzzXLSX2CSV.fuzzerTestOneInput(input);
+
 		FuzzXSLF.fuzzerTestOneInput(input);
 
 		FuzzXSSF.fuzzerTestOneInput(input);

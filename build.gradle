@@ -13,6 +13,7 @@ dependencies {
 	implementation 'org.apache.poi:poi:5.2.3'
 	implementation 'org.apache.poi:poi-scratchpad:5.2.3'
 	implementation 'org.apache.poi:poi-ooxml:5.2.3'
+	implementation 'org.apache.poi:poi-examples:5.2.3'
 
 	/*
 	implementation 'org.apache.commons:commons-collections4:4.4'
@@ -24,6 +25,7 @@ dependencies {
 	implementation files('/opt/poi/build/dist/maven/poi/poi-5.2.4-SNAPSHOT.jar')
 	implementation files('/opt/poi/build/dist/maven/poi-ooxml/poi-ooxml-5.2.4-SNAPSHOT.jar')
 	implementation files('/opt/poi/build/dist/maven/poi-scratchpad/poi-scratchpad-5.2.4-SNAPSHOT.jar')
+	implementation files('/opt/poi/build/dist/maven/poi-examples/poi-examples-5.2.4-SNAPSHOT.jar')
 	implementation files('/opt/poi/build/dist/maven/poi-ooxml-lite/poi-ooxml-lite-5.2.4-SNAPSHOT.jar')
 	//implementation files('/opt/poi/build/dist/maven/poi-ooxml-full/poi-ooxml-full-5.2.4-SNAPSHOT.jar')
 	*/
