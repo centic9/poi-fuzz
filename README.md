@@ -147,6 +147,11 @@ Can re-use XLSX-corpus as the same files are processed here
     cp -a corpus/publisher corpusHPBF/
     ./gradlew shadowJar && ./jazzer --cp=build/libs/poi-fuzz-all.jar --instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.** --target_class=org.dstadler.poi.fuzz.FuzzHPBF -rss_limit_mb=4096 corpusHPBF
 
+## EncryptDecrypt
+
+    mkdir corpusEncryptDecrypt
+    ./gradlew shadowJar && ./jazzer --cp=build/libs/poi-fuzz-all.jar --instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.** --target_class=org.dstadler.poi.fuzz.FuzzEncryptDecrypt -rss_limit_mb=4096 corpusEncryptDecrypt
+
 # Fuzzing with locally compiled Apache POI libraries
 
 If you want to test with a more recent version of Apache POI, you can add 
