@@ -152,6 +152,8 @@ Can re-use XLSX-corpus as the same files are processed here
 If you want to test with a more recent version of Apache POI, you can add 
 locally compiled jars of Apache POI to the front `--cp` commandline argument (delimited with colon ':')
 
+Another possibility is to switch to the local files in `build.gradle`
+
 When using IntelliJ IDEA there is a ready made run-configuration, just adjust
 the path to the jar-files accordingly.
 
