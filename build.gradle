@@ -30,7 +30,7 @@ dependencies {
 	//implementation files('/opt/poi/build/dist/maven/poi-ooxml-full/poi-ooxml-full-5.2.4-SNAPSHOT.jar')
 	*/
 
-	implementation 'com.code-intelligence:jazzer-api:0.17.1'
+	implementation 'com.code-intelligence:jazzer-api:0.19.0'
 	implementation 'commons-io:commons-io:2.13.0'
 
 	// for configuring log4j to be silent during fuzzing
