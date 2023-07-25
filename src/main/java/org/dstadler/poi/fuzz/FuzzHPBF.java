@@ -14,7 +14,7 @@ import org.apache.poi.util.RecordFormatException;
 public class FuzzHPBF {
 	public static void fuzzerTestOneInput(byte[] input) {
 		try (HPBFDocument wb = new HPBFDocument(new ByteArrayInputStream(input))) {
-			wb.write(NullOutputStream.NULL_OUTPUT_STREAM);
+			wb.write(NullOutputStream.INSTANCE);
 		} catch (IOException | IllegalArgumentException | RecordFormatException | IndexOutOfBoundsException |
 				 BufferUnderflowException | IllegalStateException | NoSuchElementException e) {
 			// expected here

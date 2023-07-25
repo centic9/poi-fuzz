@@ -16,7 +16,7 @@ import org.apache.poi.util.RecordFormatException;
 public class FuzzHSSF {
 	public static void fuzzerTestOneInput(byte[] input) {
 		try (HSSFWorkbook wb = new HSSFWorkbook(new ByteArrayInputStream(input))) {
-			wb.write(NullOutputStream.NULL_OUTPUT_STREAM);
+			wb.write(NullOutputStream.INSTANCE);
 		} catch (IOException | IllegalArgumentException | RecordFormatException | IllegalStateException |
 				 IndexOutOfBoundsException | RecordInputStream.LeftoverDataException |
 				 BufferUnderflowException | UnsupportedOperationException | NoSuchElementException |

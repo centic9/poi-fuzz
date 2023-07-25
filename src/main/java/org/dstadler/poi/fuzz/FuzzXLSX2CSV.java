@@ -16,7 +16,7 @@ public class FuzzXLSX2CSV {
 	public static void fuzzerTestOneInput(byte[] input) {
 		try (InputStream in = new ByteArrayInputStream(input)) {
 			OPCPackage p = OPCPackage.open(in);
-			XLSX2CSV xlsx2csv = new XLSX2CSV(p, new NullPrintStream(), 5);
+			XLSX2CSV xlsx2csv = new XLSX2CSV(p, NullPrintStream.INSTANCE, 5);
 			xlsx2csv.process();
 		} catch (IOException | OpenXML4JException | SAXException |
 				 POIXMLException | RecordFormatException |

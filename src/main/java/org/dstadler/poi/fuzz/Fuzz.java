@@ -79,7 +79,7 @@ public class Fuzz {
 				}
 			}
 
-			wb.write(NullOutputStream.NULL_OUTPUT_STREAM);
+			wb.write(NullOutputStream.INSTANCE);
 		} catch (IOException | POIXMLException | IllegalArgumentException | RecordFormatException |
 				 IndexOutOfBoundsException | HSLFException | RecordInputStream.LeftoverDataException |
 				 IllegalStateException | BufferUnderflowException | OpenXML4JRuntimeException |

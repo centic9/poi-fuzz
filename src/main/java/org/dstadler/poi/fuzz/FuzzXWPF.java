@@ -13,7 +13,7 @@ import org.apache.poi.xwpf.usermodel.XWPFDocument;
 public class FuzzXWPF {
 	public static void fuzzerTestOneInput(byte[] input) {
 		try (XWPFDocument doc = new XWPFDocument(new ByteArrayInputStream(input))) {
-			doc.write(NullOutputStream.NULL_OUTPUT_STREAM);
+			doc.write(NullOutputStream.INSTANCE);
 
 			try (XWPFWordExtractor extractor = new XWPFWordExtractor(doc)) {
 				Fuzz.checkExtractor(extractor);

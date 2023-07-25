@@ -19,10 +19,10 @@ public class FuzzHPSF {
 			fs.createDocumentInputStream(workbookName);
 
 			try (HPSFPropertiesOnlyDocument document = new HPSFPropertiesOnlyDocument(fs)) {
-				document.write(NullOutputStream.NULL_OUTPUT_STREAM);
+				document.write(NullOutputStream.INSTANCE);
 			}
 
-			fs.writeFilesystem(NullOutputStream.NULL_OUTPUT_STREAM);
+			fs.writeFilesystem(NullOutputStream.INSTANCE);
 		} catch (IOException | IllegalArgumentException | IllegalStateException | RecordFormatException |
 				 IndexOutOfBoundsException | BufferUnderflowException | NoSuchElementException e) {
 			// expected here

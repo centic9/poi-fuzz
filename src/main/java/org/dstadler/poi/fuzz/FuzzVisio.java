@@ -18,7 +18,7 @@ import org.apache.xmlbeans.impl.values.XmlValueOutOfRangeException;
 public class FuzzVisio {
 	public static void fuzzerTestOneInput(byte[] input) {
 		try (XmlVisioDocument visio = new XmlVisioDocument(new ByteArrayInputStream(input))) {
-			visio.write(NullOutputStream.NULL_OUTPUT_STREAM);
+			visio.write(NullOutputStream.INSTANCE);
 		} catch (IOException | POIXMLException | EmptyFileException | UnsupportedFileFormatException |
 				 BufferUnderflowException | RecordFormatException | OpenXML4JRuntimeException |
 				 XmlValueOutOfRangeException | NumberFormatException e) {

@@ -18,7 +18,7 @@ public class FuzzXSSF {
 	public static void fuzzerTestOneInput(byte[] input) {
 		try (XSSFWorkbook wb = new XSSFWorkbook(new ByteArrayInputStream(input))) {
 			try (SXSSFWorkbook swb = new SXSSFWorkbook(wb)) {
-				swb.write(NullOutputStream.NULL_OUTPUT_STREAM);
+				swb.write(NullOutputStream.INSTANCE);
 			}
 		} catch (IOException | POIXMLException | RecordFormatException | IllegalStateException |
 				 OpenXML4JRuntimeException | IllegalArgumentException | IndexOutOfBoundsException e) {

@@ -20,7 +20,7 @@ import org.apache.poi.util.RecordFormatException;
 public class FuzzHSLF {
 	public static void fuzzerTestOneInput(byte[] input) {
 		try (HSLFSlideShow slides = new HSLFSlideShow(new ByteArrayInputStream(input))) {
-			slides.write(NullOutputStream.NULL_OUTPUT_STREAM);
+			slides.write(NullOutputStream.INSTANCE);
 		} catch (IOException | IllegalArgumentException | RecordFormatException |
 				 IllegalStateException | HSLFException | IndexOutOfBoundsException |
 				 BufferUnderflowException | POIXMLException | NoSuchElementException e) {
@@ -28,7 +28,7 @@ public class FuzzHSLF {
 		}
 
 		try (HSLFSlideShowImpl slides = new HSLFSlideShowImpl(new ByteArrayInputStream(input))) {
-			slides.write(NullOutputStream.NULL_OUTPUT_STREAM);
+			slides.write(NullOutputStream.INSTANCE);
 		} catch (IOException | IllegalArgumentException | RecordFormatException |
 				 IllegalStateException | HSLFException | IndexOutOfBoundsException |
 				 BufferUnderflowException | POIXMLException | NoSuchElementException e) {

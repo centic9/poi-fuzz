@@ -15,7 +15,7 @@ import org.apache.poi.util.RecordFormatException;
 public class FuzzHWPF {
 	public static void fuzzerTestOneInput(byte[] input) {
 		try (HWPFDocument doc = new HWPFDocument(new ByteArrayInputStream(input))) {
-			doc.write(NullOutputStream.NULL_OUTPUT_STREAM);
+			doc.write(NullOutputStream.INSTANCE);
 		} catch (IOException | IllegalArgumentException | IndexOutOfBoundsException | BufferUnderflowException |
 				NoSuchElementException | RecordFormatException | IllegalStateException |
 				UnsupportedOperationException | NegativeArraySizeException e) {

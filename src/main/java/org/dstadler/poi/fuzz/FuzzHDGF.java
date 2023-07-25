@@ -14,7 +14,7 @@ import org.apache.poi.util.RecordFormatException;
 public class FuzzHDGF {
 	public static void fuzzerTestOneInput(byte[] input) {
 		try (HDGFDiagram visio = new HDGFDiagram(new POIFSFileSystem(new ByteArrayInputStream(input)))) {
-			visio.write(NullOutputStream.NULL_OUTPUT_STREAM);
+			visio.write(NullOutputStream.INSTANCE);
 
 			try (VisioTextExtractor extractor = new VisioTextExtractor(visio)) {
 				Fuzz.checkExtractor(extractor);

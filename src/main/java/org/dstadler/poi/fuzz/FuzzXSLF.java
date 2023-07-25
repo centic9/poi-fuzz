@@ -20,7 +20,7 @@ import org.apache.xmlbeans.XmlException;
 public class FuzzXSLF {
 	public static void fuzzerTestOneInput(byte[] input) {
 		try (XMLSlideShow slides = new XMLSlideShow(new ByteArrayInputStream(input))) {
-			slides.write(NullOutputStream.NULL_OUTPUT_STREAM);
+			slides.write(NullOutputStream.INSTANCE);
 		} catch (IOException | EmptyFileException | UnsupportedFileFormatException | POIXMLException |
 				 RecordFormatException | OpenXML4JRuntimeException e) {
 			// expected here
@@ -28,7 +28,7 @@ public class FuzzXSLF {
 
 		try (OPCPackage pkg = OPCPackage.open(new ByteArrayInputStream(input))) {
 			try (XSLFSlideShow slides = new XSLFSlideShow(pkg)) {
-				slides.write(NullOutputStream.NULL_OUTPUT_STREAM);
+				slides.write(NullOutputStream.INSTANCE);
 			}
 		} catch (IOException | OpenXML4JException | XmlException | IllegalArgumentException | POIXMLException |
 				 RecordFormatException | IllegalStateException | OpenXML4JRuntimeException e) {
