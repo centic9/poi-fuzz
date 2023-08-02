@@ -94,13 +94,13 @@ or allows to run it in a container-based infrastructure.
 ## XSLF
 
     mkdir corpusXSLF
-    cp corpus/slideshow/* corpusXSLF/
+    cp corpus/slideshow/* corpus/integration/*.pptx corpusXSLF/
     ./gradlew shadowJar && ./jazzer --cp=build/libs/poi-fuzz-all.jar --instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.** --target_class=org.dstadler.poi.fuzz.FuzzXSLF -rss_limit_mb=4096 corpusXSLF
 
 ## XSSF
 
     mkdir corpusXSSF
-    cp corpus/spreadsheet/* corpusXSSF/
+    cp corpus/spreadsheet/* corpus/integration/*.xlsx corpusXSSF/
     ./gradlew shadowJar && ./jazzer --cp=build/libs/poi-fuzz-all.jar --instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.** --target_class=org.dstadler.poi.fuzz.FuzzXSSF -rss_limit_mb=4096 corpusXSSF
 
 ## XLSX2CSV
@@ -114,7 +114,7 @@ Can re-use XLSX-corpus as the same files are processed here
 ## XWPF
 
     mkdir corpusXWPF
-    cp corpus/document/* corpusXWPF/
+    cp corpus/document/* corpus/integration/*.docx corpusXWPF/
     ./gradlew shadowJar && ./jazzer --cp=build/libs/poi-fuzz-all.jar --instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.** --target_class=org.dstadler.poi.fuzz.FuzzXWPF -rss_limit_mb=4096 corpusXWPF
 
 ## Visio
@@ -138,13 +138,13 @@ Can re-use XLSX-corpus as the same files are processed here
 ## HMEF
 
     mkdir corpusHMEF
-    cp -a corpus/hmef corpusHMEF/
+    cp -a corpus/hmef/* corpusHMEF/
     ./gradlew shadowJar && ./jazzer --cp=build/libs/poi-fuzz-all.jar --instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.** --target_class=org.dstadler.poi.fuzz.FuzzHMEF -rss_limit_mb=4096 corpusHMEF
 
 ## HPBF
 
     mkdir corpusHPBF
-    cp -a corpus/publisher corpusHPBF/
+    cp -a corpus/publisher/* corpusHPBF/
     ./gradlew shadowJar && ./jazzer --cp=build/libs/poi-fuzz-all.jar --instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.** --target_class=org.dstadler.poi.fuzz.FuzzHPBF -rss_limit_mb=4096 corpusHPBF
 
 ## EncryptDecrypt
