@@ -51,6 +51,8 @@ public class Fuzz {
 
 		FuzzHSLF.fuzzerTestOneInput(input);
 
+		FuzzHSMF.fuzzerTestOneInput(input);
+
 		FuzzHSSF.fuzzerTestOneInput(input);
 
 		FuzzHWPF.fuzzerTestOneInput(input);

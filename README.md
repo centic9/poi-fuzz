@@ -147,6 +147,12 @@ Can re-use XLSX-corpus as the same files are processed here
     cp -a corpus/publisher/* corpusHPBF/
     ./gradlew shadowJar && ./jazzer --cp=build/libs/poi-fuzz-all.jar --instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.** --target_class=org.dstadler.poi.fuzz.FuzzHPBF -rss_limit_mb=4096 corpusHPBF
 
+## HSMF
+
+    mkdir corpusHSMF
+    cp -a corpus/hsmf/* corpusHSMF/
+    ./gradlew shadowJar && ./jazzer --cp=build/libs/poi-fuzz-all.jar --instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.** --target_class=org.dstadler.poi.fuzz.FuzzHSMF -rss_limit_mb=2048 corpusHSMF
+
 ## EncryptDecrypt
 
     mkdir corpusEncryptDecrypt
