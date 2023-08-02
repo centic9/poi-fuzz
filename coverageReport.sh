@@ -37,6 +37,7 @@ rm -r com
 rm -r org/openxmlformats
 rm -r org/etsi
 rm -r org/w3
+rm -r org/apache/poi/examples
 
 cd -
 
