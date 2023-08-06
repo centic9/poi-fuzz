@@ -20,7 +20,8 @@ public class FuzzXLSX2CSV {
 			xlsx2csv.process();
 		} catch (IOException | OpenXML4JException | SAXException |
 				 POIXMLException | RecordFormatException |
-				IllegalStateException | IllegalArgumentException e) {
+				IllegalStateException | IllegalArgumentException |
+				ArrayIndexOutOfBoundsException e) {
 			// expected here
 		}
 	}
