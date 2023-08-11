@@ -85,7 +85,6 @@ echo
 echo Creating JaCoCo report
 java -jar build/jacococli.jar report build/jacoco/corpus*.exec \
  --classfiles build/poifiles \
- --classfiles build/classes/java/main \
  --sourcefiles /opt/apache/poi/git-svn/poi/src/main/java \
  --sourcefiles /opt/apache/poi/git-svn/poi-ooxml/src/main/java \
  --sourcefiles /opt/apache/poi/git-svn/poi-ooxml-lite/src/main/java \
