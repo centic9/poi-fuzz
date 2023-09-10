@@ -30,10 +30,6 @@ import org.apache.poi.util.RecordFormatException;
  * supported file-formats.
  *
  * It catches all exceptions that are currently expected.
- *
- * Some are marked as to-do where Apache POI should actually do
- * exception handling differently, e.g. wrapping internal exceptions
- * or providing more explicit exceptions instead of general RuntimeExceptions
  */
 public class Fuzz {
 	public static void fuzzerTestOneInput(byte[] input) {
@@ -98,6 +94,13 @@ public class Fuzz {
 	public static void checkExtractor(byte[] input) {
 		try (POITextExtractor extractor = ExtractorFactory.createExtractor(new ByteArrayInputStream(input))) {
 			checkExtractor(extractor);
+		} catch (UnsatisfiedLinkError e) {
+			// only allow one missing library related to Font/Color-handling
+			// we cannot install additional libraries in oss-fuzz images currently
+			// see https://github.com/google/oss-fuzz/issues/7380
+			if (!e.getMessage().contains("libawt_xawt.so")) {
+				throw e;
+			}
 		} catch (IOException | POIXMLException | IllegalArgumentException | RecordFormatException |
 				 IndexOutOfBoundsException | HSLFException | RecordInputStream.LeftoverDataException |
 				 NoSuchElementException | IllegalStateException | ArithmeticException |
