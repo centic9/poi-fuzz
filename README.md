@@ -47,7 +47,11 @@ Unpack the archive:
 
 Invoke the fuzzing:
 
-    ./jazzer --cp=build/libs/poi-fuzz-all.jar --instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.** --target_class=org.dstadler.poi.fuzz.Fuzz -rss_limit_mb=4096 corpus
+    ./jazzer --cp=build/libs/poi-fuzz-all.jar "--instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.**" --target_class=org.dstadler.poi.fuzz.Fuzz -rss_limit_mb=4096 corpus
+
+On Windows/Cygwin use the following:
+
+    ./jazzer --cp=build/libs/poi-fuzz-all.jar "--instrumentation_includes=org.apache.poi.**;org.apache.xmlbeans.**" --target_class=org.dstadler.poi.fuzz.Fuzz -rss_limit_mb=4096 corpus
 
 In this mode Jazzer will stop whenever it detects an unexpected exception 
 or crashes.
@@ -63,7 +67,7 @@ You can use a ready-made Docker image for running the fuzzing in a container.
 This shields the fuzzing from performing unexpected actions on your local machine
 or allows to run it in a container-based infrastructure.
 
-    docker run -v `pwd`:/fuzzing cifuzz/jazzer --cp=build/libs/poi-fuzz-all.jar --instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.** --target_class=org.dstadler.poi.fuzz.Fuzz -rss_limit_mb=4096 corpus
+    docker run -v `pwd`:/fuzzing cifuzz/jazzer --cp=build/libs/poi-fuzz-all.jar "--instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.**" --target_class=org.dstadler.poi.fuzz.Fuzz -rss_limit_mb=4096 corpus
 
 # Fuzzing single file formats
 
@@ -71,37 +75,37 @@ or allows to run it in a container-based infrastructure.
 
     mkdir corpusHSLF
     cp corpus/slideshow/*.ppt corpusHSLF/
-    ./gradlew shadowJar && ./jazzer --cp=build/libs/poi-fuzz-all.jar --instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.** --target_class=org.dstadler.poi.fuzz.FuzzHSLF -rss_limit_mb=4096 corpusHSLF
+    ./gradlew shadowJar && ./jazzer --cp=build/libs/poi-fuzz-all.jar "--instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.**" --target_class=org.dstadler.poi.fuzz.FuzzHSLF -rss_limit_mb=4096 corpusHSLF
 
 ## HSSF
 
     mkdir corpusHSSF
     cp corpus/spreadsheet/*.xls corpusHSSF/
-    ./gradlew shadowJar && ./jazzer --cp=build/libs/poi-fuzz-all.jar --instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.** --target_class=org.dstadler.poi.fuzz.FuzzHSSF -rss_limit_mb=4096 corpusHSSF
+    ./gradlew shadowJar && ./jazzer --cp=build/libs/poi-fuzz-all.jar "--instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.**" --target_class=org.dstadler.poi.fuzz.FuzzHSSF -rss_limit_mb=4096 corpusHSSF
 
 ## HWPF
 
     mkdir corpusHWPF
     cp corpus/document/*.doc corpus/document/*.DOC corpusHWPF/
-    ./gradlew shadowJar && ./jazzer --cp=build/libs/poi-fuzz-all.jar --instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.** --target_class=org.dstadler.poi.fuzz.FuzzHWPF -rss_limit_mb=4096 corpusHWPF
+    ./gradlew shadowJar && ./jazzer --cp=build/libs/poi-fuzz-all.jar "--instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.**" --target_class=org.dstadler.poi.fuzz.FuzzHWPF -rss_limit_mb=4096 corpusHWPF
 
 ## OldExcel
 
     mkdir corpusOldExcel
     cp corpus/spreadsheet/*.xls corpus/spreadsheet/*.bin corpusOldExcel/
-    ./gradlew shadowJar && ./jazzer --cp=build/libs/poi-fuzz-all.jar --instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.** --target_class=org.dstadler.poi.fuzz.FuzzOldExcel -rss_limit_mb=4096 corpusOldExcel
+    ./gradlew shadowJar && ./jazzer --cp=build/libs/poi-fuzz-all.jar "--instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.**" --target_class=org.dstadler.poi.fuzz.FuzzOldExcel -rss_limit_mb=4096 corpusOldExcel
 
 ## XSLF
 
     mkdir corpusXSLF
     cp corpus/slideshow/* corpus/integration/*.pptx corpusXSLF/
-    ./gradlew shadowJar && ./jazzer --cp=build/libs/poi-fuzz-all.jar --instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.** --target_class=org.dstadler.poi.fuzz.FuzzXSLF -rss_limit_mb=4096 corpusXSLF
+    ./gradlew shadowJar && ./jazzer --cp=build/libs/poi-fuzz-all.jar "--instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.**" --target_class=org.dstadler.poi.fuzz.FuzzXSLF -rss_limit_mb=4096 corpusXSLF
 
 ## XSSF
 
     mkdir corpusXSSF
     cp corpus/spreadsheet/* corpus/integration/*.xlsx corpusXSSF/
-    ./gradlew shadowJar && ./jazzer --cp=build/libs/poi-fuzz-all.jar --instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.** --target_class=org.dstadler.poi.fuzz.FuzzXSSF -rss_limit_mb=4096 corpusXSSF
+    ./gradlew shadowJar && ./jazzer --cp=build/libs/poi-fuzz-all.jar "--instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.**" --target_class=org.dstadler.poi.fuzz.FuzzXSSF -rss_limit_mb=4096 corpusXSSF
 
 ## XLSX2CSV
 
@@ -109,54 +113,54 @@ Can re-use XLSX-corpus as the same files are processed here
 
     mkdir corpusXSSF
     cp corpus/spreadsheet/* corpusXSSF/
-    ./gradlew shadowJar && ./jazzer --cp=build/libs/poi-fuzz-all.jar --instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.** --target_class=org.dstadler.poi.fuzz.FuzzXLSX2CSV -rss_limit_mb=4096 corpusXSSF
+    ./gradlew shadowJar && ./jazzer --cp=build/libs/poi-fuzz-all.jar "--instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.**" --target_class=org.dstadler.poi.fuzz.FuzzXLSX2CSV -rss_limit_mb=4096 corpusXSSF
 
 ## XWPF
 
     mkdir corpusXWPF
     cp corpus/document/* corpus/integration/*.docx corpusXWPF/
-    ./gradlew shadowJar && ./jazzer --cp=build/libs/poi-fuzz-all.jar --instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.** --target_class=org.dstadler.poi.fuzz.FuzzXWPF -rss_limit_mb=4096 corpusXWPF
+    ./gradlew shadowJar && ./jazzer --cp=build/libs/poi-fuzz-all.jar "--instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.**" --target_class=org.dstadler.poi.fuzz.FuzzXWPF -rss_limit_mb=4096 corpusXWPF
 
 ## Visio
 
     mkdir corpusVisio
     cp corpus/diagram/* corpusVisio/
-    ./gradlew shadowJar && ./jazzer --cp=build/libs/poi-fuzz-all.jar --instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.** --target_class=org.dstadler.poi.fuzz.FuzzVisio -rss_limit_mb=4096 corpusVisio
+    ./gradlew shadowJar && ./jazzer --cp=build/libs/poi-fuzz-all.jar "--instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.**" --target_class=org.dstadler.poi.fuzz.FuzzVisio -rss_limit_mb=4096 corpusVisio
 
 ## HDGF
 
     mkdir corpusHDGF
     cp corpus/diagram/*.vsd corpusHDGF/
-    ./gradlew shadowJar && ./jazzer --cp=build/libs/poi-fuzz-all.jar --instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.** --target_class=org.dstadler.poi.fuzz.FuzzHDGF -rss_limit_mb=4096 corpusHDGF
+    ./gradlew shadowJar && ./jazzer --cp=build/libs/poi-fuzz-all.jar "--instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.**" --target_class=org.dstadler.poi.fuzz.FuzzHDGF -rss_limit_mb=4096 corpusHDGF
 
 ## HPSF
 
     mkdir corpusHPSF
     cp corpus/hpsf/* corpusHPSF/
-    ./gradlew shadowJar && ./jazzer --cp=build/libs/poi-fuzz-all.jar --instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.** --target_class=org.dstadler.poi.fuzz.FuzzHPSF -rss_limit_mb=4096 corpusHPSF
+    ./gradlew shadowJar && ./jazzer --cp=build/libs/poi-fuzz-all.jar "--instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.**" --target_class=org.dstadler.poi.fuzz.FuzzHPSF -rss_limit_mb=4096 corpusHPSF
 
 ## HMEF
 
     mkdir corpusHMEF
     cp -a corpus/hmef/* corpusHMEF/
-    ./gradlew shadowJar && ./jazzer --cp=build/libs/poi-fuzz-all.jar --instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.** --target_class=org.dstadler.poi.fuzz.FuzzHMEF -rss_limit_mb=4096 corpusHMEF
+    ./gradlew shadowJar && ./jazzer --cp=build/libs/poi-fuzz-all.jar "--instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.**" --target_class=org.dstadler.poi.fuzz.FuzzHMEF -rss_limit_mb=4096 corpusHMEF
 
 ## HPBF
 
     mkdir corpusHPBF
     cp -a corpus/publisher/* corpusHPBF/
-    ./gradlew shadowJar && ./jazzer --cp=build/libs/poi-fuzz-all.jar --instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.** --target_class=org.dstadler.poi.fuzz.FuzzHPBF -rss_limit_mb=4096 corpusHPBF
+    ./gradlew shadowJar && ./jazzer --cp=build/libs/poi-fuzz-all.jar "--instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.**" --target_class=org.dstadler.poi.fuzz.FuzzHPBF -rss_limit_mb=4096 corpusHPBF
 
 ## HSMF
 
     mkdir corpusHSMF
     cp -a corpus/hsmf/* corpusHSMF/
-    ./gradlew shadowJar && ./jazzer --cp=build/libs/poi-fuzz-all.jar --instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.** --target_class=org.dstadler.poi.fuzz.FuzzHSMF -rss_limit_mb=2048 corpusHSMF
+    ./gradlew shadowJar && ./jazzer --cp=build/libs/poi-fuzz-all.jar "--instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.**" --target_class=org.dstadler.poi.fuzz.FuzzHSMF -rss_limit_mb=2048 corpusHSMF
 
 ## EncryptDecrypt
 
     mkdir corpusEncryptDecrypt
-    ./gradlew shadowJar && ./jazzer --cp=build/libs/poi-fuzz-all.jar --instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.** --target_class=org.dstadler.poi.fuzz.FuzzEncryptDecrypt -rss_limit_mb=4096 corpusEncryptDecrypt
+    ./gradlew shadowJar && ./jazzer --cp=build/libs/poi-fuzz-all.jar "--instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.**" --target_class=org.dstadler.poi.fuzz.FuzzEncryptDecrypt -rss_limit_mb=4096 corpusEncryptDecrypt
 
 # Fuzzing with locally compiled Apache POI libraries
 

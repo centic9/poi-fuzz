@@ -51,6 +51,16 @@ rmdir lib
 
 mkdir -p build/jacoco
 
+echo
+if [[ "$(uname -s)" == CYGWIN* ]]; then
+  echo "Running under Cygwin"
+  JAZZER_DELIMITER=":"
+  PATH_DELIMITER=";"
+else
+  JAZZER_DELIMITER="\\:"
+  PATH_DELIMITER=":"
+fi
+
 
 for i in `cd src/main/java/org/dstadler/poi/fuzz/ && ls Fuzz${ONE}*.java`; do
   CLASS=`echo $i | sed -e 's/.java//g'`
@@ -66,11 +76,11 @@ for i in `cd src/main/java/org/dstadler/poi/fuzz/ && ls Fuzz${ONE}*.java`; do
 
   # Run Jazzer with JaCoCo-Agent to produce coverage information
   ./jazzer \
-    --cp=build/poifiles:build/libs/poi-fuzz-all.jar \
-    --instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.** \
+    "--cp=build/poifiles${PATH_DELIMITER}build/libs/poi-fuzz-all.jar" \
+    "--instrumentation_includes=org.apache.poi.**${PATH_DELIMITER}org.apache.xmlbeans.**" \
     --target_class=org.dstadler.poi.fuzz.${CLASS} \
     --nohooks \
-    --jvm_args="-XX\\:-OmitStackTraceInFastThrow:-javaagent\\:build/jacocoagent.jar=destfile=build/jacoco/${CORPUS}.exec" \
+    --jvm_args="-javaagent${JAZZER_DELIMITER}build/jacocoagent.jar=destfile=build/jacoco/${CORPUS}.exec" \
     -rss_limit_mb=8192 \
     -runs=0 \
     ${CORPUS}

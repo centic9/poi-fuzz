@@ -8,6 +8,7 @@ corpus*/
 
 # Jazzer and JaCoCo application files
 /jazzer
+/jazzer.exe
 /jazzer_agent_deploy.jar
 /jazzer_api_deploy.jar
 /jazzer-*.tar.gz
