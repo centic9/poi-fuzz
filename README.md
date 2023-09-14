@@ -109,7 +109,7 @@ or allows to run it in a container-based infrastructure.
 
 ## XLSX2CSV
 
-Can re-use XLSX-corpus as the same files are processed here
+Can re-use XSSF-corpus as the same files are processed here
 
     mkdir corpusXSSF
     cp corpus/spreadsheet/* corpusXSSF/
