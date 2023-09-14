@@ -68,7 +68,7 @@ for i in `cd src/main/java/org/dstadler/poi/fuzz/ && ls Fuzz${ONE}*.java`; do
 
   # no separate corpus for this one
   if [ "${CLASS}" == FuzzXLSX2CSV ]; then
-    continue
+    CORPUS=corpusXSSF
   fi
 
   echo
