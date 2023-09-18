@@ -30,7 +30,7 @@ dependencies {
 	//implementation files('/opt/poi/build/dist/maven/poi-ooxml-full/poi-ooxml-full-5.2.4-SNAPSHOT.jar')
 	*/
 
-	implementation 'com.code-intelligence:jazzer-api:0.19.0'
+	implementation 'com.code-intelligence:jazzer-api:0.20.1'
 	implementation 'commons-io:commons-io:2.13.0'
 
 	// for configuring log4j to be silent during fuzzing
@@ -40,7 +40,7 @@ dependencies {
 	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
 	testImplementation 'org.junit.jupiter:junit-jupiter-params:5.10.0'
 	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
-	testImplementation 'org.mockito:mockito-core:5.3.1'
+	testImplementation 'org.mockito:mockito-core:5.5.0'
 }
 
 test {
