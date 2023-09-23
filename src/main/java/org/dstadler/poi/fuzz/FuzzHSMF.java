@@ -32,9 +32,6 @@ public class FuzzHSMF {
 				 RecordFormatException | IndexOutOfBoundsException | NoSuchElementException |
 				 BufferUnderflowException | IllegalStateException e) {
 			// expected here
-		} catch (ClassCastException e) {
-			// TODO: can be removed in versions > 5.2.3
 		}
-
 	}
 }
