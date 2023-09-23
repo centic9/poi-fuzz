@@ -51,7 +51,7 @@ wrapper {
 	gradleVersion = '7.6.1'
 }
 
-task getDeps(type: Copy) {
+tasks.register('getDeps', Copy) {
 	from sourceSets.main.runtimeClasspath
 	into 'build/runtime/'
 }
