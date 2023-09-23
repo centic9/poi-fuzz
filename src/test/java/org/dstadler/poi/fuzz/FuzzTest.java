@@ -56,7 +56,10 @@ class FuzzTest {
 	public void testOOM() throws IOException {
 		//File file = new File("./Crash_f6febecb9c9aede225616731e0d0174d1b91fe52.java");
 		int i = 1;
-		for (File file : new File("corpusXSSF").listFiles()) {
+		File corpusDir = new File("corpusXSSF");
+		File[] files = corpusDir.listFiles();
+		assertNotNull(files);
+		for (File file : files) {
 			byte[] input = FileUtils.readFileToByteArray(file);
 			System.out.println(i + ": Processing " + file.getName() + " with " + input.length + " bytes");
 			FuzzXLSX2CSV.fuzzerTestOneInput(input);
