@@ -10,10 +10,10 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.apache.poi:poi:5.2.3'
-	implementation 'org.apache.poi:poi-scratchpad:5.2.3'
-	implementation 'org.apache.poi:poi-ooxml:5.2.3'
-	implementation 'org.apache.poi:poi-examples:5.2.3'
+	implementation 'org.apache.poi:poi:5.2.4'
+	implementation 'org.apache.poi:poi-scratchpad:5.2.4'
+	implementation 'org.apache.poi:poi-ooxml:5.2.4'
+	implementation 'org.apache.poi:poi-examples:5.2.4'
 
 	/*
 	implementation 'org.apache.commons:commons-collections4:4.4'
@@ -22,12 +22,12 @@ dependencies {
 	implementation 'com.zaxxer:SparseBitSet:1.2'
 	implementation 'com.github.virtuald:curvesapi:1.07'
 	implementation 'org.apache.xmlbeans:xmlbeans:5.1.1'
-	implementation files('/opt/poi/build/dist/maven/poi/poi-5.2.4-SNAPSHOT.jar')
-	implementation files('/opt/poi/build/dist/maven/poi-ooxml/poi-ooxml-5.2.4-SNAPSHOT.jar')
-	implementation files('/opt/poi/build/dist/maven/poi-scratchpad/poi-scratchpad-5.2.4-SNAPSHOT.jar')
-	implementation files('/opt/poi/build/dist/maven/poi-examples/poi-examples-5.2.4-SNAPSHOT.jar')
-	implementation files('/opt/poi/build/dist/maven/poi-ooxml-lite/poi-ooxml-lite-5.2.4-SNAPSHOT.jar')
-	//implementation files('/opt/poi/build/dist/maven/poi-ooxml-full/poi-ooxml-full-5.2.4-SNAPSHOT.jar')
+	implementation files('/opt/poi/build/dist/maven/poi/poi-5.2.5-SNAPSHOT.jar')
+	implementation files('/opt/poi/build/dist/maven/poi-ooxml/poi-ooxml-5.2.5-SNAPSHOT.jar')
+	implementation files('/opt/poi/build/dist/maven/poi-scratchpad/poi-scratchpad-5.2.5-SNAPSHOT.jar')
+	implementation files('/opt/poi/build/dist/maven/poi-examples/poi-examples-5.2.5-SNAPSHOT.jar')
+	implementation files('/opt/poi/build/dist/maven/poi-ooxml-lite/poi-ooxml-lite-5.2.5-SNAPSHOT.jar')
+	//implementation files('/opt/poi/build/dist/maven/poi-ooxml-full/poi-ooxml-full-5.2.5-SNAPSHOT.jar')
 	*/
 
 	implementation 'com.code-intelligence:jazzer-api:0.20.1'
