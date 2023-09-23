@@ -51,10 +51,17 @@ class FuzzTest {
 		assertNotNull(section);
 	}
 
-	@Disabled("Local test for verifying an OOM")
+	@Disabled("Local test for verifying reproducing test-cases")
 	@Test
 	public void testOOM() throws IOException {
-		FuzzHPBF.fuzzerTestOneInput(FileUtils.readFileToByteArray(new File("./oom-d89e5a2852e34da7dfc090fae0f1d96d4405db47")));
+		//File file = new File("./Crash_f6febecb9c9aede225616731e0d0174d1b91fe52.java");
+		int i = 1;
+		for (File file : new File("corpusXSSF").listFiles()) {
+			byte[] input = FileUtils.readFileToByteArray(file);
+			System.out.println(i + ": Processing " + file.getName() + " with " + input.length + " bytes");
+			FuzzXLSX2CSV.fuzzerTestOneInput(input);
+			i++;
+		}
 	}
 
 	@Disabled("Local test for verifying a slow run")
