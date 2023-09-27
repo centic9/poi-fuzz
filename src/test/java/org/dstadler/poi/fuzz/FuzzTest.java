@@ -54,7 +54,15 @@ class FuzzTest {
 	@Disabled("Local test for verifying reproducing test-cases")
 	@Test
 	public void testOOM() throws IOException {
-		//File file = new File("./Crash_f6febecb9c9aede225616731e0d0174d1b91fe52.java");
+		File file = new File("/Crash_f6febecb9c9aede225616731e0d0174d1b91fe52.java");
+		byte[] input = FileUtils.readFileToByteArray(file);
+		System.out.println("Processing " + file.getName() + " with " + input.length + " bytes");
+		FuzzHDGF.fuzzerTestOneInput(input);
+	}
+
+	@Disabled("Local test for verifying reproducing test-cases")
+	@Test
+	public void testOOMMultiple() throws IOException {
 		int i = 1;
 		File corpusDir = new File("corpusXSSF");
 		File[] files = corpusDir.listFiles();
@@ -62,7 +70,7 @@ class FuzzTest {
 		for (File file : files) {
 			byte[] input = FileUtils.readFileToByteArray(file);
 			System.out.println(i + ": Processing " + file.getName() + " with " + input.length + " bytes");
-			FuzzXLSX2CSV.fuzzerTestOneInput(input);
+			FuzzHDGF.fuzzerTestOneInput(input);
 			i++;
 		}
 	}
