@@ -22,7 +22,7 @@ public class FuzzHPBF {
 
 		try {
 			try (PublisherTextExtractor extractor = new PublisherTextExtractor (
-							new POIFSFileSystem(new ByteArrayInputStream(input)).getRoot())) {
+					new POIFSFileSystem(new ByteArrayInputStream(input)).getRoot())) {
 				Fuzz.checkExtractor(extractor);
 			}
 		} catch (IOException | IllegalArgumentException | RecordFormatException | IndexOutOfBoundsException |

@@ -19,9 +19,7 @@ public class FuzzHSMF {
 			mapi.getMessageDate();
 
 			AttachmentChunks[] attachments = mapi.getAttachmentFiles();
-
 			for (AttachmentChunks attachment : attachments) {
-
 				DirectoryChunk chunkDirectory = attachment.getAttachmentDirectory();
 				if (chunkDirectory != null) {
 					MAPIMessage attachmentMSG = chunkDirectory.getAsEmbeddedMessage();

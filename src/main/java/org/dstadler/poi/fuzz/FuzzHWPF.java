@@ -31,7 +31,7 @@ public class FuzzHWPF {
 		} catch (IOException | IllegalArgumentException | IndexOutOfBoundsException | BufferUnderflowException |
 				NoSuchElementException | RecordFormatException | IllegalStateException |
 				DocumentFormatException | UnsupportedOperationException | NegativeArraySizeException |
-				 RecordInputStream.LeftoverDataException e) {
+				RecordInputStream.LeftoverDataException e) {
 			// expected here
 		}
 	}

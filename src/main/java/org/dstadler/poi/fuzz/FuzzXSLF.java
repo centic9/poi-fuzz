@@ -4,8 +4,6 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
 import org.apache.commons.io.output.NullOutputStream;
-import org.apache.poi.EmptyFileException;
-import org.apache.poi.UnsupportedFileFormatException;
 import org.apache.poi.ooxml.POIXMLException;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.openxml4j.exceptions.OpenXML4JException;
@@ -21,8 +19,8 @@ public class FuzzXSLF {
 	public static void fuzzerTestOneInput(byte[] input) {
 		try (XMLSlideShow slides = new XMLSlideShow(new ByteArrayInputStream(input))) {
 			slides.write(NullOutputStream.INSTANCE);
-		} catch (IOException | EmptyFileException | UnsupportedFileFormatException | POIXMLException |
-				 RecordFormatException | OpenXML4JRuntimeException | IndexOutOfBoundsException e) {
+		} catch (IOException | POIXMLException | RecordFormatException | OpenXML4JRuntimeException |
+				 IndexOutOfBoundsException | IllegalArgumentException e) {
 			// expected here
 		}
 
