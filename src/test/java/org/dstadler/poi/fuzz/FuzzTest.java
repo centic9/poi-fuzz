@@ -86,4 +86,10 @@ class FuzzTest {
 			System.out.println("Took " + (System.currentTimeMillis() - start));
 		}
 	}
+
+	@Disabled("Local test for verifying a NullPointerException")
+	@Test
+	public void testNPE() throws IOException {
+		FuzzHSSF.fuzzerTestOneInput(FileUtils.readFileToByteArray(new File("clusterfuzz-testcase-minimized-POIHSSFFuzzer-5816431116615680.xls")));
+	}
 }
