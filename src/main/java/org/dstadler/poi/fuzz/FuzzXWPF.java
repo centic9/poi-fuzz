@@ -12,6 +12,10 @@ import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 
 public class FuzzXWPF {
+	public static void fuzzerInitialize() {
+		Fuzz.adjustLimits();
+	}
+
 	@SuppressWarnings("ResultOfMethodCallIgnored")
 	public static void fuzzerTestOneInput(byte[] input) {
 		try (XWPFDocument doc = new XWPFDocument(new ByteArrayInputStream(input))) {

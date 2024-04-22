@@ -7,6 +7,10 @@ import org.apache.poi.hmef.HMEFMessage;
 import org.apache.poi.util.RecordFormatException;
 
 public class FuzzHMEF {
+	public static void fuzzerInitialize() {
+		Fuzz.adjustLimits();
+	}
+
 	public static void fuzzerTestOneInput(byte[] input) {
 		try {
 			HMEFMessage msg = new HMEFMessage(new ByteArrayInputStream(input));

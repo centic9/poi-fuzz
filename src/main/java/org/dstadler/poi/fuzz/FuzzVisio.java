@@ -13,12 +13,16 @@ import org.apache.poi.util.RecordFormatException;
 import org.apache.poi.xdgf.usermodel.XmlVisioDocument;
 
 public class FuzzVisio {
+	public static void fuzzerInitialize() {
+		Fuzz.adjustLimits();
+	}
+
 	public static void fuzzerTestOneInput(byte[] input) {
 		try (XmlVisioDocument visio = new XmlVisioDocument(new ByteArrayInputStream(input))) {
 			visio.write(NullOutputStream.INSTANCE);
 		} catch (IOException | POIXMLException |
 				 BufferUnderflowException | RecordFormatException | OpenXML4JRuntimeException |
-				 IllegalArgumentException | IndexOutOfBoundsException e) {
+				 IllegalArgumentException | IndexOutOfBoundsException | IllegalStateException e) {
 			// expected here
 		}
 

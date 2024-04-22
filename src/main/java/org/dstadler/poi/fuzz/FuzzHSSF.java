@@ -14,6 +14,10 @@ import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.util.RecordFormatException;
 
 public class FuzzHSSF {
+	public static void fuzzerInitialize() {
+		Fuzz.adjustLimits();
+	}
+
 	public static void fuzzerTestOneInput(byte[] input) {
 		try (HSSFWorkbook wb = new HSSFWorkbook(new ByteArrayInputStream(input))) {
 			wb.write(NullOutputStream.INSTANCE);

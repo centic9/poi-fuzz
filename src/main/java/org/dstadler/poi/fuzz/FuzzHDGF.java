@@ -12,6 +12,10 @@ import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.util.RecordFormatException;
 
 public class FuzzHDGF {
+	public static void fuzzerInitialize() {
+		Fuzz.adjustLimits();
+	}
+
 	public static void fuzzerTestOneInput(byte[] input) {
 		try (HDGFDiagram visio = new HDGFDiagram(new POIFSFileSystem(new ByteArrayInputStream(input)))) {
 			visio.write(NullOutputStream.INSTANCE);

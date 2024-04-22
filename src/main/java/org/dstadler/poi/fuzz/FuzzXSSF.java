@@ -15,6 +15,10 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.xmlbeans.XmlException;
 
 public class FuzzXSSF {
+	public static void fuzzerInitialize() {
+		Fuzz.adjustLimits();
+	}
+
 	public static void fuzzerTestOneInput(byte[] input) {
 		try (XSSFWorkbook wb = new XSSFWorkbook(new ByteArrayInputStream(input))) {
 			try (SXSSFWorkbook swb = new SXSSFWorkbook(wb)) {

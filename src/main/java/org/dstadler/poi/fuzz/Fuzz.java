@@ -10,6 +10,7 @@ import org.apache.poi.extractor.ExtractorFactory;
 import org.apache.poi.extractor.POIOLE2TextExtractor;
 import org.apache.poi.extractor.POITextExtractor;
 import org.apache.poi.hslf.exceptions.HSLFException;
+import org.apache.poi.hssf.record.RecordFactory;
 import org.apache.poi.hssf.record.RecordInputStream;
 import org.apache.poi.ooxml.POIXMLException;
 import org.apache.poi.ooxml.extractor.POIXMLPropertiesTextExtractor;
@@ -106,8 +107,16 @@ public class Fuzz {
 	public static void checkExtractor(POITextExtractor extractor) throws IOException {
 		extractor.getDocument();
 		extractor.getFilesystem();
-		extractor.getMetadataTextExtractor();
-		extractor.getText();
+		try {
+			extractor.getMetadataTextExtractor();
+		} catch (IllegalStateException e) {
+			// can happen here
+		}
+		try {
+			extractor.getText();
+		} catch (OpenXML4JRuntimeException e) {
+			// can happen here
+		}
 
 		if (extractor instanceof POIOLE2TextExtractor) {
 			POIOLE2TextExtractor ole2Extractor = (POIOLE2TextExtractor) extractor;
@@ -135,5 +144,11 @@ public class Fuzz {
 
 			xmlExtractor.getPackage();
 		}
+	}
+
+	static void adjustLimits() {
+		// reduce limits so we do not get OOMs with the Xmx settings
+		// that are used for the fuzzing runs
+		RecordFactory.setMaxNumberOfRecords(100_000);
 	}
 }

@@ -12,6 +12,10 @@ import org.apache.poi.hsmf.exceptions.ChunkNotFoundException;
 import org.apache.poi.util.RecordFormatException;
 
 public class FuzzHSMF {
+	public static void fuzzerInitialize() {
+		Fuzz.adjustLimits();
+	}
+
 	public static void fuzzerTestOneInput(byte[] input) {
 		try (MAPIMessage mapi = new MAPIMessage(new ByteArrayInputStream(input))) {
 			mapi.getAttachmentFiles();
