@@ -21,7 +21,7 @@ dependencies {
 	implementation 'org.apache.commons:commons-compress:1.27.1'
 	implementation 'com.zaxxer:SparseBitSet:1.2'
 	implementation 'com.github.virtuald:curvesapi:1.07'
-	implementation 'org.apache.xmlbeans:xmlbeans:5.2.2'
+	implementation 'org.apache.xmlbeans:xmlbeans:5.3.0'
 	implementation files('/opt/poi/build/dist/maven/poi/poi-5.2.6-SNAPSHOT.jar')
 	implementation files('/opt/poi/build/dist/maven/poi-ooxml/poi-ooxml-5.2.6-SNAPSHOT.jar')
 	implementation files('/opt/poi/build/dist/maven/poi-scratchpad/poi-scratchpad-5.2.6-SNAPSHOT.jar')
@@ -37,9 +37,9 @@ dependencies {
 	implementation 'org.apache.logging.log4j:log4j-core:2.24.2'
 	implementation 'org.apache.logging.log4j:log4j-slf4j-impl:2.24.2'
 
-	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.11.3'
-	testImplementation 'org.junit.jupiter:junit-jupiter-params:5.11.3'
-	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.11.3'
+	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.11.4'
+	testImplementation 'org.junit.jupiter:junit-jupiter-params:5.11.4'
+	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.11.4'
 	testImplementation 'org.mockito:mockito-core:5.14.2'
 }
 
