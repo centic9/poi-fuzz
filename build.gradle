@@ -30,19 +30,19 @@ dependencies {
 	//implementation files('/opt/poi/build/dist/maven/poi-ooxml-full/poi-ooxml-full-5.2.6-SNAPSHOT.jar')
 	*/
 
-	implementation 'com.code-intelligence:jazzer-api:0.24.0'
-	implementation 'commons-io:commons-io:2.19.0'
+	implementation 'com.code-intelligence:jazzer-api:0.25.0'
+	implementation 'commons-io:commons-io:2.20.0'
 
 	// for configuring log4j to be silent during fuzzing
-	implementation 'org.apache.logging.log4j:log4j-core:2.25.0'
-	implementation 'org.apache.logging.log4j:log4j-slf4j-impl:2.25.0'
+	implementation 'org.apache.logging.log4j:log4j-core:2.25.1'
+	implementation 'org.apache.logging.log4j:log4j-slf4j-impl:2.25.1'
 
-	testImplementation 'org.mockito:mockito-core:5.17.0'
+	testImplementation 'org.mockito:mockito-core:5.19.0'
 
-	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.13.1'
-	testImplementation 'org.junit.jupiter:junit-jupiter-params:5.13.1'
-	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.13.1'
-	testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.13.1'
+	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.13.4'
+	testImplementation 'org.junit.jupiter:junit-jupiter-params:5.13.4'
+	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.13.4'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.13.4'
 }
 
 test {
@@ -50,7 +50,7 @@ test {
 }
 
 wrapper {
-	gradleVersion = '8.14.2'
+	gradleVersion = '8.14.3'
 }
 
 tasks.register('getDeps', Copy) {
