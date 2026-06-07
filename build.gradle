@@ -1,5 +1,5 @@
 plugins {
-	id 'com.gradleup.shadow' version '8.3.9'
+	id 'com.gradleup.shadow' version '9.2.2'
 }
 
 apply plugin: 'java'
@@ -30,19 +30,19 @@ dependencies {
 	//implementation files('/opt/poi/build/dist/maven/poi-ooxml-full/poi-ooxml-full-5.2.6-SNAPSHOT.jar')
 	*/
 
-	implementation 'com.code-intelligence:jazzer-api:0.29.1'
-	implementation 'commons-io:commons-io:2.21.0'
+	implementation 'com.code-intelligence:jazzer-api:0.30.0'
+	implementation 'commons-io:commons-io:2.22.0'
 
 	// for configuring log4j to be silent during fuzzing
-	implementation 'org.apache.logging.log4j:log4j-core:2.25.3'
-	implementation 'org.apache.logging.log4j:log4j-slf4j-impl:2.25.3'
+	implementation 'org.apache.logging.log4j:log4j-core:2.25.4'
+	implementation 'org.apache.logging.log4j:log4j-slf4j-impl:2.25.4'
 
-	testImplementation 'org.mockito:mockito-core:5.21.0'
+	testImplementation 'org.mockito:mockito-core:5.23.0'
 
-	testImplementation 'org.junit.jupiter:junit-jupiter-api:6.0.1'
-	testImplementation 'org.junit.jupiter:junit-jupiter-params:6.0.1'
-	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:6.0.1'
-	testRuntimeOnly 'org.junit.platform:junit-platform-launcher:6.0.1'
+	testImplementation 'org.junit.jupiter:junit-jupiter-api:6.1.0'
+	testImplementation 'org.junit.jupiter:junit-jupiter-params:6.1.0'
+	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:6.1.0'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher:6.1.0'
 }
 
 test {
@@ -50,7 +50,7 @@ test {
 }
 
 wrapper {
-	gradleVersion = '8.14.3'
+	gradleVersion = '8.14.4'
 }
 
 tasks.register('getDeps', Copy) {
