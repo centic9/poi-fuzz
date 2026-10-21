@@ -40,7 +40,12 @@ jobs:
       run: ./gradlew shadowJar
 
     - name: Fetch initial corpus
-      run: svn co https://svn.apache.org/repos/asf/poi/trunk/test-data corpus
+      run: |
+        set -eu
+        git clone --depth=1 https://github.com/apache/poi.git repo
+        cd repo
+        mv test-data ../corpus
+        echo "Using commit $(git rev-parse HEAD)"
 
     - name: Fetch Jazzer
       run: wget https://github.com/CodeIntelligenceTesting/jazzer/releases/download/v0.30.0/jazzer-linux.tar.gz
