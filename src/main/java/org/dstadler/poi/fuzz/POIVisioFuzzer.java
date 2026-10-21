@@ -6,6 +6,7 @@ import java.nio.BufferUnderflowException;
 import java.util.NoSuchElementException;
 
 import org.apache.commons.io.output.NullOutputStream;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.poi.hdgf.extractor.VisioTextExtractor;
 import org.apache.poi.ooxml.POIXMLException;
 import org.apache.poi.openxml4j.exceptions.OpenXML4JRuntimeException;
@@ -24,6 +25,11 @@ public class POIVisioFuzzer {
 				 BufferUnderflowException | RecordFormatException | OpenXML4JRuntimeException |
 				 IllegalArgumentException | IndexOutOfBoundsException | IllegalStateException e) {
 			// expected here
+		} catch (NullPointerException e) {
+			// can be removed when commons-compress is > 1.28.0 and changes from COMPRESS-598 are applied
+			if (!ExceptionUtils.getStackTrace(e).contains("ZipArchiveInputStream.read")) {
+				throw e;
+			}
 		}
 
 		try (VisioTextExtractor extractor = new VisioTextExtractor(new ByteArrayInputStream(input))) {

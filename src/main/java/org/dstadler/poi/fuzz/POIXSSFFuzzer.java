@@ -38,6 +38,10 @@ public class POIXSSFFuzzer {
 		         IllegalStateException | IllegalArgumentException | IndexOutOfBoundsException |
 		         ArithmeticException e) {
 			// expected
+		} catch (NullPointerException e) {
+			if (!e.getMessage().startsWith("Cannot invoke \"java.io.InputStream.read(byte[], int, int)\"")) {
+				throw e;
+			}
 		}
 	}
 }

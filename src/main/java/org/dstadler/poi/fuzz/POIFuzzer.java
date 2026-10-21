@@ -6,6 +6,9 @@ import java.nio.BufferUnderflowException;
 import java.util.NoSuchElementException;
 
 import org.apache.commons.io.output.NullOutputStream;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.config.AbstractConfiguration;
+import org.apache.poi.ddf.EscherRecord;
 import org.apache.poi.extractor.ExtractorFactory;
 import org.apache.poi.extractor.POIOLE2TextExtractor;
 import org.apache.poi.extractor.POITextExtractor;
@@ -157,6 +160,15 @@ public class POIFuzzer {
 	static void adjustLimits() {
 		// reduce limits so we do not get OOMs with the Xmx settings
 		// that are used for the fuzzing runs
-		RecordFactory.setMaxNumberOfRecords(100_000);
+		RecordFactory.setMaxNumberOfRecords(50_000);
+		EscherRecord.setMaxNumberOfChildren(10_000);
+
+		// remove all appenders to silence log4j output
+		final var ctx = (org.apache.logging.log4j.core.LoggerContext) LogManager.getContext(false);
+		final var configuration = (AbstractConfiguration) ctx.getConfiguration();
+		final var allAppenders = configuration.getAppenders();
+		for (final var appenderName : allAppenders.keySet()) {
+			configuration.removeAppender(appenderName);
+		}
 	}
 }
