@@ -11,9 +11,9 @@ import org.apache.poi.hpbf.extractor.PublisherTextExtractor;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.util.RecordFormatException;
 
-public class FuzzHPBF {
+public class POIHPBFFuzzer {
 	public static void fuzzerInitialize() {
-		Fuzz.adjustLimits();
+		POIFuzzer.adjustLimits();
 	}
 
 	public static void fuzzerTestOneInput(byte[] input) {
@@ -27,7 +27,7 @@ public class FuzzHPBF {
 		try {
 			try (PublisherTextExtractor extractor = new PublisherTextExtractor (
 					new POIFSFileSystem(new ByteArrayInputStream(input)).getRoot())) {
-				Fuzz.checkExtractor(extractor);
+				POIFuzzer.checkExtractor(extractor);
 			}
 		} catch (IOException | IllegalArgumentException | RecordFormatException | IndexOutOfBoundsException |
 				BufferUnderflowException | IllegalStateException | NoSuchElementException e) {

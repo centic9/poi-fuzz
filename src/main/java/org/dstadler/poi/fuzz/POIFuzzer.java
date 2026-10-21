@@ -32,7 +32,7 @@ import org.apache.poi.util.RecordFormatException;
  *
  * It catches all exceptions that are currently expected.
  */
-public class Fuzz {
+public class POIFuzzer {
 	public static void fuzzerInitialize() {
 		adjustLimits();
 	}
@@ -44,33 +44,33 @@ public class Fuzz {
 
 		fuzzAny(input);
 
-		FuzzHDGF.fuzzerTestOneInput(input);
+		POIHDGFFuzzer.fuzzerTestOneInput(input);
 
-		FuzzHMEF.fuzzerTestOneInput(input);
+		POIHMEFFuzzer.fuzzerTestOneInput(input);
 
-		FuzzHPBF.fuzzerTestOneInput(input);
+		POIHPBFFuzzer.fuzzerTestOneInput(input);
 
-		FuzzHPSF.fuzzerTestOneInput(input);
+		POIHPSFFuzzer.fuzzerTestOneInput(input);
 
-		FuzzHSLF.fuzzerTestOneInput(input);
+		POIHSLFFuzzer.fuzzerTestOneInput(input);
 
-		FuzzHSMF.fuzzerTestOneInput(input);
+		POIHSMFFuzzer.fuzzerTestOneInput(input);
 
-		FuzzHSSF.fuzzerTestOneInput(input);
+		POIHSSFFuzzer.fuzzerTestOneInput(input);
 
-		FuzzHWPF.fuzzerTestOneInput(input);
+		POIHWPFFuzzer.fuzzerTestOneInput(input);
 
-		FuzzOldExcel.fuzzerTestOneInput(input);
+		POIOldExcelFuzzer.fuzzerTestOneInput(input);
 
-		FuzzVisio.fuzzerTestOneInput(input);
+		POIVisioFuzzer.fuzzerTestOneInput(input);
 
-		FuzzXLSX2CSV.fuzzerTestOneInput(input);
+		XLSX2CSVFuzzer.fuzzerTestOneInput(input);
 
-		FuzzXSLF.fuzzerTestOneInput(input);
+		POIXSLFFuzzer.fuzzerTestOneInput(input);
 
-		FuzzXSSF.fuzzerTestOneInput(input);
+		POIXSSFFuzzer.fuzzerTestOneInput(input);
 
-		FuzzXWPF.fuzzerTestOneInput(input);
+		POIXWPFFuzzer.fuzzerTestOneInput(input);
 	}
 
 	public static void fuzzAny(byte[] input) {

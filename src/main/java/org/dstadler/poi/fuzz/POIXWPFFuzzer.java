@@ -11,9 +11,9 @@ import org.apache.poi.util.RecordFormatException;
 import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 
-public class FuzzXWPF {
+public class POIXWPFFuzzer {
 	public static void fuzzerInitialize() {
-		Fuzz.adjustLimits();
+		POIFuzzer.adjustLimits();
 	}
 
 	@SuppressWarnings("ResultOfMethodCallIgnored")
@@ -39,7 +39,7 @@ public class FuzzXWPF {
 			}
 
 			try (XWPFWordExtractor extractor = new XWPFWordExtractor(doc)) {
-				Fuzz.checkExtractor(extractor);
+				POIFuzzer.checkExtractor(extractor);
 			}
 		} catch (IOException | POIXMLException | RecordFormatException | OpenXML4JRuntimeException |
 				 IllegalArgumentException | IllegalStateException | IndexOutOfBoundsException e) {

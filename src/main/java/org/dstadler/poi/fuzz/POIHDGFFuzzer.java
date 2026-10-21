@@ -11,9 +11,9 @@ import org.apache.poi.hdgf.extractor.VisioTextExtractor;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.util.RecordFormatException;
 
-public class FuzzHDGF {
+public class POIHDGFFuzzer {
 	public static void fuzzerInitialize() {
-		Fuzz.adjustLimits();
+		POIFuzzer.adjustLimits();
 	}
 
 	public static void fuzzerTestOneInput(byte[] input) {
@@ -21,7 +21,7 @@ public class FuzzHDGF {
 			visio.write(NullOutputStream.INSTANCE);
 
 			try (VisioTextExtractor extractor = new VisioTextExtractor(visio)) {
-				Fuzz.checkExtractor(extractor);
+				POIFuzzer.checkExtractor(extractor);
 			}
 		} catch (IOException | IllegalArgumentException | IllegalStateException | RecordFormatException |
 				 IndexOutOfBoundsException | BufferUnderflowException | ArithmeticException |

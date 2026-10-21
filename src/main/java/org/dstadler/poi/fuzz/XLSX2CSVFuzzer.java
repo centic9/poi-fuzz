@@ -13,9 +13,9 @@ import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.util.RecordFormatException;
 import org.xml.sax.SAXException;
 
-public class FuzzXLSX2CSV {
+public class XLSX2CSVFuzzer {
 	public static void fuzzerInitialize() {
-		Fuzz.adjustLimits();
+		POIFuzzer.adjustLimits();
 	}
 
 	public static void fuzzerTestOneInput(byte[] input) {

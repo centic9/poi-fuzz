@@ -15,9 +15,9 @@ import org.apache.poi.xslf.usermodel.XMLSlideShow;
 import org.apache.poi.xslf.usermodel.XSLFSlideShow;
 import org.apache.xmlbeans.XmlException;
 
-public class FuzzXSLF {
+public class POIXSLFFuzzer {
 	public static void fuzzerInitialize() {
-		Fuzz.adjustLimits();
+		POIFuzzer.adjustLimits();
 	}
 
 	public static void fuzzerTestOneInput(byte[] input) {
@@ -39,7 +39,7 @@ public class FuzzXSLF {
 
 		try (OPCPackage pkg = OPCPackage.open(new ByteArrayInputStream(input))) {
 			try (XSLFExtractor extractor = new XSLFExtractor(new XMLSlideShow(pkg))) {
-				Fuzz.checkExtractor(extractor);
+				POIFuzzer.checkExtractor(extractor);
 			}
 		} catch (IOException | InvalidFormatException | POIXMLException | IllegalArgumentException |
 				RecordFormatException | IllegalStateException | IndexOutOfBoundsException e) {

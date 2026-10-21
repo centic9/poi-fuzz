@@ -13,9 +13,9 @@ import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.util.DocumentFormatException;
 import org.apache.poi.util.RecordFormatException;
 
-public class FuzzHWPF {
+public class POIHWPFFuzzer {
 	public static void fuzzerInitialize() {
-		Fuzz.adjustLimits();
+		POIFuzzer.adjustLimits();
 	}
 
 	public static void fuzzerTestOneInput(byte[] input) {
@@ -30,7 +30,7 @@ public class FuzzHWPF {
 		try {
 			try (WordExtractor extractor = new WordExtractor(
 							new POIFSFileSystem(new ByteArrayInputStream(input)).getRoot())) {
-				Fuzz.checkExtractor(extractor);
+				POIFuzzer.checkExtractor(extractor);
 			}
 		} catch (IOException | IllegalArgumentException | IndexOutOfBoundsException | BufferUnderflowException |
 				NoSuchElementException | RecordFormatException | IllegalStateException |

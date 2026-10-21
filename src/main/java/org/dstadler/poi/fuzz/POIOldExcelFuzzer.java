@@ -10,16 +10,16 @@ import org.apache.poi.hssf.record.RecordInputStream;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.util.RecordFormatException;
 
-public class FuzzOldExcel {
+public class POIOldExcelFuzzer {
 	public static void fuzzerInitialize() {
-		Fuzz.adjustLimits();
+		POIFuzzer.adjustLimits();
 	}
 
 	public static void fuzzerTestOneInput(byte[] input) {
 		try {
 			try (OldExcelExtractor extractor = new OldExcelExtractor(
 							new POIFSFileSystem(new ByteArrayInputStream(input)).getRoot())) {
-				Fuzz.checkExtractor(extractor);
+				POIFuzzer.checkExtractor(extractor);
 			}
 		} catch (IOException | IllegalArgumentException | RecordFormatException | IndexOutOfBoundsException |
 				 RecordInputStream.LeftoverDataException | IllegalStateException | BufferUnderflowException |

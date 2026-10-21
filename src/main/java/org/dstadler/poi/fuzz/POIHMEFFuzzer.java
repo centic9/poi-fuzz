@@ -6,9 +6,9 @@ import java.io.IOException;
 import org.apache.poi.hmef.HMEFMessage;
 import org.apache.poi.util.RecordFormatException;
 
-public class FuzzHMEF {
+public class POIHMEFFuzzer {
 	public static void fuzzerInitialize() {
-		Fuzz.adjustLimits();
+		POIFuzzer.adjustLimits();
 	}
 
 	public static void fuzzerTestOneInput(byte[] input) {

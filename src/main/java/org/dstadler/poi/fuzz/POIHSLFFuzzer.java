@@ -17,9 +17,9 @@ import org.apache.poi.sl.extractor.SlideShowExtractor;
 import org.apache.poi.sl.usermodel.SlideShowFactory;
 import org.apache.poi.util.RecordFormatException;
 
-public class FuzzHSLF {
+public class POIHSLFFuzzer {
 	public static void fuzzerInitialize() {
-		Fuzz.adjustLimits();
+		POIFuzzer.adjustLimits();
 	}
 
 	public static void fuzzerTestOneInput(byte[] input) {
@@ -43,7 +43,7 @@ public class FuzzHSLF {
 			try (SlideShowExtractor<HSLFShape, HSLFTextParagraph> extractor =
 					new SlideShowExtractor<>((HSLFSlideShow) SlideShowFactory.create(
 							new POIFSFileSystem(new ByteArrayInputStream(input)).getRoot()))) {
-				Fuzz.checkExtractor(extractor);
+				POIFuzzer.checkExtractor(extractor);
 			}
 		} catch (IOException | IllegalArgumentException | RecordFormatException |
 				 IllegalStateException | HSLFException | IndexOutOfBoundsException |

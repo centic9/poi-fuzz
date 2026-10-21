@@ -11,9 +11,9 @@ import org.apache.poi.hsmf.datatypes.DirectoryChunk;
 import org.apache.poi.hsmf.exceptions.ChunkNotFoundException;
 import org.apache.poi.util.RecordFormatException;
 
-public class FuzzHSMF {
+public class POIHSMFFuzzer {
 	public static void fuzzerInitialize() {
-		Fuzz.adjustLimits();
+		POIFuzzer.adjustLimits();
 	}
 
 	public static void fuzzerTestOneInput(byte[] input) {

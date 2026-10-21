@@ -12,9 +12,9 @@ import org.apache.poi.openxml4j.exceptions.OpenXML4JRuntimeException;
 import org.apache.poi.util.RecordFormatException;
 import org.apache.poi.xdgf.usermodel.XmlVisioDocument;
 
-public class FuzzVisio {
+public class POIVisioFuzzer {
 	public static void fuzzerInitialize() {
-		Fuzz.adjustLimits();
+		POIFuzzer.adjustLimits();
 	}
 
 	public static void fuzzerTestOneInput(byte[] input) {
@@ -27,7 +27,7 @@ public class FuzzVisio {
 		}
 
 		try (VisioTextExtractor extractor = new VisioTextExtractor(new ByteArrayInputStream(input))) {
-			Fuzz.checkExtractor(extractor);
+			POIFuzzer.checkExtractor(extractor);
 		} catch (IOException | POIXMLException | IllegalArgumentException | BufferUnderflowException |
 				 RecordFormatException | IndexOutOfBoundsException | ArithmeticException | IllegalStateException |
 				 NoSuchElementException e) {

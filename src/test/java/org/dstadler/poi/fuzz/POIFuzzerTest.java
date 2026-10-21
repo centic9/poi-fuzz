@@ -18,18 +18,18 @@ import com.microsoft.schemas.office.visio.x2012.main.CellType;
 import com.microsoft.schemas.office.visio.x2012.main.RowType;
 import com.microsoft.schemas.office.visio.x2012.main.SectionType;
 
-class FuzzTest {
+class POIFuzzerTest {
 	@Test
 	public void test() {
-		Fuzz.fuzzerTestOneInput(new byte[] {});
-		Fuzz.fuzzerTestOneInput(new byte[] {1});
-		Fuzz.fuzzerTestOneInput(new byte[] {'P', 'K'});
+		POIFuzzer.fuzzerTestOneInput(new byte[] {});
+		POIFuzzer.fuzzerTestOneInput(new byte[] {1});
+		POIFuzzer.fuzzerTestOneInput(new byte[] {'P', 'K'});
 	}
 
 	@Test
 	public void testLog() {
 		// should not be logged
-		Logger LOG = LogManager.getLogger(FuzzTest.class);
+		Logger LOG = LogManager.getLogger(POIFuzzerTest.class);
 		LOG.atError().log("Test log output which should not be visible -----------------------");
 	}
 
@@ -57,7 +57,7 @@ class FuzzTest {
 		File file = new File("/Crash_f6febecb9c9aede225616731e0d0174d1b91fe52.java");
 		byte[] input = FileUtils.readFileToByteArray(file);
 		System.out.println("Processing " + file.getName() + " with " + input.length + " bytes");
-		FuzzHDGF.fuzzerTestOneInput(input);
+		POIHDGFFuzzer.fuzzerTestOneInput(input);
 	}
 
 	@Disabled("Local test for verifying reproducing test-cases")
@@ -70,7 +70,7 @@ class FuzzTest {
 		for (File file : files) {
 			byte[] input = FileUtils.readFileToByteArray(file);
 			System.out.println(i + ": Processing " + file.getName() + " with " + input.length + " bytes");
-			FuzzHDGF.fuzzerTestOneInput(input);
+			POIHDGFFuzzer.fuzzerTestOneInput(input);
 			i++;
 		}
 	}
@@ -81,7 +81,7 @@ class FuzzTest {
 		for (int i = 0; i < 10; i++) {
 			long start = System.currentTimeMillis();
 
-			FuzzXWPF.fuzzerTestOneInput(FileUtils.readFileToByteArray(new File("timeout-54064ba65ddc1976d2d26f5c21b369d845120355")));
+			POIXWPFFuzzer.fuzzerTestOneInput(FileUtils.readFileToByteArray(new File("timeout-54064ba65ddc1976d2d26f5c21b369d845120355")));
 
 			System.out.println("Took " + (System.currentTimeMillis() - start));
 		}
@@ -90,6 +90,6 @@ class FuzzTest {
 	@Disabled("Local test for verifying a NullPointerException")
 	@Test
 	public void testNPE() throws IOException {
-		FuzzHSSF.fuzzerTestOneInput(FileUtils.readFileToByteArray(new File("clusterfuzz-testcase-minimized-POIHSSFFuzzer-5816431116615680.xls")));
+		POIHSSFFuzzer.fuzzerTestOneInput(FileUtils.readFileToByteArray(new File("clusterfuzz-testcase-minimized-POIHSSFFuzzer-5816431116615680.xls")));
 	}
 }

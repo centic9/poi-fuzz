@@ -51,7 +51,7 @@ public class CorpusCoverageTest {
 	@MethodSource("files")
 	void testCorpusFile(File file) throws IOException {
 		System.err.println("Running file " + file + " in thread " + Thread.currentThread().getName());
-		Fuzz.fuzzerTestOneInput(FileUtils.readFileToByteArray(file));
+		POIFuzzer.fuzzerTestOneInput(FileUtils.readFileToByteArray(file));
 	}
 
 	@Disabled("Can run a long time when there is a large corpus used for fuzzing")
@@ -59,7 +59,7 @@ public class CorpusCoverageTest {
 	@MethodSource("files")
 	void testCorpusFileOne(File file) throws IOException {
 		System.err.println("Running file " + file + " in thread " + Thread.currentThread().getName());
-		FuzzXLSX2CSV.fuzzerTestOneInput(FileUtils.readFileToByteArray(file));
+		XLSX2CSVFuzzer.fuzzerTestOneInput(FileUtils.readFileToByteArray(file));
 	}
 
 	private static Stream<Arguments> files() {

@@ -12,9 +12,9 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.util.RecordFormatException;
 
-public class FuzzHPSF {
+public class POIHPSFFuzzer {
 	public static void fuzzerInitialize() {
-		Fuzz.adjustLimits();
+		POIFuzzer.adjustLimits();
 	}
 
 	public static void fuzzerTestOneInput(byte[] input) {
@@ -33,7 +33,7 @@ public class FuzzHPSF {
 		}
 
 		try (HPSFPropertiesExtractor extractor = new HPSFPropertiesExtractor(new POIFSFileSystem(new ByteArrayInputStream(input)))) {
-			Fuzz.checkExtractor(extractor);
+			POIFuzzer.checkExtractor(extractor);
 		} catch (IOException | IllegalArgumentException | IllegalStateException | RecordFormatException |
 				 IndexOutOfBoundsException | BufferUnderflowException | NoSuchElementException e) {
 			// expected

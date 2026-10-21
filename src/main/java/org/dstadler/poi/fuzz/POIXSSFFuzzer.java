@@ -14,9 +14,9 @@ import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.xmlbeans.XmlException;
 
-public class FuzzXSSF {
+public class POIXSSFFuzzer {
 	public static void fuzzerInitialize() {
-		Fuzz.adjustLimits();
+		POIFuzzer.adjustLimits();
 	}
 
 	public static void fuzzerTestOneInput(byte[] input) {
@@ -32,7 +32,7 @@ public class FuzzXSSF {
 
 		try (OPCPackage pkg = OPCPackage.open(new ByteArrayInputStream(input))) {
 			try (XSSFEventBasedExcelExtractor extractor = new XSSFEventBasedExcelExtractor(pkg)) {
-				Fuzz.checkExtractor(extractor);
+				POIFuzzer.checkExtractor(extractor);
 			}
 		} catch (IOException | XmlException | OpenXML4JException | POIXMLException | RecordFormatException |
 		         IllegalStateException | IllegalArgumentException | IndexOutOfBoundsException |

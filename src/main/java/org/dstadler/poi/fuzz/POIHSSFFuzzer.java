@@ -13,9 +13,9 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.util.RecordFormatException;
 
-public class FuzzHSSF {
+public class POIHSSFFuzzer {
 	public static void fuzzerInitialize() {
-		Fuzz.adjustLimits();
+		POIFuzzer.adjustLimits();
 	}
 
 	public static void fuzzerTestOneInput(byte[] input) {
@@ -31,7 +31,7 @@ public class FuzzHSSF {
 		try {
 			try (ExcelExtractor extractor = new ExcelExtractor(
 							new POIFSFileSystem(new ByteArrayInputStream(input)).getRoot())) {
-				Fuzz.checkExtractor(extractor);
+				POIFuzzer.checkExtractor(extractor);
 			}
 		} catch (IOException | IllegalArgumentException | RecordFormatException | IllegalStateException |
 				 IndexOutOfBoundsException | RecordInputStream.LeftoverDataException |
