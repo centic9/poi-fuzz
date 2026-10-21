@@ -24,9 +24,10 @@ public class FuzzXLSX2CSV {
 			XLSX2CSV xlsx2csv = new XLSX2CSV(p, NullPrintStream.INSTANCE, 5);
 			xlsx2csv.process();
 		} catch (IOException | OpenXML4JException | SAXException |
-				 POIXMLException | RecordFormatException |
-				 IllegalStateException | IllegalArgumentException |
-				 IndexOutOfBoundsException | OpenXML4JRuntimeException e) {
+		         POIXMLException | RecordFormatException |
+		         IllegalStateException | IllegalArgumentException |
+		         IndexOutOfBoundsException | OpenXML4JRuntimeException |
+		         ArithmeticException e) {
 			// expected here
 		}
 	}

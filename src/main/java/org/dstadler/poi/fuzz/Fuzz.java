@@ -88,7 +88,8 @@ public class Fuzz {
 		} catch (IOException | POIXMLException | IllegalArgumentException | RecordFormatException |
 				 IndexOutOfBoundsException | HSLFException | RecordInputStream.LeftoverDataException |
 				 IllegalStateException | BufferUnderflowException | OpenXML4JRuntimeException |
-				UnsupportedOperationException | NoSuchElementException | NegativeArraySizeException e) {
+				UnsupportedOperationException | NoSuchElementException | NegativeArraySizeException |
+				ArithmeticException e) {
 			// expected here
 		}
 
@@ -120,7 +121,8 @@ public class Fuzz {
 		}
 		try {
 			extractor.getText();
-		} catch (OpenXML4JRuntimeException e) {
+		} catch (OpenXML4JRuntimeException |
+		         ArithmeticException  e) {
 			// can happen here
 		}
 

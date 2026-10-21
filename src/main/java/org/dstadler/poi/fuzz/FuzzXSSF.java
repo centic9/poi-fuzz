@@ -25,7 +25,8 @@ public class FuzzXSSF {
 				swb.write(NullOutputStream.INSTANCE);
 			}
 		} catch (IOException | POIXMLException | RecordFormatException | IllegalStateException |
-				 OpenXML4JRuntimeException | IllegalArgumentException | IndexOutOfBoundsException e) {
+				 OpenXML4JRuntimeException | IllegalArgumentException | IndexOutOfBoundsException  |
+				 ArithmeticException e) {
 			// expected here
 		}
 
@@ -34,7 +35,8 @@ public class FuzzXSSF {
 				Fuzz.checkExtractor(extractor);
 			}
 		} catch (IOException | XmlException | OpenXML4JException | POIXMLException | RecordFormatException |
-				IllegalStateException | IllegalArgumentException | IndexOutOfBoundsException e) {
+		         IllegalStateException | IllegalArgumentException | IndexOutOfBoundsException |
+		         ArithmeticException e) {
 			// expected
 		}
 	}
