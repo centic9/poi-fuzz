@@ -26,7 +26,7 @@ jobs:
         path: |
           ~/.gradle/caches
           ~/.gradle/wrapper
-          ~/corpus
+          ~/corpus*
         key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
         restore-keys: |
           ${{ runner.os }}-gradle-
@@ -45,6 +45,24 @@ jobs:
         git clone --depth=1 https://github.com/apache/poi.git repo
         cd repo
         mv test-data ../corpus
+
+        cd ..
+        mkdir -p corpusHSLF && cp corpus/slideshow/*.ppt corpusHSLF/
+        mkdir -p corpusHSSF && cp corpus/spreadsheet/*.xls corpusHSSF/
+        mkdir -p corpusHWPF && cp corpus/document/*.doc corpus/document/*.DOC corpusHWPF/
+        mkdir -p corpusOldExcel && cp corpus/spreadsheet/*.xls corpus/spreadsheet/*.bin corpusOldExcel/
+        mkdir -p corpusXSLF && cp corpus/slideshow/* corpus/integration/*.pptx corpusXSLF/
+        mkdir -p corpusXSSF && cp corpus/spreadsheet/* corpus/integration/*.xlsx corpusXSSF/
+        mkdir -p corpusXWPF && cp corpus/document/* corpus/integration/*.docx corpusXWPF/
+        mkdir -p corpusVisio && cp corpus/diagram/* corpusVisio/
+        mkdir -p corpusHDGF && cp corpus/diagram/*.vsd corpusHDGF/
+        mkdir -p corpusHPSF && cp corpus/hpsf/* corpusHPSF/
+        mkdir -p corpusHMEF && cp -a corpus/hmef/* corpusHMEF/
+        mkdir -p corpusHPBF && cp -a corpus/publisher/* corpusHPBF/
+        mkdir -p corpusHSMF && cp -a corpus/hsmf/* corpusHSMF/
+        mkdir -p corpusEncryptDecrypt
+        mkdir -p corpusFormulaParser
+
         echo "Using commit $(git rev-parse HEAD)"
 
     - name: Fetch Jazzer
@@ -52,6 +70,54 @@ jobs:
 
     - name: Unpack Jazzer
       run: tar xzf jazzer-*.tar.gz
+
+    - name: Run Fuzzing - POIHSLFFuzzer
+      run: ./jazzer --cp=build/libs/poi-fuzz-all.jar "--instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.**" --target_class=org.dstadler.poi.fuzz.POIHSLFFuzzer -rss_limit_mb=4096 -timeout=120 corpusHSLF
+
+    - name: Run Fuzzing - POIHSSFFuzzer
+      run: ./jazzer --cp=build/libs/poi-fuzz-all.jar "--instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.**" --target_class=org.dstadler.poi.fuzz.POIHSSFFuzzer -rss_limit_mb=4096 -timeout=120 corpusHSSF
+
+    - name: Run Fuzzing - POIHWPFFuzzer
+      run: ./jazzer --cp=build/libs/poi-fuzz-all.jar "--instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.**" --target_class=org.dstadler.poi.fuzz.POIHWPFFuzzer -rss_limit_mb=4096 -timeout=120 corpusHWPF
+
+    - name: Run Fuzzing - POIOldExcelFuzzer
+      run: ./jazzer --cp=build/libs/poi-fuzz-all.jar "--instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.**" --target_class=org.dstadler.poi.fuzz.POIOldExcelFuzzer -rss_limit_mb=4096 -timeout=120 corpusOldExcel
+
+    - name: Run Fuzzing - POIXSLFFuzzer
+      run: ./jazzer --cp=build/libs/poi-fuzz-all.jar "--instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.**" --target_class=org.dstadler.poi.fuzz.POIXSLFFuzzer -rss_limit_mb=4096 -timeout=120 corpusXSLF
+
+    - name: Run Fuzzing - POIXSSFFuzzer
+      run: ./jazzer --cp=build/libs/poi-fuzz-all.jar "--instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.**" --target_class=org.dstadler.poi.fuzz.POIXSSFFuzzer -rss_limit_mb=4096 -timeout=120 corpusXSSF
+
+    - name: Run Fuzzing - XLSX2CSVFuzzer
+      run: ./jazzer --cp=build/libs/poi-fuzz-all.jar "--instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.**" --target_class=org.dstadler.poi.fuzz.XLSX2CSVFuzzer -rss_limit_mb=4096 -timeout=120 corpusXSSF
+
+    - name: Run Fuzzing - POIXWPFFuzzer
+      run: ./jazzer --cp=build/libs/poi-fuzz-all.jar "--instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.**" --target_class=org.dstadler.poi.fuzz.POIXWPFFuzzer -rss_limit_mb=4096 -timeout=120 corpusXWPF
+
+    - name: Run Fuzzing - POIVisioFuzzer
+      run: ./jazzer --cp=build/libs/poi-fuzz-all.jar "--instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.**" --target_class=org.dstadler.poi.fuzz.POIVisioFuzzer -rss_limit_mb=4096 -timeout=120 corpusVisio
+
+    - name: Run Fuzzing - POIHDGFFuzzer
+      run: ./jazzer --cp=build/libs/poi-fuzz-all.jar "--instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.**" --target_class=org.dstadler.poi.fuzz.POIHDGFFuzzer -rss_limit_mb=4096 -timeout=120 corpusHDGF
+
+    - name: Run Fuzzing - POIHPSFFuzzer
+      run: ./jazzer --cp=build/libs/poi-fuzz-all.jar "--instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.**" --target_class=org.dstadler.poi.fuzz.POIHPSFFuzzer -rss_limit_mb=4096 -timeout=120 corpusHPSF
+
+    - name: Run Fuzzing - POIHMEFFuzzer
+      run: ./jazzer --cp=build/libs/poi-fuzz-all.jar "--instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.**" --target_class=org.dstadler.poi.fuzz.POIHMEFFuzzer -rss_limit_mb=4096 -timeout=120 corpusHMEF
+
+    - name: Run Fuzzing - POIHPBFFuzzer
+      run: ./jazzer --cp=build/libs/poi-fuzz-all.jar "--instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.**" --target_class=org.dstadler.poi.fuzz.POIHPBFFuzzer -rss_limit_mb=4096 -timeout=120 corpusHPBF
+
+    - name: Run Fuzzing - POIHSMFFuzzer
+      run: ./jazzer --cp=build/libs/poi-fuzz-all.jar "--instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.**" --target_class=org.dstadler.poi.fuzz.POIHSMFFuzzer -rss_limit_mb=4096 -timeout=120 corpusHSMF
+
+    - name: Run Fuzzing - EncryptDecryptFuzzer
+      run: ./jazzer --cp=build/libs/poi-fuzz-all.jar "--instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.**" --target_class=org.dstadler.poi.fuzz.EncryptDecryptFuzzer -rss_limit_mb=4096 -timeout=120 corpusEncryptDecrypt
+
+    - name: Run Fuzzing - FormulaParserFuzzer
+      run: ./jazzer --cp=build/libs/poi-fuzz-all.jar "--instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.**" --target_class=org.dstadler.poi.fuzz.FormulaParserFuzzer -rss_limit_mb=4096 -timeout=120 corpusFormulaParser
 
     - name: Run Fuzzing - POIFuzzer
       run: ./jazzer --cp=build/libs/poi-fuzz-all.jar --instrumentation_includes=org.apache.poi.**:org.apache.xmlbeans.** --target_class=org.dstadler.poi.fuzz.POIFuzzer -rss_limit_mb=4096 -timeout=600 corpus
