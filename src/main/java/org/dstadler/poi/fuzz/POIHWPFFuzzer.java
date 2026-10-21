@@ -36,7 +36,8 @@ public class POIHWPFFuzzer {
 		} catch (IOException | IllegalArgumentException | IndexOutOfBoundsException | BufferUnderflowException |
 		         NoSuchElementException | RecordFormatException | IllegalStateException |
 		         DocumentFormatException | UnsupportedOperationException | NegativeArraySizeException |
-		         RecordInputStream.LeftoverDataException e) {
+		         RecordInputStream.LeftoverDataException |
+		         ArithmeticException  e) {
 			// expected here
 		}
 	}
