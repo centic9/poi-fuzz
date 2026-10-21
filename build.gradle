@@ -37,6 +37,9 @@ dependencies {
 	implementation 'org.apache.logging.log4j:log4j-core:2.26.1'
 	implementation 'org.apache.logging.log4j:log4j-slf4j-impl:2.26.1'
 
+	// fuzzing can trigger zstd-code in commons-compress
+	implementation 'com.github.luben:zstd-jni:1.5.7-24'
+
 	testImplementation 'org.mockito:mockito-core:5.24.0'
 
 	testImplementation 'org.junit.jupiter:junit-jupiter-api:6.1.3'
