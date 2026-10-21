@@ -6,6 +6,7 @@ import java.nio.BufferUnderflowException;
 import java.util.NoSuchElementException;
 
 import org.apache.commons.io.output.NullOutputStream;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.config.AbstractConfiguration;
 import org.apache.poi.ddf.EscherRecord;
@@ -94,6 +95,11 @@ public class POIFuzzer {
 				UnsupportedOperationException | NoSuchElementException | NegativeArraySizeException |
 				ArithmeticException e) {
 			// expected here
+		} catch (NullPointerException e) {
+			// can be removed when commons-compress is > 1.28.0 and changes from COMPRESS-598 are applied
+			if (!ExceptionUtils.getStackTrace(e).contains("org.apache.commons.compress.archivers.zip.ZipArchiveInputStream.read")) {
+				throw e;
+			}
 		}
 
 		ExtractorFactory.setThreadPrefersEventExtractors(true);
