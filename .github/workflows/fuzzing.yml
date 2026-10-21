@@ -48,7 +48,7 @@ jobs:
         echo "Using commit $(git rev-parse HEAD)"
 
     - name: Fetch Jazzer
-      run: wget https://github.com/CodeIntelligenceTesting/jazzer/releases/download/v0.30.0/jazzer-linux.tar.gz
+      run: wget https://github.com/CodeIntelligenceTesting/jazzer/releases/download/v0.30.0/jazzer-linux-x86-64.tar.gz
 
     - name: Unpack Jazzer
       run: tar xzf jazzer-*.tar.gz
