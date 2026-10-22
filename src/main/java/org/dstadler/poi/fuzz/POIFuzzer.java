@@ -74,6 +74,8 @@ public class POIFuzzer {
 
 		POIXSSFFuzzer.fuzzerTestOneInput(input);
 
+		POIXSSFBFuzzer.fuzzerTestOneInput(input);
+
 		POIXWPFFuzzer.fuzzerTestOneInput(input);
 	}
 
@@ -120,6 +122,7 @@ public class POIFuzzer {
 		}
 	}
 
+	@SuppressWarnings("DuplicatedCode")
 	public static void checkExtractor(POITextExtractor extractor) throws IOException {
 		extractor.getDocument();
 		extractor.getFilesystem();
@@ -131,12 +134,11 @@ public class POIFuzzer {
 		try {
 			extractor.getText();
 		} catch (OpenXML4JRuntimeException |
-		         ArithmeticException  e) {
+		         ArithmeticException e) {
 			// can happen here
 		}
 
-		if (extractor instanceof POIOLE2TextExtractor) {
-			POIOLE2TextExtractor ole2Extractor = (POIOLE2TextExtractor) extractor;
+		if (extractor instanceof POIOLE2TextExtractor ole2Extractor) {
 			ole2Extractor.getRoot();
 			ole2Extractor.getSummaryInformation();
 			ole2Extractor.getDocSummaryInformation();
@@ -150,8 +152,7 @@ public class POIFuzzer {
 				metaData.getFilesystem();
 				metaData.getText();
 			}
-		} else if (extractor instanceof POIXMLTextExtractor) {
-			POIXMLTextExtractor xmlExtractor = (POIXMLTextExtractor) extractor;
+		} else if (extractor instanceof POIXMLTextExtractor xmlExtractor) {
 			xmlExtractor.getCoreProperties();
 			xmlExtractor.getCustomProperties();
 			xmlExtractor.getExtendedProperties();
