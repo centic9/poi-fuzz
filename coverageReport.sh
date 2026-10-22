@@ -62,12 +62,12 @@ else
 fi
 
 
-for i in `cd src/main/java/org/dstadler/poi/fuzz/ && ls Fuzz${ONE}*.java`; do
+for i in `cd src/main/java/org/dstadler/poi/fuzz/ && ls ${ONE}*Fuzzer.java`; do
   CLASS=`echo $i | sed -e 's/.java//g'`
-  CORPUS=`echo ${CLASS} | sed -e 's/Fuzz/corpus/g'`
+  CORPUS=corpus`echo ${CLASS} | sed -e 's/Fuzzer//g' | sed -e 's/POI//g'`
 
   # no separate corpus for this one
-  if [ "${CLASS}" == FuzzXLSX2CSV ]; then
+  if [ "${CLASS}" == XLSX2CSVFuzzer ]; then
     CORPUS=corpusXSSF
   fi
 
