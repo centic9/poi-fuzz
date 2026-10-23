@@ -26,7 +26,7 @@ jobs:
         path: |
           ~/.gradle/caches
           ~/.gradle/wrapper
-          ~/corpus*
+          ./corpus*
         key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
         restore-keys: |
           ${{ runner.os }}-gradle-

@@ -134,7 +134,7 @@ public class POIFuzzer {
 		try {
 			extractor.getText();
 		} catch (OpenXML4JRuntimeException |
-		         ArithmeticException e) {
+		         ArithmeticException | NullPointerException e) {
 			// can happen here
 		}
 
