@@ -1,3 +1,12 @@
+# Moved to Apache POI
+
+The code in this project was merged into [Apache POI](https://github.com/apache/poi/tree/trunk/poi-fuzz) 
+and thus this project is not updated any longer and is archived.
+
+Please contribute improvements to the fuzzing targets directly to Apache POI.
+
+# Previous readme content
+
 This is a small project for fuzzing [Apache POI](https://poi.apache.org/) with the [jazzer](https://github.com/CodeIntelligenceTesting/jazzer/) fuzzing tool.
 
 See [Fuzzing](https://en.wikipedia.org/wiki/Fuzzing) for a general description of the theory behind fuzzy testing.
